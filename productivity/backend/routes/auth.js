@@ -3,11 +3,12 @@ const router = express.Router()
 import UserController from '../controllers/userController.js'
 import authMiddleware from '../middlewares/authMiddleware.js'
 import { validations } from '../middlewares/validations.js'
+import {upload} from '../config/multer_config.js'
 
 
 
 //public routes
-router.post('/register',[validations.register,UserController.register])
+router.post('/register',[upload.single('avatar'),validations.register,UserController.register])
 router.post('/login',[validations.login,UserController.login])
 
 //sneds password reset email to user

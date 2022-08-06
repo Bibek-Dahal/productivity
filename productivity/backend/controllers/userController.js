@@ -2,12 +2,16 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { Base64Encoder,Base64Decoder } from "base64-encoding";
 import transporter from "../utils/sendMail.js";
+import cloudinary from "../config/cloudinary.js";
+
 
 
 class UserController{
     //function for registering new user
     static async register(req,res){
-
+        
+        
+        // console.log(result)
         let err = {
             errors:{},
             status:"failed",
@@ -15,12 +19,18 @@ class UserController{
         };
         
         try{
+            if(req.file){
+                let cloud_res = await cloudinary.v2.uploader.upload(req.file.path,{folder:"node"})
+                req.body.avatar = cloud_res.secure_url
+            }
+            
             let user = User(req.body)
             await user.save()
         
             const data = {
                 message:"user created successfully",
-                success:true
+                success:true,
+                
             }
             res.status(201).send(data)
             

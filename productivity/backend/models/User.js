@@ -36,6 +36,9 @@ const userSchema = mongoose.Schema({
           },
         
     },
+    "avatar":{
+        type:String,
+    },
     "password":{
         type:String,
         required:[true,'the password field is required'],
