@@ -3,6 +3,7 @@ import auth from './routes/auth.js';
 import connectDb from './config/database.js';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
+import profile from './routes/profile.js'
 dotenv.config()
 
 const app = express()
@@ -25,6 +26,7 @@ connectDb(uri,options)
     middlewares
 */
 app.use('/api',auth)
+app.use('/api/profile',profile)
 
 
 app.listen(port,()=>{

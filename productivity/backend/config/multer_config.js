@@ -1,6 +1,4 @@
 import multer from "multer";
-import DatauriParser from 'datauri/parser.js'
-import path from 'path';
 const storage = multer.diskStorage({})
 const upload = multer({storage:storage})
 

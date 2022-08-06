@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { Base64Encoder,Base64Decoder } from "base64-encoding";
 import transporter from "../utils/sendMail.js";
 import cloudinary from "../config/cloudinary.js";
-
+import { displayMongooseValidationError } from "../utils/displayValidationError.js";
 
 
 class UserController{
@@ -37,18 +37,10 @@ class UserController{
   
         }catch(error){
             // console.log(error)
-            console.log('hello i am called')
-            if (error.name === "ValidationError") {
-                
-                Object.keys(error.errors).forEach((key) => {
-                  err.errors[key] = error.errors[key].message;
-                });
-          
-                res.status(400).send(err);
-            }else{
-                console.log(error)
-                return res.status(500).send({message:"Something went wrong"});
-            }
+            // console.log(typeof(error))
+            // console.log('hello i am called')
+            displayMongooseValidationError(req,res,error)
+           
         } 
     }
 
@@ -157,17 +149,7 @@ class UserController{
             }
 
         }catch(error){
-            if (error.name === "ValidationError") {
-            
-                Object.keys(error.errors).forEach((key) => {
-                    err.errors[key] = error.errors[key].message;
-                });
-            
-                res.status(400).send(err);
-            }else{
-                console.log(error)
-                return res.status(500).send({message:"Something went wrong"});
-            }
+            displayMongooseValidationError(req,res,error)
         }
         
     }
@@ -276,17 +258,7 @@ class UserController{
         
     }catch(error){
         console.log(error)
-        if (error.name === "ValidationError") {
-            
-            Object.keys(error.errors).forEach((key) => {
-                err.errors[key] = error.errors[key].message;
-            });
-        
-            res.status(400).send(err);
-        }else{
-            console.log(error)
-            return res.status(500).send({message:"Something went wrong"});
-        }
+        displayMongooseValidationError(req,res,error)
     }
 
 

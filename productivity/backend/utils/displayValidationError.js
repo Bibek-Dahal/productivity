@@ -9,4 +9,25 @@ const displayValidationError = (err)=>{
     }
 }
 
-export default displayValidationError
+const displayMongooseValidationError = (req,res,error)=>{
+    console.log('hello i am called')
+    let err = {
+        errors:{},
+        status:"failed",
+        message:"unable to register"
+    };
+    if (error.name === "ValidationError") {
+        
+        Object.keys(error.errors).forEach((key) => {
+            err.errors[key] = error.errors[key].message;
+        });
+    
+        res.status(400).send(err);
+    }else{
+        console.log(error)
+        return res.status(500).send({message:"Something went wrong"});
+    }
+
+}
+
+export {displayValidationError,displayMongooseValidationError}

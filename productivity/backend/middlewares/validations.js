@@ -1,5 +1,5 @@
 import Joi from "joi"
-import displayValidationError from '../utils/displayValidationError.js'
+import {displayValidationError} from '../utils/displayValidationError.js'
 const pswdPtrn = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$/;
 
 export class validations{
@@ -150,5 +150,44 @@ export class validations{
         
         const customErr = displayValidationError(error.details)
         res.status(400).send(customErr)
+    }
+
+    /*
+        update profile validation
+    */
+    static updateProfile(req,res,next){
+
+        const schema = Joi.object({
+            first_name: Joi.string()
+                .alphanum()
+                .min(3)
+                .max(30)
+                .required(),
+
+            middle_name: Joi.string().
+                min(3).
+                max(30),
+
+            last_name: Joi.string().
+                alphanum().
+                min(3).
+                max(30).
+                required(),
+
+            email: Joi.
+                string().
+                email().
+                required(),
+        
+        })
+
+        const { error, value } = schema.validate(req.body,{abortEarly:false},{errors:{label:'key'},wrap: {label: false}});
+        if(!error){
+            next()
+        }else{
+            const customErr = displayValidationError(error.details)
+            res.status(400).send(customErr)
+        }
+        
     }
 }
