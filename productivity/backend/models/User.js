@@ -4,6 +4,7 @@ import uniqueValidator from 'mongoose-unique-validator'
 import bcrypt from 'bcrypt'
 const saltRounds = 10;
 
+
 const userSchema = mongoose.Schema({
     "first_name":{
         type:String,
@@ -37,7 +38,14 @@ const userSchema = mongoose.Schema({
         
     },
     "avatar":{
-        type:String,
+        type: [{
+          type: String,
+        }],
+        validate: [skillsArrayLimit, '{PATH} exceeds the limit of 10']
+      },
+    "skills":{
+        type:Array
+
     },
     "password":{
         type:String,
@@ -58,12 +66,26 @@ const userSchema = mongoose.Schema({
     },
     
 
-},
+},//ends schema defn
+
 {
-timestamps:{
-    createdAt: 'created_at', 
-    updatedAt: 'updated_at'
-}
+    timestamps:{
+        createdAt: 'created_at', 
+        updatedAt: 'updated_at'
+    },
+    
+    toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
+    toObject: { virtuals: true } // So `console.log()` and other functions that use `toObject()` include virtuals
+});
+
+
+
+// Specifying a virtual with a `ref` property is how you enable virtual
+// population
+userSchema.virtual('group', {
+    ref: 'Group',
+    localField: '_id',
+    foreignField: 'user'
 });
 
 userSchema.plugin(uniqueValidator,{ message: 'user with {PATH} address already exists.' })
@@ -71,8 +93,8 @@ userSchema.plugin(uniqueValidator,{ message: 'user with {PATH} address already e
 //function for comparing password 
 
 userSchema.statics.checkUser = async function(plaintext,hashedText){
-    console.log('hello static method called')
-    console.log(hashedText)
+    // console.log('hello static method called')
+    // console.log(hashedText)
     const match = await bcrypt.compare(plaintext, hashedText);
     return match
 
@@ -81,16 +103,13 @@ userSchema.statics.checkUser = async function(plaintext,hashedText){
 
 
 
-userSchema.pre('validate',()=>{
-    console.log('hello pre validate called man')
-})
 
 ///function for hashing password which is called aftre validation
 userSchema.pre('save', function(next) {
     let user = this;
 
-// only hash the password if it has been modified (or is new)
-if (!user.isModified('password')) return next();
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) return next();
 
     // hash the password using our new salt
     bcrypt.hash(user.password, saltRounds, function(err, hash) {
@@ -99,11 +118,19 @@ if (!user.isModified('password')) return next();
         // override the cleartext password with the hashed one
         user.password = hash;
         next();
-});
+    });
 
 
 });
 
+
+
+
+
+//checks array size
+function skillsArrayLimit(val) {
+    return val.length <= 10;
+  }
 
 const User = mongoose.model('User',userSchema)
 export default User

@@ -1,6 +1,6 @@
 import User from "../models/User.js"
 import Joi from "joi"
-
+import cloudinary from "../config/cloudinary.js"
 class ProfileController{
     /*
         fetch user profile
@@ -23,13 +23,17 @@ class ProfileController{
     }
 
     static updateProfile = async (req,res)=>{
-        res.send("hello")
+        // res.send("hello")
+        console.log(req.body)
         try{
             if(req.file){
                 let cloud_res = await cloudinary.v2.uploader.upload(req.file.path,{folder:"node"})
                 req.body.avatar = cloud_res.secure_url
             }
-            const user = await User.findOneAndUpdate(req.user_id,req.body)
+            const user = await User.findByIdAndUpdate(req.user_id,req.body,{new:true})
+            res.status(200).send({
+                success:true
+            })
 
         }catch(error){
             // console.log(error)
@@ -48,9 +52,6 @@ class ProfileController{
         }
     }
 
-    
-        
-    
 
     
 }

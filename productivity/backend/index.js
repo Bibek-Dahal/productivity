@@ -4,6 +4,8 @@ import connectDb from './config/database.js';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
 import profile from './routes/profile.js'
+import group from './routes/group.js'
+
 dotenv.config()
 
 const app = express()
@@ -25,12 +27,16 @@ connectDb(uri,options)
 /*
     middlewares
 */
-app.use('/api',auth)
-app.use('/api/profile',profile)
+app.use('/api',auth) //handle auth routes
+app.use('/api/profile',profile) //handles profie routes
+app.use('/api/group',group) //handle group routes
+
+
 
 
 app.listen(port,()=>{
     console.log(`listening on port:${port}`)
 })
 
-console.log(process.env.MAIL_PASSWORD)
+
+

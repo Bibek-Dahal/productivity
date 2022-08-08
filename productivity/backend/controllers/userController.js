@@ -9,15 +9,7 @@ import { displayMongooseValidationError } from "../utils/displayValidationError.
 class UserController{
     //function for registering new user
     static async register(req,res){
-        
-        
-        // console.log(result)
-        let err = {
-            errors:{},
-            status:"failed",
-            message:"unable to register"
-        };
-        
+
         try{
             if(req.file){
                 let cloud_res = await cloudinary.v2.uploader.upload(req.file.path,{folder:"node"})
@@ -98,27 +90,7 @@ class UserController{
         password change
     */
     static async passwordChange(req,res){
-        const {old_password,new_password,confirm_password} = req.body
-        let err = {errors:{}}
-        // if(!old_password){
-        //     err.errors.old_password = "old password field is required"
-        // }
-        // if(!new_password){
-        //     err.errors.new_password = "new password field is required"
-        // }
-        // if(!confirm_password){
-        //     err.errors.confirm_password = "confirm password field is required"
-        // }
-        // if(!old_password || !new_password || !confirm_password){
-        //   res.status(400).send({
-        //     message:'all fields are required',
-        //     success:false
-        //   })
-        
-        // if(Object.keys(err.errors).length !== 0){
-        //     console.log('inside')
-        //     res.status(400).send(err)
-        // }
+        const {old_password,new_password} = req.body
         
         try{
             let user = await User.findById(req.user_id)
@@ -126,7 +98,6 @@ class UserController{
             if(result){
         
                 //change the password
-                let user = await User.findById(req.user_id)
                 user.password = new_password
                 await user.save()
                 res.status(200).send({
@@ -136,8 +107,6 @@ class UserController{
         
             }else{
                 
-                // err.errors.old_password = "old password does not match current password"
-                // err.message = "password change failed"
                 res.status(400).send({
                     errors:{
                         old_password:"old password does not match current password"
@@ -160,7 +129,6 @@ class UserController{
     static async passwordResetEmail(req,res){
         const {email} = req.body
         console.log(email)
-        let err = {errors:{}}
 
         try{
             const encoder = await new Base64Encoder({ url: true }).optimize();
@@ -212,7 +180,6 @@ class UserController{
    static async passwordReset(req,res){
     const {userId,token} = req.params
     const {new_password,repeat_password} = req.body
-    let err = {errors:{}}
 
 
     try{
@@ -261,9 +228,6 @@ class UserController{
         displayMongooseValidationError(req,res,error)
     }
 
-
-    
-    
    }
 }
 
