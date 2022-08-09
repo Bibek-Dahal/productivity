@@ -1,10 +1,10 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { Base64Encoder,Base64Decoder } from "base64-encoding";
-import transporter from "../utils/sendMail.js";
+import transporter from "../config/mail_config.js";
 import cloudinary from "../config/cloudinary.js";
 import { displayMongooseValidationError } from "../utils/displayValidationError.js";
-
+import sendMail from '../utils/sendMail.js'
 
 class UserController{
     //function for registering new user
@@ -18,6 +18,8 @@ class UserController{
             
             let user = User(req.body)
             await user.save()
+
+            await sendMail(user,"User Verification Email")
         
             const data = {
                 message:"user created successfully",
@@ -36,6 +38,68 @@ class UserController{
         } 
     }
 
+
+    //verify user
+    static verifyUser = async (req,res)=>{
+        const {userId,token} = req.params
+        let result;
+        let id;
+        try{
+             try{
+                //verify jwt
+                result = await jwt.verify(token, process.env.JWT_SECRET_KEY);
+                // const decoder = await new Base64Decoder().optimize();
+                //decodes the userId
+                id = new TextDecoder().decode(new Base64Decoder().decode(userId))
+
+             }catch(error){
+                return res.status(400).send({message:"Token Expired"});
+             }
+
+             let user = await User.findByIdAndUpdate(id,{is_active:true})
+             if(result && user){
+                
+                await user.save()
+                res.redirect('/login')
+
+             }else{
+                res.status(400).send({
+                    message: "user verification failed",
+                    success : false
+                })
+             }
+    
+        }catch(error){
+            console.log(error)
+            res.status(500).send({
+                "message":"something went wrong",
+            })
+        }
+    }
+
+    static resendVerificationMail = async (req,res)=>{
+        try{
+            const user = await User.findOne({email:req.body.email})
+            //sends mail if user exists and is_active is false
+            if(user && user.is_active == false){
+                await sendMail(user,"User Verification Email")
+                res.status(200).send({
+                    message:"verification email sent",
+                    success: true
+                })
+            }else{
+                //sends mail if user doesnot exist same logic used by other site
+                res.status(200).send({
+                    message:"mail sent",
+                    success: true
+                })
+            }
+        }catch(error){
+            res.status(500).send({
+                message:"semithing went wrong"
+            })
+        }
+    }
     /*
         log user 
     */
@@ -58,16 +122,25 @@ class UserController{
                 //check for password if user exists
                 let result = await User.checkUser(password,user.password)
                 if(result){
-                    //log the user
-                    const token = await jwt.sign({
-                        id: user._id
-                        }, process.env.JWT_SECRET_KEY, { expiresIn: 15*24*60*60 });
-                    
-                        res.status(200).send({
-                        message:"login successful",
-                        token:token,
-                        success:true
-                    })
+                    //determines whether user can login or not
+                    if(!user.is_active){
+                        res.status(403).send({
+                            message: "please verify your email",
+                            success: false
+                        })
+                    }else{
+                            
+                        //log the user
+                        const token = await jwt.sign({
+                            id: user._id
+                            }, process.env.JWT_SECRET_KEY, { expiresIn: 15*24*60*60 });
+                        
+                            res.status(200).send({
+                            message:"login successful",
+                            token:token,
+                            success:true
+                        })
+                    }
                 }else{
                     //send err if password didnt match
                     res.status(401).send({
@@ -136,32 +209,35 @@ class UserController{
             console.log(user)
             if(user !== null){
 
+                await sendMail(user,"Password Reset Email")
                 //sent mail
                 res.status(200).send({
                     message:"password reset email sent",
                     success:true
                 })
+                
+                
+                
+                // let encodedText = encoder.encode(new TextEncoder().encode(user._id))
+                // const token = await jwt.sign({
+                //     id: user._id
+                //     }, process.env.JWT_SECRET_KEY, { expiresIn: 5*24*60*60 });
 
-                let encodedText = encoder.encode(new TextEncoder().encode(user._id))
-                const token = await jwt.sign({
-                    id: user._id
-                    }, process.env.JWT_SECRET_KEY, { expiresIn: 5*24*60*60 });
-
-                console.log(transporter)
-                let info = await transporter.sendMail({
-                from: 'ecommerce11780@gmail.com', // sender address
-                to: "bibekdahal479@gmail.com", // list of receivers
-                subject: "Password Reset Email", // Subject line
-                // text: `click on the link 127.0.0.1:8000/${encodedText}/${token} to reset your password`, // plain text body
-                html: `<p>click on the link 127.0.0.1:8000/api/password-reset/${encodedText}/${token} to reset your password</p>`, // html body
-                });
+                // console.log(transporter)
+                // let info = await transporter.sendMail({
+                
+                // to: "bibekdahal479@gmail.com", // list of receivers
+                // subject: "Password Reset Email", // Subject line
+                // // text: `click on the link 127.0.0.1:8000/${encodedText}/${token} to reset your password`, // plain text body
+                // html: `<p>click on the link 127.0.0.1:8000/api/password-reset/${encodedText}/${token} to reset your password</p>`, // html body
+                // });
 
 
-                console.log(info.messageId)
+                // console.log(info.messageId)
                 
             }else{
                 res.status(200).send({
-                    message:"mail sent",
+                    message:"password reset email sent",
                     status:"success"
                 })
             }

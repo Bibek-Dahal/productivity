@@ -5,7 +5,9 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
 import profile from './routes/profile.js'
 import group from './routes/group.js'
-
+import path from 'path'
+const base_dir = process.cwd()
+export default base_dir
 dotenv.config()
 
 const app = express()
@@ -24,13 +26,14 @@ const options = {
 }
 
 connectDb(uri,options)
+// app.set('views', path.join(process.cwd(), 'views'));
+// app.set('view engine', 'ejs');
 /*
     middlewares
 */
 app.use('/api',auth) //handle auth routes
 app.use('/api/profile',profile) //handles profie routes
 app.use('/api/group',group) //handle group routes
-
 
 
 

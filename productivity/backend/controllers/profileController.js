@@ -24,7 +24,7 @@ class ProfileController{
 
     static updateProfile = async (req,res)=>{
         // res.send("hello")
-        console.log(req.body)
+        // console.log(req.body)
         try{
             if(req.file){
                 let cloud_res = await cloudinary.v2.uploader.upload(req.file.path,{folder:"node"})
@@ -32,7 +32,7 @@ class ProfileController{
             }
             const user = await User.findByIdAndUpdate(req.user_id,req.body,{new:true})
             res.status(200).send({
-                success:true
+                success:true,
             })
 
         }catch(error){

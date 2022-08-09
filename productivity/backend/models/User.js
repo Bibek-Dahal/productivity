@@ -6,64 +6,45 @@ const saltRounds = 10;
 
 
 const userSchema = mongoose.Schema({
-    "first_name":{
+    "username":{
         type:String,
-        required:[true,'the first name field is required'],
+        required:true,
         trim:true,
-        maxLength:[30, 'Must be at most 30, got {VALUE}'],
-        minLength:[3, 'Must be at least 3, got {VALUE}']
+        
     },
-    "middle_name":{
-        type:String,
-        trim:true,
-        maxLength:[30, 'Must be at most 30, got {VALUE}'],
-    },
-    "last_name":{
-        type:String,
-        required:[true,'the last name field is required'],
-        trim:true,
-        maxLength:[30, 'Must be at most 30, got {VALUE}'],
-        minLength:[3, 'Must be at least 3, got {VALUE}']
-    },
+ 
     "email":{
         type:String,
-        unique:[true,'user with email already exists'],
+        unique:true,
         trim:true,
-        required:[true,'the email field is required'],
-        maxLength:[100,'Must be at most 30, got {VALUE}'],
-        validate: {
-            validator: emailValidator,
-            message: props => `please enter valid email address`
-          },
+        required:true,
+        
         
     },
     "avatar":{
-        type: [{
-          type: String,
-        }],
-        validate: [skillsArrayLimit, '{PATH} exceeds the limit of 10']
+        type: String
       },
     "skills":{
-        type:Array
-
+        type: [{
+            type: String,
+          }],
+          validate: [skillsArrayLimit, '{PATH} exceeds the limit of 10']
     },
     "password":{
         type:String,
         required:[true,'the password field is required'],
-        maxLength:[200,'characters more then 150 are not allowed'],
         minLength:[8,'password must be at least 8 characters'],
-        validate: {
-            validator: function(v) {
-                const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$/;
-                return re.test(v)
-            },
-            message: props => 'password must contain at least one digit,one special character and one uppercase letter'
-          },
     },
+    
     "is_admin":{
-        type:Boolean,
-        default:false
+        type: Boolean,
+        default: false
     },
+
+    "is_active":{
+        type:Boolean,
+        default: false
+    }//determines whether user is verified or not
     
 
 },//ends schema defn

@@ -6,29 +6,15 @@ class AuthValidation{
     /*
         validation for registration
     */
-
         static register(req,res,next){
 
             const schema = Joi.object({
-                first_name: Joi.
+                username: Joi.
                     string().
                     trim().
                     alphanum().
                     min(3).
-                    max(30).
-                    required(),
-    
-                middle_name: Joi.string().
-                    trim().
-                    min(3).
-                    max(30),
-    
-                last_name: Joi.
-                    string().
-                    trim().
-                    alphanum().
-                    min(3).
-                    max(30).
+                    max(50).
                     required(),
     
                 email: Joi.
