@@ -1,0 +1,57 @@
+.inputfield{
+    margin-bottom:1.6em;
+}
+
+.inputfield .field{
+    position:relative;
+    border-radius:5px;
+    display:flex;
+    flex-direction:column;
+    gap:.7em;
+}
+
+.inputfield label{
+    opacity:.8;
+}
+
+/* .inputfield label{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    left:10px;
+    pointer-events: none;
+} */
+
+.inputfield input{
+    padding:.6em;
+    font-size:var(--fs-xl);
+    width:100%;
+    border:none;
+    outline: none;
+    background:transparent;
+    border:2px solid rgb(234, 234, 234);
+    border-radius:5px;
+    max-width:450px;
+}
+
+.inputfield input:focus{
+    border:2px solid var(--dark-blue);
+}
+
+
+.inputfield.error input{
+    color:red;
+}
+
+.inputfield.error label,
+.inputfield.error small{
+    color:red;
+}
+
+.inputfield small.error{
+    margin-left:10px;
+}
+/* 
+.inputfield input:focus ~ label{
+    transform:translate(-10px,-10px);
+} */

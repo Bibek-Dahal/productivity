@@ -1,0 +1,37 @@
+.mainnavigation{
+    border:1px solid red;
+    display:flex;
+    flex-direction: column;
+    gap:4em;
+    height:100%;
+    overflow-y:auto;
+}
+
+.mainnavigation .links{
+    display:flex;
+    flex-direction: column;
+    gap:2em;
+    padding-bottom:3em;
+    border:1px solid red;
+}
+
+.mainnavigation .links a{
+    display:flex;
+    gap:1em;
+    align-items: center;
+    text-transform: capitalize;
+    color:var(--inactive-link);
+}
+
+.mainnavigation .links a.active{
+    color:var(--dark);
+    font-weight:500;
+}
+
+.mainnavigation .links a svg{
+    font-size:var(--fs-xxl);
+}
+
+.border-bottom{
+    border-bottom:2px solid var(--nav-line);
+}

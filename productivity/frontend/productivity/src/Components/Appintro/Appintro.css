@@ -1,0 +1,13 @@
+.appintro{
+    width:70% !important;
+    background:var(--dark-blue);
+    display:none;
+}
+
+@media only screen and (min-width : 700px){
+    .appintro{
+        display:block;
+        /* border-radius:10px; */
+    }
+}
+

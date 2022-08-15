@@ -1,0 +1,53 @@
+.authcontainer{
+    display:flex;
+    height:100vh;
+}
+
+.authcontainer__main{
+}
+
+.authcontainer >*{
+    width:100%;
+}
+
+.authcontainer .authform{
+    margin:5em 0em 3em 4em;
+    max-width:600px;
+
+    display:flex;
+    flex-direction: column;
+    gap:2em;
+    /* border:1px solid red;2 */
+}
+
+.authform h1{
+    font-size:var(--fs-largest);
+}
+
+
+.authcontainer input[type = "submit"]{
+    padding:.8em 1.5em;
+    width:250px;
+    font-size:var(--fs-xl);
+    margin-top:2em;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+    background:var(--dark-blue);
+    border:none;
+    border-radius:5px;
+}
+
+.authform .top-part small{
+    display: block;
+    margin-top:.5em;
+}
+
+.authform span.error{
+    display:block;
+    margin-top:1em;
+    color:rgb(167, 3, 3);
+    background:rgba(255, 0, 0, 0.318);
+    padding:.5em;
+    border-radius:5px;
+}

@@ -1,0 +1,14 @@
+.personaldashboardpage__container{
+    display:grid;
+    grid-template-columns:250px minmax(500px,2fr) 300px;
+    /* background:pink; */
+    height:100vh;
+    position:fixed;
+    width:100%;
+}
+
+.personaldashboardpage__container >*{
+    /* border:1px solid red; */
+    padding:2em;
+}
+
