@@ -79,5 +79,20 @@ class GroupValidation{
         showValidationsError(req,res,next,schema)
 
     }
+
+    static invite = (req,res,next)=>{
+        const schema = Joi.object({
+            email: Joi.
+                string().
+                trim().
+                email().
+                required(),
+            group_name: Joi.
+                string().
+                required()
+        })
+
+        showValidationsError(req,res,next,schema)
+    }
 }
 export default GroupValidation

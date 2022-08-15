@@ -1,6 +1,9 @@
 import Group from "../models/Group.js"
 import { displayMongooseValidationError } from "../utils/displayValidationError.js"
 import User from "../models/User.js"
+import sendMail from '../utils/sendMail.js'
+import jwt from "jsonwebtoken";
+import { Base64Encoder,Base64Decoder } from "base64-encoding";
 class GroupController{
     /*
         creates a group
@@ -130,7 +133,81 @@ class GroupController{
         }
     }
 
-    
+    static inveteMember = async (req,res)=>{
+        const {email,group_name} = req.body
+        try{
+            const user = await User.findOne({email:req.body.email})
+            if(user){
+                //check if group exists and invitor is owner of group
+                const group = await Group.findOne({group:group_name,user:req.user_id})
+                if(group){
+                    await sendMail(user,"Group Invitation Email",{group: group})
+                    res.status(200).send({
+                        message:"invitation send",
+                        success: true
+                    })
+                }else{
+                    res.status(404).send({
+                        message: "group not found",
+                        success: false
+                    })
+                }
+                
+            }else{
+                res.status(404).send({message:"user doesnot exist"})
+            }
+
+        }catch(error){
+            console.log(error)
+            res.status(500).send({message:"something went wrong"})
+        }   
+    }
+
+
+    //accept group invitation
+    static acceptGroupInvitation = async (req,res)=>{
+        console.log(req.params)
+        const {groupName,token} = req.params
+        try{
+            const result = await jwt.verify(token, process.env.JWT_SECRET_KEY);
+            const decodedGroup = new TextDecoder().decode(new Base64Decoder().decode(groupName))
+            console.log(decodedGroup)
+            if(result && decodedGroup){
+                const user = await User.findOne({_id: result.id})
+                const group = await Group.findOne({name:decodedGroup})
+                // console.log(group)
+
+                //checks if user already belongs to group
+                const belongs = await Group.findOne({members:user._id})
+                console.log(belongs)
+                if(!belongs){
+                    console.log('inside if')
+                    await group.updateOne({$push:{members:user._id}})
+                    
+                    // res.status(200).send({
+                    //     message: "user joined in the group",
+                    //     success: true
+                    // })
+                    res.redirect('/')
+                }else{
+                    console.log('inside else')
+                    res.redirect('/')
+                }
+            }else{
+                res.status(400).send({
+                    message:"sorry, the operations could not be performed",
+                    success: false
+                })
+            }
+
+        }catch(error){
+            console.log(error)
+            res.status(500).send({
+                message:"something went wrong",
+                success: false
+            })
+        }
+    }
 
 }
 
