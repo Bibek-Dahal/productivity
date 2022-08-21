@@ -1,14 +1,18 @@
-.personaldashboardpage__container{
+.dashboardpage__container{
     display:grid;
-    grid-template-columns:250px minmax(500px,2fr) 300px;
+    grid-template-columns:300px minmax(500px,2fr) 350px;
     /* background:pink; */
     height:100vh;
     position:fixed;
     width:100%;
 }
 
-.personaldashboardpage__container >*{
+.dashboardpage__container >*{
     /* border:1px solid red; */
-    padding:2em;
+    padding : 0 1.5em;
+    padding-top:2em;
 }
 
+.dashboardpage__container >*:nth-of-type(2){
+    background:var(--light-gray);
+}

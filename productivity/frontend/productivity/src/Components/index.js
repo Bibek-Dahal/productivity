@@ -11,6 +11,15 @@ import OverallPerformance from './OverallPerformance/OverallPerformance';
 import Analytics from './Analytics/Analytics';
 import MainNavigation from './MainNavigation/MainNavigation';
 import UserProfile from './UserProfile/UserProfile';
+import Dropdown from './Dropdown/Dropdown';
+import Tooltip from './Tooltip/Tooltip';
+import Modal from './Modal/Modal';
+import Button1 from './Button1/Button1';
+import Logout from './Logout/Logout';
+import CreateGroup from './CreateGroup/CreateGroup';
+import GroupDashboard from './GroupDashboard/GroupDashboard';
+import GroupDashboardNavigation from './GroupDashboarNavigation/GroupDashboarNavigation';
+import GroupDashboardSidebar from './GroupDashboardSidebar/GroupDashboardSidebar';
 
 export{
     Appintro,
@@ -25,5 +34,14 @@ export{
     OverallPerformance,
     Analytics,
     MainNavigation,
-    UserProfile
+    UserProfile,
+    Dropdown,
+    Tooltip,
+    Modal,
+    Button1,
+    Logout,
+    CreateGroup,
+    GroupDashboard,
+    GroupDashboardNavigation,
+    GroupDashboardSidebar
 }

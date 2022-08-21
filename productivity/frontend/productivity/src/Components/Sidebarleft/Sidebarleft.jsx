@@ -6,6 +6,7 @@ const Sidebarleft = ({children}) =>{
  return(
      <div className = 'sidebar sidebarleft nav-padding'>
         {children}
+        
      </div>
 
  );

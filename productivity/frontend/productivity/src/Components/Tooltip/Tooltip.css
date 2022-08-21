@@ -1,0 +1,16 @@
+.tooltip{
+    border:1px solid red;
+    position:relative;
+}
+
+.tooltip__trigger{
+
+}
+
+.tooltip__content{
+    position:absolute;
+    white-space:nowrap;
+    top:-1em;
+    right:-1em;
+    z-index:999;
+}

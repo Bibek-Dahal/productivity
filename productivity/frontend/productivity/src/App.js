@@ -8,12 +8,15 @@ import {
   HomePage,
   LoginPage,
   PersonalDashboardPage,
-  RegisterPage
+  RegisterPage,
+  GroupDashboardPage
 } from './Pages/index';
 
 import {
   PersonalDashboard,
-  PersonalActivity
+  PersonalActivity,
+  Logout,
+  GroupDashboard
 } from './Components/index';
 
 import {
@@ -52,7 +55,18 @@ function App() {
                 <RegisterPage />
               </Protected>
             } />
-            
+            {/* <Route path = "/logout" element = {
+              <RequiredAuth>
+                <Logout />
+              </RequiredAuth>
+            } /> */}
+            <Route path = "/group/:name" element = {
+              <RequiredAuth>
+                <GroupDashboardPage />
+              </RequiredAuth>
+            }>
+                <Route path = ""  element = {<GroupDashboard />} />
+            </Route>
           </Routes>
         </Router>
       }

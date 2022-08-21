@@ -4,11 +4,13 @@ import App from './App';
 import './index.css';
 
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthProvider } from './Contexts';
+import { AuthProvider, GlobalControlProvider } from './Contexts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <GlobalControlProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </GlobalControlProvider>
 );

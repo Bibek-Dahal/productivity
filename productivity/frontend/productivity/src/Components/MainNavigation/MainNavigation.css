@@ -1,21 +1,21 @@
 .mainnavigation{
-    border:1px solid red;
     display:flex;
     flex-direction: column;
     gap:4em;
-    height:100%;
-    overflow-y:auto;
+    /* height:100%; */
 }
 
 .mainnavigation .links{
     display:flex;
     flex-direction: column;
-    gap:2em;
-    padding-bottom:3em;
-    border:1px solid red;
+    gap:1em;
 }
 
-.mainnavigation .links a{
+.mainnavigation .links > a{
+    margin:.5em 0;
+}
+
+.mainnavigation a{
     display:flex;
     gap:1em;
     align-items: center;
@@ -23,15 +23,38 @@
     color:var(--inactive-link);
 }
 
-.mainnavigation .links a.active{
+.mainnavigation a.active{
     color:var(--dark);
-    font-weight:500;
 }
 
 .mainnavigation .links a svg{
     font-size:var(--fs-xxl);
 }
 
-.border-bottom{
-    border-bottom:2px solid var(--nav-line);
+.mainnavigation .hr{
+    background:var(--nav-line);
+    height:2px;
+    margin:1em 0;
+}
+
+.mainnavigation .add-group{
+    position:absolute;
+    top:0;
+    right:0;
+    cursor: pointer;
+}
+
+.mainnavigation .add-group svg{
+    font-size:var(--fs-xxl);
+    pointer-events: none;
+}
+
+.mainnavigation .dropdown-container{
+    position:relative;
+}
+
+
+.mainnavigation{
+    /* border:1px solid red; */
+    padding-bottom:2em;
 }

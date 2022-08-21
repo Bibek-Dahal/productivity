@@ -1,3 +1,5 @@
 .sidebarleft{
     border-right:1px solid var(--sidebar-border);
+    overflow-x:hidden;
+    overflow-y:scroll;
 }

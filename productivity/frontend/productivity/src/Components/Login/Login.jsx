@@ -55,7 +55,7 @@ const Login = () =>{
             localStorage.setItem('token',res.data.token);
             // console.log(decodeToken(res.data.token))
             console.log(localStorage.getItem('user'));
-            toast.success(res.data.message);
+            toast.success(res?.data?.message);
             navigate(from);
         }catch(err){
             const errStatus = err.response.status;

@@ -46,7 +46,7 @@ const Register = () =>{
             const res = await axios.post(endpoints.register,formData);
             setLoading(0);
             console.log(res);
-            toast.success(res.data.message)
+            toast.success(res?.data.message)
             navigate('/login');
         }catch(err){
             console.log('error occured',err.response.data.errors);
@@ -73,9 +73,6 @@ const Register = () =>{
         setErrors(prev => {});
     }
 
-       
-  
-    
 
     if(loading) return "loading...";
 
