@@ -5,12 +5,19 @@ import './index.css';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider, GlobalControlProvider } from './Contexts';
+import {
+  BrowserRouter as Router
+} from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
-    <GlobalControlProvider>
+  // <GlobalControlProvider>
+    <Router>
       <AuthProvider>
         <App />
       </AuthProvider>
-    </GlobalControlProvider>
+    </Router>
+  // </GlobalControlProvider>
 );

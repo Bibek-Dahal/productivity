@@ -1,5 +1,6 @@
 .inputfield{
-    margin-bottom:1.6em;
+    margin-bottom:1.5em;
+    position: relative;
 }
 
 .inputfield .field{
@@ -12,30 +13,60 @@
 
 .inputfield label{
     opacity:.8;
-}
-
-/* .inputfield label{
+    display:flex;
+    gap:.9em;
+    align-items: center;
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    left:10px;
-    pointer-events: none;
-} */
+    margin-left:1em;
+    transform-origin:left;
+    transition:transform 200ms ease-in-out,
+                opacity 200ms ease;
+}
+
+.inputfield label svg{
+    font-size:var(--fs-xl);
+}
+
+.inputfield input:focus{
+    color:var(--blue);
+}
+
+.inputfield input:focus ~ label,
+.inputfield input.focus ~ label{
+    transform:translate(2px,-23px)scale(.7);
+    opacity:.7;
+}
+
+.inputfield input:focus ~ label{
+    color:var(--dark-blue);
+}
 
 .inputfield input{
-    padding:.6em;
+    padding:2em 1em .5em 1em;
     font-size:var(--fs-xl);
     width:100%;
     border:none;
     outline: none;
     background:transparent;
-    border:2px solid rgb(234, 234, 234);
-    border-radius:5px;
-    max-width:450px;
+    border-radius:3px;
+    background:#f5f5f5;
+    border:2px solid #f1f1f1;
 }
 
 .inputfield input:focus{
     border:2px solid var(--dark-blue);
+}
+
+.inputfield .password-view-status{
+    position:absolute;
+    bottom:.5em;
+    /* top:50%; */
+    /* transform:translateY(-50%); */
+    right:1em;
+    font-size:var(--fs-xl);
+    cursor: pointer;
 }
 
 

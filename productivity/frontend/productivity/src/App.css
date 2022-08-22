@@ -4,7 +4,8 @@
 body{
 
     text-shadow: #fff 0px 1px 1px;
-
+    --green:#12b024;
+    --blu:#3758A4;
     --dark-blue : #3A54AA;
     --blue : #1B72E8;
     --body-bg : rgb(255, 255, 255);
@@ -14,16 +15,17 @@ body{
     --nav-line:#EDEDED;
     --red :red;
     --sidebar-border:#E6EBED;
-
+    --body-bg : #FEFEFF;
 
     --fs-s:.9rem;
     --fs-l:1rem;
-    --fs-xl:1.1rem;
+    --fs-xl:1rem;
     --fs-xxl:1.5rem;
     --fs-xxxl:2rem;
-    --fs-largest:2.8rem;
+    --fs-largest:2rem;
 
     --nav-height:30px;
+
 
     background:var(--body-bg);
     /* font-family: 'Poppins', sans-serif; */
@@ -31,6 +33,7 @@ body{
     font-family: 'Inter', sans-serif;
 
     overflow:auto;
+    overflow-x:hidden;
 }
 
 ::-webkit-scrollbar {
@@ -49,6 +52,14 @@ body{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
 background: #555;
+}
+
+a.link{
+    color:var(--blue);
+}
+
+a.link:hover{
+    text-decoration: underline;
 }
 
 a{
@@ -101,4 +112,11 @@ a{
 
 li{
     list-style: none;
+}
+
+
+@media only screen and (min-width : 800px){
+    body{
+        --fs-largest : 2.5rem;
+    }
 }

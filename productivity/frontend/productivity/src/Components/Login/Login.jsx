@@ -2,9 +2,6 @@ import React,{
     useState
 } from 'react';
 import './Login.css';
-import {
-    Link
-} from 'react-router-dom';
 
 import {
     InputField
@@ -24,12 +21,16 @@ import {
 import {decodeToken} from 'react-jwt';
 import {
     useLocation,
-    useNavigate 
+    useNavigate,
+    Link
 } from 'react-router-dom';
+import Logo from '../../svgs/logoSml.svg';
+import { Icon } from '@iconify/react';
 
 const Login = () =>{
 
-    const {user,setUser} = useAuthContext();
+    const {user,setUser,loginUser} = useAuthContext();
+    const [loading,setLoading] = useState(0);
 
     const [formData,setFormData] = useState({});
     const [errors,setErrors] = useState({});
@@ -40,41 +41,46 @@ const Login = () =>{
 
     const from = location.state?.from.pathname || "/";
 
-    const formHandler = async (e) => {
+    const formHandler = (e) => {
         e.preventDefault();
-        try{
-            const res = await axios.post(endpoints.login,formData);
-            console.log(res);
-            setUser(prev => {
-                return{
-                    user : decodeToken(res.data.token),
-                    token : res.data.token
-                }
-            });
-            localStorage.setItem('user',JSON.stringify(decodeToken(res.data.token)));
-            localStorage.setItem('token',res.data.token);
-            // console.log(decodeToken(res.data.token))
-            console.log(localStorage.getItem('user'));
-            toast.success(res?.data?.message);
-            navigate(from);
-        }catch(err){
-            const errStatus = err.response.status;
-            console.log(err.response)
-            if(errStatus == 400){
-                const errs = err.response.data.errors;
-                setErrors(prev => errs);
-                Object.values(errs).forEach(err => toast.error(err));
-            }else{
-                setError(prev => err.response.data.message);
-                toast.error(err.response.data.message);
-                setErrors(prev => {
-                    return{
-                        email : "wrong",
-                        password : "wrong"
-                    }
-                })
-            }
-        }
+        console.log('login form handler')
+        // try{
+            // setLoading(1);
+            loginUser(formData,setLoading,setError,setErrors,from)
+            // const res = await axios.post(endpoints.login,formData);
+            // console.log(res);
+            // setUser(prev => {
+            //     return{
+            //         user : decodeToken(res.data.token),
+            //         token : res.data.token
+            //     }
+            // });
+            // setLoading(0);
+            // localStorage.setItem('user',JSON.stringify(decodeToken(res.data.token)));
+            // localStorage.setItem('token',res.data.token);
+            // console.log(localStorage.getItem('user'));
+            // toast.success(res?.data?.message);
+            
+            // navigate(from);
+        // }catch(err){
+        //     setLoading(0);
+        //     const errStatus = err.response?.status;
+        //     console.log('error = ',err)
+        //     if(errStatus == 400){
+        //         const errs = err.response.data.errors;
+        //         setErrors(prev => errs);
+        //         Object.values(errs).forEach(err => toast.error(err));
+        //     }else{
+        //         setError(prev => err.response?.data.message);
+        //         toast.error(err.response?.data.message);
+        //         setErrors(prev => {
+        //             return{
+        //                 email : "wrong",
+        //                 password : "wrong"
+        //             }
+        //         })
+        //     }
+        // }
     }
 
     const handleChange = (e) => {
@@ -94,32 +100,15 @@ const Login = () =>{
 
  return(
     <div className ="authform login">
-        <div className="top-part">
-            {/* <p>
-                <span className="back-btn">
-                    <Icon
-                        onClick = {handleBackClick}
-                        icon = "bx:arrow-back"
-                    />
-                    Step {currentPart} of {totalParts}
-                </span>
-            </p> */}
-            <h1>
-                Sign in to your account
-            </h1>
-            <small>
-                Not a member?
-                <Link to = "/register">
-                    Register
-                </Link>
-            </small>
+        <div className="logo">
+            <img src={Logo} alt="" />
         </div>
-        {/* {
-                error &&
-                <span className="error">
-                    {error}
-                </span>
-        } */}
+        <div className="top-part">
+            <h1>
+                Login
+            </h1>
+            
+        </div>
         <form 
             onSubmit={formHandler}
             className="middle"
@@ -136,6 +125,7 @@ const Login = () =>{
                     ""
                 }
                 onfocus = {onfocus}
+                icon = "fluent:mail-20-filled"
             />
     
             <InputField 
@@ -150,9 +140,35 @@ const Login = () =>{
                     ""
                 }
                 onfocus = {onfocus}
+                icon = "fa-solid:lock"
             />
-            <input type = "submit" value = "Login" />
+            <Link 
+                className='forgot link'
+                to = "/forgot-password">
+                <small>
+                    forgot password?
+                </small>
+            </Link>
+            <button type = "submit">
+                {
+                    loading ? 
+                        <Icon 
+                            className = "spinner"
+                            icon = "icomoon-free:spinner2"
+                        />:
+                        "Login"
+                }
             
+            </button>
+            <small>
+                Not a member?
+                <Link 
+                    to = "/register"
+                    className='link'
+                >
+                    Register
+                </Link>
+            </small>
         </form>
     </div>
  );

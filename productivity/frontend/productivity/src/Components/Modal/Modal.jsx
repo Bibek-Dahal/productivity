@@ -7,7 +7,7 @@ import {
 
 const Modal = ({toggle,className,children}) =>{
 
-    const {modalVisible,setModalVisible} = useGlobalControlContext();
+    // const {modalVisible,setModalVisible} = useGlobalControlContext();
 
     function toggleHandler(){
         toggle();

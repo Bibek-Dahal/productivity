@@ -13,8 +13,12 @@ import {
     Icon
 } from '@iconify/react';
 
+import Logo from '../../svgs/logoSml.svg';
+
 import endpoints from '../../utils/endpoints';
 import axios from '../../utils/axios';
+
+
 
 import {
     toast
@@ -72,12 +76,12 @@ const Register = () =>{
     const onfocus = (e) => {
         setErrors(prev => {});
     }
-
-
-    if(loading) return "loading...";
-
+    
     return(
         <div className ='authform register'>
+            <div className="logo">
+                <img src={Logo} alt="" />
+            </div>
             <div className="top-part">
                 {/* <p>
                     <span className="back-btn">
@@ -89,14 +93,9 @@ const Register = () =>{
                     </span>
                 </p> */}
                 <h1>
-                    Create new account
+                    Register
                 </h1>
-                <small>
-                    Already a member?
-                    <Link to = "/login">
-                        Login
-                    </Link>
-                </small>
+                
             </div>
             <form 
                 onSubmit={formHandler}
@@ -115,6 +114,7 @@ const Register = () =>{
                                     ""
                             }
                             onfocus = {onfocus}
+                            icon = "bxs:user"
                         />
                         <InputField 
                             name = "email"
@@ -128,6 +128,7 @@ const Register = () =>{
                                 ""
                             }
                             onfocus = {onfocus}
+                            icon = "fluent:mail-20-filled"
                         />
                 
                         <InputField 
@@ -142,6 +143,7 @@ const Register = () =>{
                                 ""
                             }
                             onfocus = {onfocus}
+                            icon = "fa-solid:lock"
                         />
                         <InputField 
                             name = "repeat_password"
@@ -155,9 +157,27 @@ const Register = () =>{
                                 ""
                             }
                             onfocus = {onfocus}
+                            icon = "fa-solid:lock"
                         />
              
-                    <input type = "submit" value = "Register" />
+                    <button 
+                        type = "submit" 
+                    >
+                       { loading ? 
+                            <Icon 
+                                className = "spinner"
+                                icon = "icomoon-free:spinner2"
+                            />:
+                            "Register"}
+                    </button>
+                    <small>
+                    Already a member?
+                    <Link
+                        className = "link" 
+                        to = "/login">
+                        Login
+                    </Link>
+                </small>
             </form>
         </div>
     );

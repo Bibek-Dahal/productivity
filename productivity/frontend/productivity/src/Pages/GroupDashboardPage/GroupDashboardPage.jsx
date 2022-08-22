@@ -1,4 +1,6 @@
-import React from 'react';
+import React,{
+    useState
+} from 'react';
 import './GroupDashboardPage.css';
 import {
     useParams,
@@ -8,24 +10,42 @@ import {
     Sidebarleft,
     Sidebarright,
     GroupDashboardNavigation, 
-    GroupDashboardSidebar
+    GroupDashboardSidebar,
+    Modal,
+    AddProject
 } from '../../Components';
 
 const GroupDashboardPage = () =>{
-  
-    const {name} = useParams();
 
+    const [showAddProject,setShowAddProject] = useState(false);
+
+    function toggle(){
+        setShowAddProject(prev => !prev);
+    }
+
+    const {name} = useParams();
+    
     return(
         <div className = 'groupdashboardpage'>
             <div className="dashboardpage__container">
                 <Sidebarleft>
-                    <GroupDashboardNavigation />
+                    <GroupDashboardNavigation 
+                        toggle = {toggle}
+                    />
                 </Sidebarleft>
                 <Outlet />
                 <Sidebarright>
                     <GroupDashboardSidebar />
                 </Sidebarright>
             </div>
+            {
+                showAddProject &&
+                <Modal
+                    className = "visible padding-dribble"
+                >
+                    <AddProject />
+                </Modal>
+            }
         </div>
     );
 }

@@ -14,6 +14,7 @@ const RegisterPage = () =>{
                 <div className = "authcontainer__main">
                     <Register />
                 </div>
+                <Appintro />
             </AuthContainer>
         </>
     );

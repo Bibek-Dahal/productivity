@@ -52,11 +52,11 @@ const CreateGroup = ({toggle}) =>{
                 [e.target.name ]: inputRef.current.value
             }
         });
-
-        setTimeout(() => {
-            setCheckingGroup(false);
-            setValidGroup(true)
-        },9000)
+        // this steps will be delayed while checking for unique group name in backend
+        // setTimeout(() => {
+        setCheckingGroup(false);
+        setValidGroup(true)
+        // },9000)
     }
 
     const formHandler = (e) => {

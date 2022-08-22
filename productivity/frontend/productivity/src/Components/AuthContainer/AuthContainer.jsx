@@ -6,8 +6,8 @@ const AuthContainer = ({children}) =>{
   
  return(
      <div className = 'authcontainer'>
-        {/* <Appintro /> */}
         {children}
+        {/* <Appintro /> */}
      </div>
 
  );

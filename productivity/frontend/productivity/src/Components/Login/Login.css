@@ -1,0 +1,10 @@
+.login a.forgot small{
+    text-transform:capitalize;
+}
+
+.login a.forgot{
+    /* border:1px solid red; */
+    display:block;
+    text-align: right;
+    margin-top:-1em;
+}

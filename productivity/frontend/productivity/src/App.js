@@ -9,7 +9,8 @@ import {
   LoginPage,
   PersonalDashboardPage,
   RegisterPage,
-  GroupDashboardPage
+  GroupDashboardPage,
+  LogoutPage
 } from './Pages/index';
 
 import {
@@ -30,7 +31,6 @@ function App() {
   return (
     <div>
       {
-        <Router>
           <Routes>
             <Route path = "/" element = {<HomePage />} />
             <Route path = "/" element = {
@@ -55,11 +55,11 @@ function App() {
                 <RegisterPage />
               </Protected>
             } />
-            {/* <Route path = "/logout" element = {
+            <Route path = "/logout" element = {
               <RequiredAuth>
-                <Logout />
+                <LogoutPage />
               </RequiredAuth>
-            } /> */}
+            } />
             <Route path = "/group/:name" element = {
               <RequiredAuth>
                 <GroupDashboardPage />
@@ -68,10 +68,9 @@ function App() {
                 <Route path = ""  element = {<GroupDashboard />} />
             </Route>
           </Routes>
-        </Router>
       }
       <ToastContainer 
-        autoClose = {false}
+        autoClose = {5000}
       />
     </div>
   );

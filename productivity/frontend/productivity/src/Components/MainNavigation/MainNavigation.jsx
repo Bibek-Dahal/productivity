@@ -15,29 +15,46 @@ import {
     Modal,
     Button1
 } from '../index';
+import { useEffect } from 'react';
 
-// import {
-//     useGlobalControlContext
-// } from '../../hooks/index';
+// import axios from '../../utils/axios';
+import endpoints from '../../utils/endpoints';
+import {
+    useAxios 
+} from '../../hooks/index';
 
 const MainNavigation = ({toggle}) =>{
-  
-    const [groups,setGroups] = useState(1);
+
+    const axiosInstance = useAxios();
+
+    const [groups,setGroups] = useState([]);
     const [addGroup,setAddGroup] = useState(false);
-    // const {modalVisible,setModalVisible} = useGlobalControlContext();
 
     const openGroupAddHandler = () => {
-        // setAddGroup(true);
         toggle();
-        // setModalVisible(1);
     }
+    
+    async function getGroups(){
+        try{
+            const res = await axiosInstance.get(endpoints.getGroups);
+            console.log(res);
+            setGroups(res.data.groups);
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+
+    useEffect(() => {
+        getGroups();
+    },[])
 
     return(
         <div className = 'mainnavigation'>
             <div className="logo">
                 <img src={Logo} alt="" />
             </div>
-            <div className="links border-bottom">
+            <div className="links">
                 <NavLink 
                     to = "/dashboard"
                     activeClassName = 'active'
@@ -57,7 +74,7 @@ const MainNavigation = ({toggle}) =>{
                         title = "Groups"
                     >
                         {
-                            groups === 0 ?
+                            groups.length === 0 ?
                             <span className="error">
                                 No groups joined or created yet!
                             </span>:

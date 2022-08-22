@@ -20,6 +20,7 @@ import CreateGroup from './CreateGroup/CreateGroup';
 import GroupDashboard from './GroupDashboard/GroupDashboard';
 import GroupDashboardNavigation from './GroupDashboarNavigation/GroupDashboarNavigation';
 import GroupDashboardSidebar from './GroupDashboardSidebar/GroupDashboardSidebar';
+import AddProject from './AddProject/AddProject';
 
 export{
     Appintro,
@@ -43,5 +44,6 @@ export{
     CreateGroup,
     GroupDashboard,
     GroupDashboardNavigation,
-    GroupDashboardSidebar
+    GroupDashboardSidebar,
+    AddProject
 }

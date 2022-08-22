@@ -12,11 +12,16 @@ const GroupDashboard = () =>{
 
     return(
         <div className = 'groupdashboard'>
-            GroupDashboard of {name}
+            <h1 className="groupTitle">
+                {name}
+            </h1>
         </div>
 
     );
 }
+
+
+
 
 export default GroupDashboard;
 

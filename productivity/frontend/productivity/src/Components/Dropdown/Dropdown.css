@@ -41,12 +41,14 @@
 
 .dropdown .dropdown-items li a{
     position:relative;
+    /* border:1px solid red; */
     padding:.5em 1em;
-    display:flex;
-    gap:1em;
-    align-items: center;
+    display:block;
     text-transform: capitalize;
     color:var(--inactive-link);
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
 }
 
 .dropdown span.error{
