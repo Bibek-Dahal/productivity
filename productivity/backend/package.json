@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "agora-rtc-sdk-ng": "^4.13.0",
     "base64-encoding": "^0.15.0-alpha.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
@@ -27,7 +28,9 @@
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-unique-validator": "^3.1.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.7.7"
+    "nodemailer": "^6.7.7",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

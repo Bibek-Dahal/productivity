@@ -4,7 +4,10 @@ import authMiddleware from '../middlewares/authMiddleware.js'
 import GroupController from '../controllers/groupController.js'
 import GroupValidations from '../middlewares/validations/group.js'
 import task from './task.js'
+import AuthValidation from '../middlewares/validations/auth.js'
+
 router.use('/task',task) //handles task routes
+
 
 
 //create group
@@ -38,6 +41,11 @@ router.get('/get-user-groups',[
     authMiddleware,
     GroupController.getGroups
 ]) 
+
+//invite member to group
+
+router.post('/invite-member',[authMiddleware,GroupValidations.invite,GroupController.inveteMember])
+router.post('/:groupName/join/:token',GroupController.acceptGroupInvitation)
 
 
 export default router

@@ -238,7 +238,7 @@ class UserController{
             }else{
                 res.status(200).send({
                     message:"password reset email sent",
-                    status:"success"
+                    success: true
                 })
             }
         }catch(error){
