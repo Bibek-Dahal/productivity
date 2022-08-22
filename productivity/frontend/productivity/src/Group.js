@@ -18,7 +18,7 @@ function Group() {
         // Set the channel name.
         channel: "test",
         // Pass your temp token here.
-        token: "007eJxTYBBqXqVVX62jK/dr46GSf7tKize3/3hgJty3Y07hEeFVB48rMJiYphknGZmYWRgaG5uYW5haGptaWpqlGBuZmScB5RJNjzAmbxVlTo44PYGRkQECQXwWhpLU4hIGBgB45CBE+f9gAAAAAEABiLYCE3zz7YgEAAQDfPPti/KwTumiBpRuPO3FOTUfjCwfB6s7ebM/uQ20aNHoU33SzpFpEAAAAAEABiLYCE+Dv7YgEAAQD4O/ti",
+        token: "007eJxTYFB5w7PzdqXC6cRNCgeXXLBT+fVsVrDeyltr7x+K9bj4+iOLAoOJaZpxkpGJmYWhsbGJuYWppbGppaVZirGRmXkSUC5Raz9z8ioB1uRFFxhZGBkgEMRnYShJLS5hYAAAxCUgyw==",
         // Set the user ID.
         uid: uid,
         
@@ -163,13 +163,13 @@ function Group() {
 
     const toggleAudio = async ()=>{
         //used for toggling video
-        console.log(localAudioTrack.isPlaying)
-        if(!localAudioTrack.isPlaying){
+        console.log(localAudioTrack.enabled)
+        if(!localAudioTrack.enabled){
 
-            await localAudioTrack.play()
+            await localAudioTrack.setEnabled(true)
             document.getElementById('toggle-audio').textContent = "mute"
         }else{
-            await localAudioTrack.stop()
+            await localAudioTrack.setEnabled(false)
             document.getElementById('toggle-audio').textContent = "trun on audio"
         }
     }
