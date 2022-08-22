@@ -76,6 +76,31 @@ io.on('connection',(socket)=>{
         console.log('remaining users',users)
     });
 
+    
+    socket.on('call',(data)=>{
+        //called when user makes a video call in gorup and notify to those use who are on the room
+        let info = {}
+        info.user = data.userName
+        info.message = `${data.userName} is calling`
+        socket.to('room1').emit('call',info)
+    })
+
+    socket.on('create-offer',(data)=>{
+        //called when user wants to make video call and sends offer to users listening to room
+        socket.to("room1").emit("add-offer",data)
+        console.log('offer created')
+    })
+
+    socket.on('add-answer',(answer)=>{
+        //emits an event to add answer to localStream
+        socket.to('room1').emit("add-answer-for-local",answer)
+    })
+
+    socket.on('ice-candidate-generated',(candidate)=>{
+        // console.log('ice candidate generated')
+        socket.to('room1').emit('ice-candidate-generated',candidate)
+    })
+
     socket.on('new-chat-message',async (data)=>{
         const {room,message,userId} = data
         try{
