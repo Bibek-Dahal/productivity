@@ -2,15 +2,15 @@ import jwt from "jsonwebtoken";
 
 const authMiddleware = async (req,res,next)=>{
     try{
-        if(req.headers.authorization.split(" ").length == 2){
+        if(req.headers.authorization.split(' ').length == 2){
 
             const [token_name,token] = req.headers.authorization.split(" ")
-            if(token_name === 'Bearer' && token){
-                
+
+            if(token_name.trim() === 'Bearer' && token){
                 try{
                     //verify jwt
                     const result = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-                    // console.log(result)
+                    console.log('found = ',result)
                     req.user_id = result.id
                     next()
                 }catch(error){
@@ -19,13 +19,12 @@ const authMiddleware = async (req,res,next)=>{
                         success:false
                     })
                 }
-            }
         }else{
             res.status(401).send({
                 message:"unauthorized",
                 success:false
             })
-        }
+        }}
     }catch(error){
         res.status(401).send({
             message:"unauthorized",
