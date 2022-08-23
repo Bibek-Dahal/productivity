@@ -63,9 +63,15 @@ class GroupValidation{
 
             members: Joi.
                 array().
-                items(Joi.string().trim()).
+                items(Joi.string()).
                 max(10).
                 required(),
+
+            description: Joi.
+                string().
+                trim().
+                max(100).
+                required()
         })
 
         showValidationsError(req,res,next,schema)
