@@ -63,12 +63,13 @@ class GroupController{
         update group
     */
    static update = async (req,res)=>{
+    const {name,members,description} = req.body
         try{
             console.log('inside try')
             const group = await Group.findOne({_id:req.params.groupId,user:req.user_id})
             if(group){
                 // group.updateOne()
-                const updated_group = await group.updateOne({$set:{name:req.body.name,members:req.body.members}},{new:true})
+                const updated_group = await group.updateOne({$set:{name:name,members:members,description:description}},{new:true})
                 res.status(200).send({
                     message:"update successfull",
                     success:true,

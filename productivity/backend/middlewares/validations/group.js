@@ -1,17 +1,10 @@
 import Joi from "joi"
 import showValidationsError from "../../utils/showValidationsError.js"
-
+import Group from "../../models/Group.js"
 class GroupValidation{
     static create = (req,res,next)=>{
         const schema = Joi.object({
             name: Joi.
-                string().
-                trim().
-                min(3).
-                max(30).
-                required(),
-            
-            title: Joi.
                 string().
                 trim().
                 min(3).
@@ -27,9 +20,8 @@ class GroupValidation{
             members: Joi.
                 array().
                 items(Joi.string().trim()).
-                max(10).
-                required(),
-            
+                max(10),
+                
             task: Joi.
                 array().
                 items(
@@ -71,9 +63,15 @@ class GroupValidation{
 
             members: Joi.
                 array().
-                items(Joi.string().trim()).
+                items(Joi.string()).
                 max(10).
                 required(),
+
+            description: Joi.
+                string().
+                trim().
+                max(100).
+                required()
         })
 
         showValidationsError(req,res,next,schema)
@@ -93,6 +91,54 @@ class GroupValidation{
         })
 
         showValidationsError(req,res,next,schema)
+    }
+
+    static groupExists = async (req,res,next)=>{
+        const schema = Joi.object({
+            name: Joi.
+                string().
+                trim().
+                min(3).
+                max(30).
+                required(),
+        })
+        
+        const { error, value } = schema.validate(req.body,{abortEarly:false,errors:{label:'key'},wrap: {label: false}});
+        
+    if(!error){
+
+        const name = req.body.name
+        const group = await Group.findOne({name:name})
+        if(!group){
+
+            res.status(200).send({
+                success: true
+            })
+
+        }else{
+            res.status(400).send({
+                success: false,
+                message: "group with groupname already exists"
+            })
+        }
+
+
+    }else{
+        const err = error.details
+
+        let validationErrors = {}
+        err.forEach((item) => {
+            validationErrors[item.context.key] = item.message
+        });
+        res.status(400).send(
+            {
+                errors:{...validationErrors},
+                success:false
+            }
+        ) 
+    }
+
+
     }
 }
 export default GroupValidation
