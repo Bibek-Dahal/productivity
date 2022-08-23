@@ -27,9 +27,8 @@ class GroupValidation{
             members: Joi.
                 array().
                 items(Joi.string().trim()).
-                max(10).
-                required(),
-            
+                max(10),
+                
             task: Joi.
                 array().
                 items(
