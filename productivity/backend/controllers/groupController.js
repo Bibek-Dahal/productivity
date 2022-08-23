@@ -8,7 +8,7 @@ class GroupController{
     /*
         creates a group
     */
-
+    
     static create = async (req,res)=>{
         const {name} = req.body
         try{

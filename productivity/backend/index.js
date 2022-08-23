@@ -24,7 +24,7 @@ const io = new Server({
 })
 
 // added by ashish
-import cors from 'cors';
+// import cors from 'cors';
 
 
 const app = express()
