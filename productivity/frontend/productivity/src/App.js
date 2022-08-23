@@ -1,7 +1,9 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  useNavigate,
+  Navigate
 } from 'react-router-dom';
 
 import {
@@ -24,10 +26,14 @@ import {
   ToastContainer
 } from 'react-toastify';
 
+
 import './App.css';
 import { RequiredAuth,Protected } from './utils/index';
 
 function App() {
+  
+  const navigate = useNavigate();
+
   return (
     <div>
       {
@@ -60,12 +66,12 @@ function App() {
                 <LogoutPage />
               </RequiredAuth>
             } />
-            <Route path = "/group/:name" element = {
+            <Route path = "/group/:id" element = {
               <RequiredAuth>
                 <GroupDashboardPage />
               </RequiredAuth>
             }>
-                <Route path = ""  element = {<GroupDashboard />} />
+              <Route path = ""  element = {<GroupDashboard />} />
             </Route>
           </Routes>
       }

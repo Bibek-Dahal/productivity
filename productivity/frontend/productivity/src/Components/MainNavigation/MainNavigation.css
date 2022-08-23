@@ -3,6 +3,7 @@
     flex-direction: column;
     gap:4em;
     /* height:100%; */
+    /* border:1px solid red; */
 }
 
 .mainnavigation .links{
@@ -12,7 +13,8 @@
 }
 
 .mainnavigation .links > a{
-    margin:.5em 0;
+    /* margin:.5em 0; */
+    padding:.8em 1em;
 }
 
 .mainnavigation a{
@@ -20,11 +22,14 @@
     gap:1em;
     align-items: center;
     text-transform: capitalize;
+    font-weight:600;
     color:var(--inactive-link);
 }
 
 .mainnavigation a.active{
-    color:var(--dark);
+    color:white;
+    background:var(--active);
+    border-radius:5px;
 }
 
 .mainnavigation .links a svg{

@@ -1,5 +1,5 @@
 .inputfield{
-    margin-bottom:1.5em;
+    margin-bottom:1em;
     position: relative;
 }
 
@@ -19,6 +19,7 @@
     position:absolute;
     top:50%;
     transform:translateY(-50%);
+    font-size:var(--fs-s);
     margin-left:1em;
     transform-origin:left;
     transition:transform 200ms ease-in-out,
@@ -26,7 +27,7 @@
 }
 
 .inputfield label svg{
-    font-size:var(--fs-xl);
+    font-size:var(--fs-l);
 }
 
 .inputfield input:focus{
@@ -45,7 +46,7 @@
 
 .inputfield input{
     padding:2em 1em .5em 1em;
-    font-size:var(--fs-xl);
+    font-size:var(--fs-s);
     width:100%;
     border:none;
     outline: none;

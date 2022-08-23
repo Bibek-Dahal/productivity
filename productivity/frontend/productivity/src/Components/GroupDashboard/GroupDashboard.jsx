@@ -1,4 +1,6 @@
-import React from 'react';
+import React,{
+    useState
+} from 'react';
 import './GroupDashboard.css';
 
 import {
@@ -6,14 +8,14 @@ import {
 } from 'react-router-dom';
 import { GroupDashboardNavigation } from '..';
 
-const GroupDashboard = () =>{
-  
-    const {name} = useParams();
+const GroupDashboard = ({}) =>{
+
+    const {id} = useParams();
 
     return(
         <div className = 'groupdashboard'>
             <h1 className="groupTitle">
-                {name}
+                group dashboard of {id}
             </h1>
         </div>
 

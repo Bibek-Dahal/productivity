@@ -32,16 +32,22 @@ const useAxios = () => {
     })
 
     console.log('inside useAxios',baseURL);
-    
-    
+        
     axiosInstance.interceptors.request.use(async req => {
-        const user = jwt_decode(token);
-        const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-
-        if(!isExpired) return req;
-
-        logoutUser();
-        navigate('/login');
+        if(token){
+            const user = jwt_decode(token);
+            const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+            
+            if(!isExpired) return req;
+            else{
+                logoutUser();
+            navigate('/login');
+            }
+            req.headers.Authorization = `Bearer ${token}`;
+            return req;
+        }
+        
+        return req;
     })
 
     return axiosInstance;

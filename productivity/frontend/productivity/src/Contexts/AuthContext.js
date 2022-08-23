@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
             setToken(res.data.token);
             localStorage.setItem('token',res.data.token);
             console.log(res)
-            // navigate(from);
+            navigate(from);
             toast.success(res.data.message);
         }catch(err){
             setLoading(0);

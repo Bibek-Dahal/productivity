@@ -2,7 +2,10 @@ import React,{
     useState
 } from 'react';
 import './GroupDashboarNavigation.css';
-import Logo from '../../svgs/logoSml.svg';
+
+import {
+    Logo
+} from '../index';
 
 import {
     Link,
@@ -13,9 +16,7 @@ import { Icon } from '@iconify/react';
 import Dropdown from '../Dropdown/Dropdown';
 
 
-const GroupDashboarNavigation = ({toggle}) =>{
-  
-    const [projects,setProjects] = useState(1);
+const GroupDashboarNavigation = ({tasks,toggle,groupId}) =>{
 
     const openProjectAddHandler = () => {
         toggle();
@@ -23,45 +24,93 @@ const GroupDashboarNavigation = ({toggle}) =>{
 
     return(
         <div className = 'groupdashboarnavigation mainnavigation'>
-            <div className="logo">
-                <img src={Logo} alt="" />
-            </div>
+            <Logo />
             <div className="links">
-                    <Dropdown 
-                        title = "Projects"
+
+                    <NavLink 
+                        to = {`/group/${groupId}/`}
+                        activeClassName = 'active'
                     >
-    {
-                                projects === 0 ?
-                                <span className="error">
-                                    No groups joined or created yet!
-                                </span>:
+                        <Icon icon = "akar-icons:home" />
+                        dashboard
+                    </NavLink>
+                    <div className="hr"></div>
+                    <Dropdown 
+                        title = "Tasks"
+                    >
+                { 
+                                // tasks.length === 0 ?
+                                // <span className="error">
+                                //     No task created yet!
+                                // </span>:
                                 <ul className="dropdown-items">
                                     <li>
                                         <Link 
                                             to = "/group/exam-preparation"
                                             title ="database management system"
                                         >
-                                            # Database Management System 
+                                            <span className='hashtag'>#</span> Database Management System 
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to = "/group/ux-design-learn">
-                                            # Differential math
+                                            <span className='hashtag'>#</span> Differential math
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to = "/group/react-fun-parts">
-                                            # Numerical methods
+                                            <span className='hashtag'>#</span> Numerical methods
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to = "/group/exam-preparation">
-                                            # Computer Networking
+                                            <span className='hashtag'>#</span> Computer Networking
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link 
+                                            to = "/group/exam-preparation"
+                                            title ="database management system"
+                                        >
+                                            <span className='hashtag'>#</span> Database Management System 
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to = "/group/ux-design-learn">
+                                            <span className='hashtag'>#</span> Differential math
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to = "/group/react-fun-parts">
+                                            <span className='hashtag'>#</span> Numerical methods
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to = "/group/exam-preparation">
-                                            # Microprocessor
+                                            <span className='hashtag'>#</span> Computer Networking
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link 
+                                            to = "/group/exam-preparation"
+                                            title ="database management system"
+                                        >
+                                            <span className='hashtag'>#</span> Database Management System 
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to = "/group/ux-design-learn">
+                                            <span className='hashtag'>#</span> Differential math
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to = "/group/react-fun-parts">
+                                            <span className='hashtag'>#</span> Numerical methods
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to = "/group/exam-preparation">
+                                            <span className='hashtag'>#</span> Computer Networking
                                         </Link>
                                     </li>
                                 </ul>

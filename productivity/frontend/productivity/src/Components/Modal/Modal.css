@@ -9,11 +9,11 @@
     padding:2em;
     transform-origin:center center;
     z-index:999;
-    overflow-y: scroll;
+    overflow: scroll;
 }
 
 .modal.visible{
-    animation:slide 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation:slide 400ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
 @keyframes slide {
@@ -21,13 +21,13 @@
         transform:translateX(100%)scale(.9);
     }
     100%{
-        transform:translateX(0)scale(1);
+        transform:translateX(0%)scale(1);
     }
 }
 
-.modal.visible ~ .modal-overlay{
+/* .modal.visible ~ .modal-overlay{
     display:block;
-}
+} */
 
 /* .modal .close-btn{
     position:fixed;
@@ -48,15 +48,10 @@
 
 @media only screen and (min-width : 900px){
     .modal{
-        position:fixed;
-        /* margin-top:40px; */
-        height:calc(100vh);
-        bottom:0;
-        top:unset;
-        z-index:999;
-        /* border-radius:20px 0 0 0; */
+        /* position:fixed;
+        margin-top:40px; */
+        border:1px solid red;
         padding:3em 2em 0;
-        z-index:999;
     }
 
     .modal.padding-dribble{

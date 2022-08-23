@@ -18,22 +18,27 @@ import {
 const GroupDashboardPage = () =>{
 
     const [showAddProject,setShowAddProject] = useState(false);
+    const [tasks,setTasks] = useState([]);
 
     function toggle(){
         setShowAddProject(prev => !prev);
     }
 
-    const {name} = useParams();
-    
+    const {id} = useParams();
+
     return(
         <div className = 'groupdashboardpage'>
             <div className="dashboardpage__container">
                 <Sidebarleft>
                     <GroupDashboardNavigation 
                         toggle = {toggle}
+                        tasks = {tasks}
+                        groupId = {id}
                     />
                 </Sidebarleft>
-                <Outlet />
+                <Outlet 
+                    groupId = {id}
+                />
                 <Sidebarright>
                     <GroupDashboardSidebar />
                 </Sidebarright>

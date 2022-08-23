@@ -2,8 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 body{
-
-    text-shadow: #fff 0px 1px 1px;
+    --black : #000;
     --green:#12b024;
     --blu:#3758A4;
     --dark-blue : #3A54AA;
@@ -16,16 +15,33 @@ body{
     --red :red;
     --sidebar-border:#E6EBED;
     --body-bg : #FEFEFF;
+    --dark-hover : #000;
+    
+    --dark-discord:#2E3036;
+    --light-discord:#37383F;
+
+    --active : var(--black);
+
+    /* --light-gray:#37383F;
+    --body-bg : #2E3036;
+    --sidebar-border:#2E3036;
+    --nav-line:#373B3E;
+    --thumb:#191a1d;
+    --discord-light:#7B7D84;
+    --active : #3C3F45; */
+
+    --body-bg:#ffff;
 
     --fs-s:.9rem;
     --fs-l:1rem;
-    --fs-xl:1rem;
+    --fs-xl:1.2rem;
     --fs-xxl:1.5rem;
     --fs-xxxl:2rem;
     --fs-largest:2rem;
 
     --nav-height:30px;
 
+    font-size:14px;
 
     background:var(--body-bg);
     /* font-family: 'Poppins', sans-serif; */
@@ -37,7 +53,7 @@ body{
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 /* ::-webkit-scrollbar-track {
@@ -45,13 +61,13 @@ body{
 } */
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(200, 200, 200);
+    background: var(--thumb);
     border-radius:5em;
 }
   
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: #555;
+    background: #555;
 }
 
 a.link{
@@ -104,6 +120,20 @@ a{
     position:relative;
 }
 
+.sidebar::-webkit-scrollbar-thumb{
+    display:none;
+}
+
+
+.sidebar:hover::-webkit-scrollbar-thumb{
+    display:block;
+}
+
+
+.sidebar:hover{
+    overflow-y:auto;
+}
+
 .sidebar .widthToggler{
     position:absolute;
     left:-2em;
@@ -114,9 +144,40 @@ li{
     list-style: none;
 }
 
+.slidertl{
+    animation : slidertl 300ms ease-in-out;
+}
+
+.slideltr{
+    animation : slideltr 300ms ease-in-out;
+}
+
+.hashtag{
+    margin-right:.5em;
+    font-size:var(--fs-xl);
+}
+
+@keyframes slidertl {
+    from{
+        transform:translateX(100%);
+    }
+    to{
+        transform:translateX(0%);
+    }
+}
+
+@keyframes slideltr {
+    from{
+        transform:translateX(-100%);
+    }
+    to{
+        transform:translateX(0%);
+    }
+}
+
+
 
 @media only screen and (min-width : 800px){
     body{
-        --fs-largest : 2.5rem;
     }
 }

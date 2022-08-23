@@ -21,6 +21,9 @@ import GroupDashboard from './GroupDashboard/GroupDashboard';
 import GroupDashboardNavigation from './GroupDashboarNavigation/GroupDashboarNavigation';
 import GroupDashboardSidebar from './GroupDashboardSidebar/GroupDashboardSidebar';
 import AddProject from './AddProject/AddProject';
+import InputField2 from './InputField2/InputField2';
+import Loader from './Loader/Loader';
+import Logo from './Logo/Logo';
 
 export{
     Appintro,
@@ -45,5 +48,8 @@ export{
     GroupDashboard,
     GroupDashboardNavigation,
     GroupDashboardSidebar,
-    AddProject
+    AddProject,
+    InputField2,
+    Loader,
+    Logo
 }

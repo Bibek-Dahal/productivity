@@ -1,6 +1,7 @@
 .personaldashboard{
     overflow-y:auto;
-    background:var(--light-gray);
+    /* background:var(--light-gray); */
+    background:var(--body-bg);
     padding:2em;
 }
 

@@ -1,5 +1,6 @@
 import React,{
-    useState
+    useState,
+    useEffect
 } from 'react';
 import './PersonalDashboardPage.css';
 
@@ -17,20 +18,46 @@ import {
     Outlet
 } from 'react-router-dom';
 
+import endpoints from '../../utils/endpoints';
+
+import {
+    useAxios
+} from '../../hooks/index';
+
 const PersonalDashboardPage = () =>{
 
-  const [showAddGroup,setShowAddGroup] = useState(false);
+    const [showAddGroup,setShowAddGroup] = useState(false);
 
-  function toggle(){
-    setShowAddGroup(prev => !prev);
-  }
+    const [groups,setGroups] = useState([]);
+
+    const axiosInstance = useAxios();
+
+    function toggle(){
+        setShowAddGroup(prev => !prev);
+    }
+
+    async function getGroups(){
+        try{
+            const res = await axiosInstance.get(endpoints.getGroups);
+            console.log(res);
+            setGroups(res.data.groups);
+        }catch(err){
+            console.log(err);
+        }
+    }   
+
+    useEffect(() => {
+        getGroups();
+    },[])
+
 
     return(
-        <div className = 'personaldashboardpage'>
+        <div className = 'personaldashboardpage bottomUp'>
             <div className="dashboardpage__container">
                 <Sidebarleft>
                     <MainNavigation 
                         toggle = {toggle}
+                        groups = {groups}
                     />
                 </Sidebarleft>
                 <Outlet />
@@ -43,7 +70,10 @@ const PersonalDashboardPage = () =>{
                 <Modal
                     className = "visible padding-dribble"
                 >
-                    <CreateGroup toggle = {toggle}/>
+                    <CreateGroup 
+                        toggle = {toggle}
+                        setGroups = {setGroups}
+                    />
                 </Modal>
             }
 

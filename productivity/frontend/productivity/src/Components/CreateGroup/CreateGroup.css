@@ -5,6 +5,13 @@
 .creategroup{
 }
 
+.creategroup form {
+}
+
+.slide{
+    animation : slide 400ms ease forwards;
+}
+
 .creategroup .form-steps{
     display:flex;
     align-items: center;
@@ -12,6 +19,10 @@
     gap:1.5em;
     color:rgb(100, 100, 100);
     font-size:var(--fs-xl);
+}
+
+.creategroup .loader{
+    display:flex;
 }
 
 .creategroup .form-steps p{
@@ -32,8 +43,6 @@
 
 
 .creategroup form{
-    /* border:1px solid red; */
-    /* margin-left:3em; */
     margin-top:7em;
 }
 
@@ -49,20 +58,17 @@
     margin-bottom:1.5em;
     font-size:var(--fs-xxl);
     font-weight:600;
-    /* border:1px solid red; */
     line-height:1.5;
 }
 
 .creategroup .form-field .input{
     position:relative;
     position:relative;
-    /* border:1px solid red; */
-    /* width:fit-content; */
     max-width:600px;
 }
 
-
-.creategroup .input input{
+.creategroup .input input,
+.creategroup .input textarea{
     border:none;
     border-bottom:2px solid rgb(125, 125, 125);
     outline: none;
@@ -76,13 +82,31 @@
 }
 
 .creategroup .input input:focus,
-.creategroup .input input.focus{
-    border-bottom:2px solid var(--dark-blue);
+.creategroup .input input.focus,
+.creategroup .input textarea:focus,
+.creategroup .input textarea.focus{
+    border-bottom:3px solid var(--dark-blue);
 }
 
 .creategroup .input input.focus + label{
     transform:translate(-0px,-34px)scale(.4);
 }
+
+
+.creategroup .input textarea.focus + label{
+    transform:translate(-0px,-200px)scale(.4);
+    
+}
+
+.creategroup .input textarea.focus,
+.creategroup .input textarea:focus{
+    height:200px;
+    border-left:1px solid gray;
+    border-top:1px solid gray;
+    border-right:1px solid gray;
+    padding:.5em;
+}
+
 
 .creategroup .spinner{
     font-size:var(--fs-xxl);
@@ -111,7 +135,7 @@
     padding:.5em 2em;
     font-size:var(--fs-xl);
     border:none;
-    background:var(--dark-blue);
+    background:var(--black);
     color: white;
     border-radius:5px;
     margin-top:4em;
@@ -119,14 +143,17 @@
 }
 
 .creategroup button.btn:hover{
-    background:#1e44c1;
+    background:rgb(67, 66, 66);
+}
+
+.creategroup textarea[name = "description"]{
+    font-size:var(--fs-l);
 }
 
 
 .creategroup button.btn:disabled{
     opacity:.5;
 }
-
 
 
 @media only screen and (min-width : 900px){
@@ -147,3 +174,4 @@
     .creategroup  button.btn{
     }
 }
+

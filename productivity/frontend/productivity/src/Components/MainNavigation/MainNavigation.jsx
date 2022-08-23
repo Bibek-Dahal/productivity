@@ -2,7 +2,6 @@ import React,{
     useState
 } from 'react';
 import './MainNavigation.css';
-import Logo from '../../svgs/logoSml.svg';
 
 import { 
     Link,
@@ -13,7 +12,8 @@ import { Icon } from '@iconify/react';
 import {
     Dropdown,
     Modal,
-    Button1
+    Button1,
+    Logo
 } from '../index';
 import { useEffect } from 'react';
 
@@ -23,37 +23,19 @@ import {
     useAxios 
 } from '../../hooks/index';
 
-const MainNavigation = ({toggle}) =>{
+const MainNavigation = ({toggle,groups}) =>{
 
     const axiosInstance = useAxios();
 
-    const [groups,setGroups] = useState([]);
     const [addGroup,setAddGroup] = useState(false);
 
     const openGroupAddHandler = () => {
         toggle();
     }
     
-    async function getGroups(){
-        try{
-            const res = await axiosInstance.get(endpoints.getGroups);
-            console.log(res);
-            setGroups(res.data.groups);
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-
-    useEffect(() => {
-        getGroups();
-    },[])
-
     return(
         <div className = 'mainnavigation'>
-            <div className="logo">
-                <img src={Logo} alt="" />
-            </div>
+            <Logo />
             <div className="links">
                 <NavLink 
                     to = "/dashboard"
@@ -79,7 +61,19 @@ const MainNavigation = ({toggle}) =>{
                                 No groups joined or created yet!
                             </span>:
                             <ul className="dropdown-items">
-                                <li>
+
+                                {
+                                    groups.map(group => (
+                                        <li>
+                                            <Link to = {`/group/${group._id}/`}>
+                                                <span className='hashtag'>
+                                                # </span>{group.name}
+                                            </Link>
+                                        </li>
+                                    ))
+                                }
+
+                                {/* <li>
                                     <Link to = "/group/exam-preparation">
                                         # Exam preparation
                                     </Link>
@@ -98,8 +92,7 @@ const MainNavigation = ({toggle}) =>{
                                     <Link to = "/group/exam-preparation">
                                         # Exam preparation
                                     </Link>
-                                </li>
-                               
+                                </li> */}
                             </ul>
                         }
                         <div 

@@ -1,0 +1,56 @@
+.loader{
+    position:fixed;
+    left:0;
+    top:0;
+    height:100vh;
+    width:100vw;
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+    justify-content: center;
+    align-items: center;
+    animation:scaleUp 200ms ease-in-out;
+    background:rgba(255, 255, 255, 0.631);
+    color:blue;
+}
+
+.loader svg{
+    animation:spin 1.5s linear infinite;
+}
+
+
+.bottomUp{
+    animation:bottomUp 500ms linear forwards;
+}
+
+@keyframes bottomUp {
+    from{
+        transform:translateY(20%);
+    }
+    to{
+        transform:translateY(0%);
+    }
+}
+
+
+@keyframes spin {
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+@keyframes scaleUp {
+    from{
+        opacity:0;
+        transform:translateX(20%);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+
+
+

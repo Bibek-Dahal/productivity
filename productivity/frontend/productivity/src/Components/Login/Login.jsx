@@ -39,48 +39,12 @@ const Login = () =>{
     const location = useLocation();
     const navigate = useNavigate();
 
-    const from = location.state?.from.pathname || "/";
+    const from = location.state?.from.pathname || "/dashboard";
 
     const formHandler = (e) => {
         e.preventDefault();
         console.log('login form handler')
-        // try{
-            // setLoading(1);
-            loginUser(formData,setLoading,setError,setErrors,from)
-            // const res = await axios.post(endpoints.login,formData);
-            // console.log(res);
-            // setUser(prev => {
-            //     return{
-            //         user : decodeToken(res.data.token),
-            //         token : res.data.token
-            //     }
-            // });
-            // setLoading(0);
-            // localStorage.setItem('user',JSON.stringify(decodeToken(res.data.token)));
-            // localStorage.setItem('token',res.data.token);
-            // console.log(localStorage.getItem('user'));
-            // toast.success(res?.data?.message);
-            
-            // navigate(from);
-        // }catch(err){
-        //     setLoading(0);
-        //     const errStatus = err.response?.status;
-        //     console.log('error = ',err)
-        //     if(errStatus == 400){
-        //         const errs = err.response.data.errors;
-        //         setErrors(prev => errs);
-        //         Object.values(errs).forEach(err => toast.error(err));
-        //     }else{
-        //         setError(prev => err.response?.data.message);
-        //         toast.error(err.response?.data.message);
-        //         setErrors(prev => {
-        //             return{
-        //                 email : "wrong",
-        //                 password : "wrong"
-        //             }
-        //         })
-        //     }
-        // }
+        loginUser(formData,setLoading,setError,setErrors,from)
     }
 
     const handleChange = (e) => {
@@ -100,9 +64,9 @@ const Login = () =>{
 
  return(
     <div className ="authform login">
-        <div className="logo">
+        {/* <div className="logo">
             <img src={Logo} alt="" />
-        </div>
+        </div> */}
         <div className="top-part">
             <h1>
                 Login

@@ -10,8 +10,6 @@ import {
 } from '../index';
 
 const PersonalDashboard = () =>{
-  
-
 
   return(
       <div className = 'personaldashboard nav-padding'>

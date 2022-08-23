@@ -16,9 +16,11 @@ import {
 import Logo from '../../svgs/logoSml.svg';
 
 import endpoints from '../../utils/endpoints';
-import axios from '../../utils/axios';
+// import axios from '../../utils/axios';
 
-
+import {
+    useAxios 
+} from '../../hooks/index';
 
 import {
     toast
@@ -29,6 +31,8 @@ const Register = () =>{
     const [currentPart,setCurrentPart] = useState(1);
     const [formData,setFormData] = useState({});
     const [errors,setErrors] = useState({});
+
+    const axiosInstance = useAxios();
 
     const navigate = useNavigate();
 
@@ -47,14 +51,15 @@ const Register = () =>{
         console.log('form submitted',formData);
         setLoading(1);
         try{
-            const res = await axios.post(endpoints.register,formData);
+            const res = await axiosInstance.post(endpoints.register,formData);
             setLoading(0);
             console.log(res);
             toast.success(res?.data.message)
             navigate('/login');
         }catch(err){
-            console.log('error occured',err.response.data.errors);
-            const errs = err.response.data.errors;
+            // console.log(err);
+            console.log('error occured',err.response?.data.errors);
+            const errs = err.response?.data.errors;
             setErrors(errors => errs); 
             setLoading(0);
             Object.values(errs).forEach(err => {
@@ -79,9 +84,9 @@ const Register = () =>{
     
     return(
         <div className ='authform register'>
-            <div className="logo">
+            {/* <div className="logo">
                 <img src={Logo} alt="" />
-            </div>
+            </div> */}
             <div className="top-part">
                 {/* <p>
                     <span className="back-btn">
@@ -93,7 +98,7 @@ const Register = () =>{
                     </span>
                 </p> */}
                 <h1>
-                    Register
+                    Create new account
                 </h1>
                 
             </div>
