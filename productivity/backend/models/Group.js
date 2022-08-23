@@ -14,6 +14,11 @@ const groupSchema = mongoose.Schema({
         maxLength: 30,
         minLength: 3
     },
+    "description": {
+        type: String,
+        required: true,
+        trim: true
+    },
     "members":[
         {type:mongoose.Schema.Types.ObjectId,ref: 'User'}
     ],

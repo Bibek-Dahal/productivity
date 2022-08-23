@@ -48,5 +48,9 @@ router.post('/invite-member',[authMiddleware,GroupValidations.invite,GroupContro
 router.post('/:groupName/join/:token',GroupController.acceptGroupInvitation)
 
 
+//check if group exists
+
+router.post('/group-exists',GroupValidations.groupExists)
+
 export default router
 
