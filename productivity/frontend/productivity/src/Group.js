@@ -18,7 +18,7 @@ function Group() {
         // Set the channel name.
         channel: "test",
         // Pass your temp token here.
-        token: "007eJxTYFB5w7PzdqXC6cRNCgeXXLBT+fVsVrDeyltr7x+K9bj4+iOLAoOJaZpxkpGJmYWhsbGJuYWppbGppaVZirGRmXkSUC5Raz9z8ioB1uRFFxhZGBkgEMRnYShJLS5hYAAAxCUgyw==",
+        token: "007eJxTYLicwXtbN8Pzzul5GfJvzR/nfLjOX1X56Nvb++0ezWpLe0oUGExM04yTjEzMLAyNjU3MLUwtjU0tLc1SjI3MzJOAconcDazJXRfZkrkvuLMyMkAgiM/CUJJaXMLAAAC+syEt",
         // Set the user ID.
         uid: uid,
         
