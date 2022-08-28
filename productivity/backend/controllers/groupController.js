@@ -118,7 +118,7 @@ class GroupController{
     static getGroups = async (req,res,next)=>{
         try{
             console.log(req.user_id)
-            const groups = await Group.find({user:req.user_id})
+            const groups = await Group.find({$or:[{user:req.user_id},{members:req.user_id}]})
             // console.log(user.populated('groups'))
             // console.log(groups)
             res.status(200).send({
