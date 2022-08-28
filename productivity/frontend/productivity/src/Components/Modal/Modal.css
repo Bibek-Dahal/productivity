@@ -48,10 +48,12 @@
 
 @media only screen and (min-width : 900px){
     .modal{
-        /* position:fixed;
-        margin-top:40px; */
-        border:1px solid red;
+        position:fixed;
+        /* border:1px solid red; */
         padding:3em 2em 0;
+        width:70vw;
+        right:0;
+        left:unset;
     }
 
     .modal.padding-dribble{

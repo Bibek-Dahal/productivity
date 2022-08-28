@@ -1,8 +1,7 @@
 .personaldashboard{
-    overflow-y:auto;
-    /* background:var(--light-gray); */
     background:var(--body-bg);
     padding:2em;
+    overflow-y:scroll;
 }
 
 .personaldashboard h1{
@@ -13,10 +12,10 @@
 }
 
 .personaldashboard::-webkit-scrollbar-track {
-    /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);2 */
+    /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
 }
 
 .personaldashboard::-webkit-scrollbar-thumb {
-    background-color: rgb(216, 216, 216);
+    /* background-color: rgb(216, 216, 216); */
     border-radius:5em;
 }

@@ -12,7 +12,9 @@ import {
   PersonalDashboardPage,
   RegisterPage,
   GroupDashboardPage,
-  LogoutPage
+  LogoutPage,
+  AcceptGroupInvitePage,
+  VerifyTokenPage
 } from './Pages/index';
 
 import {
@@ -26,6 +28,8 @@ import {
   ToastContainer
 } from 'react-toastify';
 
+import Tooltip from 'rc-tooltip';
+
 
 import './App.css';
 import { RequiredAuth,Protected } from './utils/index';
@@ -35,7 +39,7 @@ function App() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div id = "app">
       {
           <Routes>
             <Route path = "/" element = {<HomePage />} />
@@ -73,11 +77,14 @@ function App() {
             }>
               <Route path = ""  element = {<GroupDashboard />} />
             </Route>
+            <Route path = "/accept-group-invite/:group_name/:accept_token" element = {<AcceptGroupInvitePage />}/>
+            <Route path = "/verify-token/:user_id/:token" element = {<VerifyTokenPage />} />
           </Routes>
       }
       <ToastContainer 
         autoClose = {5000}
       />
+      
     </div>
   );
 }

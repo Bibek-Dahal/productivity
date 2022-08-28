@@ -1,0 +1,23 @@
+.dropdownskeleton ul{
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+}
+
+.dropdownskeleton ul li{
+    height:40px;
+    background:rgb(235, 235, 235);
+    border-radius:5px;
+    animation:skeleton 1s infinite linear;
+}
+
+
+@keyframes skeleton {
+    0%,100%{
+        background:rgb(200, 200, 200);
+    }
+    50%{
+        background:rgb(218, 218, 218);
+    }
+    
+}

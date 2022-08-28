@@ -1,21 +1,30 @@
 import React,{
-    useState
+    useState,
+    useContext,
+    useEffect
 } from 'react';
 import './GroupDashboard.css';
 
 import {
-    useParams
+    useParams,
+    useOutletContext
 } from 'react-router-dom';
 import { GroupDashboardNavigation } from '..';
 
-const GroupDashboard = ({}) =>{
+const GroupDashboard = () =>{
 
-    const {id} = useParams();
+    const {groupId,group} = useOutletContext();
+
+    // useEffect(() => {
+    //     console.log('rendere GroupDashboard')
+    // }, [groupId])
+
+    console.log('groupdetails = ',group)
 
     return(
         <div className = 'groupdashboard'>
             <h1 className="groupTitle">
-                group dashboard of {id}
+                {group.name}
             </h1>
         </div>
 

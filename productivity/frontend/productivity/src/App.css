@@ -20,6 +20,8 @@ body{
     --dark-discord:#2E3036;
     --light-discord:#37383F;
 
+    --thumb:rgb(147, 147, 147);
+
     --active : var(--black);
 
     /* --light-gray:#37383F;
@@ -29,6 +31,7 @@ body{
     --thumb:#191a1d;
     --discord-light:#7B7D84;
     --active : #3C3F45; */
+
 
     --body-bg:#ffff;
 
@@ -47,13 +50,12 @@ body{
     /* font-family: 'Poppins', sans-serif; */
     /* font-family: 'Open Sans', sans-serif; */
     font-family: 'Inter', sans-serif;
-
     overflow:auto;
     overflow-x:hidden;
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 /* ::-webkit-scrollbar-track {
@@ -97,6 +99,12 @@ a{
     animation:spin 600ms linear infinite;
 }
 
+/* #app{
+    border:3px solid red;
+    overflow:hidden;
+    height:100vh;
+} */
+
 @keyframes spin {
     from{
         transform:rotate(0deg);
@@ -116,28 +124,26 @@ a{
 .sidebar{
     /* padding-left:2em;
     padding-right:2em; */
-    /* overflow-y:Scroll; */
     position:relative;
+    overflow-y: auto;
 }
 
 .sidebar::-webkit-scrollbar-thumb{
     display:none;
 }
 
-
 .sidebar:hover::-webkit-scrollbar-thumb{
     display:block;
 }
-
 
 .sidebar:hover{
     overflow-y:auto;
 }
 
 .sidebar .widthToggler{
-    position:absolute;
+    /* position:absolute;
     left:-2em;
-    top:2.5em;
+    top:2.5em; */
 }
 
 li{

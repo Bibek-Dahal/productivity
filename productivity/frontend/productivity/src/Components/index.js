@@ -24,6 +24,8 @@ import AddProject from './AddProject/AddProject';
 import InputField2 from './InputField2/InputField2';
 import Loader from './Loader/Loader';
 import Logo from './Logo/Logo';
+import AcceptGroupInvite from './AcceptGroupInvite/AcceptGroupInvite';
+import VerifyToken from './VerifyToken/VerifyToken';
 
 export{
     Appintro,
@@ -51,5 +53,7 @@ export{
     AddProject,
     InputField2,
     Loader,
-    Logo
+    Logo,
+    AcceptGroupInvite,
+    VerifyToken
 }

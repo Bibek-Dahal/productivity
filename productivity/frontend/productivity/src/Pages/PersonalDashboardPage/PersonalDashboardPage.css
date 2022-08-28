@@ -1,14 +1,12 @@
 .dashboardpage__container{
     display:grid;
     grid-template-columns:300px minmax(500px,2fr) 350px;
-    /* background:pink; */
     height:100vh;
     position:fixed;
     width:100%;
 }
 
 .dashboardpage__container >*{
-    /* border:1px solid red; */
     padding : 0 1.5em;
     padding-top:2em;
 }

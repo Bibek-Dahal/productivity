@@ -29,6 +29,7 @@ const PersonalDashboardPage = () =>{
     const [showAddGroup,setShowAddGroup] = useState(false);
 
     const [groups,setGroups] = useState([]);
+    const [groupLoading,setGroupLoading] = useState(true);
 
     const axiosInstance = useAxios();
 
@@ -38,10 +39,13 @@ const PersonalDashboardPage = () =>{
 
     async function getGroups(){
         try{
+            console.log('gettingGroups = ',endpoints.getGroups)
             const res = await axiosInstance.get(endpoints.getGroups);
+            setGroupLoading(false)
             console.log(res);
-            setGroups(res.data.groups);
+            setGroups(prev => res.data.groups);
         }catch(err){
+            setGroupLoading(false)
             console.log(err);
         }
     }   
@@ -58,6 +62,7 @@ const PersonalDashboardPage = () =>{
                     <MainNavigation 
                         toggle = {toggle}
                         groups = {groups}
+                        groupLoading = {groupLoading}
                     />
                 </Sidebarleft>
                 <Outlet />

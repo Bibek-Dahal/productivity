@@ -103,11 +103,29 @@ const CreateGroup = ({toggle,setGroups}) =>{
     const submitForm = async (e) => {
         e.preventDefault();
         setSubmitting(1);
-        console.log('submitting ',formData.name)
-        setTimeout(() => {
+        console.log('submitting ',formData)
+        // setTimeout(() => {
+        //     setSubmitting(0);
+        //     toggle();
+        // },[5000])
+        try{
+            const res = await axiosInstance.post(endpoints.createGroup,formData);
+            console.log(res);
             setSubmitting(0);
+            toast.success(res.data.message);
+            setGroups(prev => {
+                return[
+                    ...prev,
+                    res.data?.group
+                ]
+            })
             toggle();
-        },[5000])
+        }catch(err){
+            setSubmitting(0);
+            console.log('error occured',err);
+            toast.error(err.response?.data.message)
+            toast.error(err.response?.data.errors?.name)
+        }
         // formData.title = formData.name;
         // formData.description = formData.name;
         // formData.members = [user.id]
@@ -129,8 +147,6 @@ const CreateGroup = ({toggle,setGroups}) =>{
         //     toast.error(err.response?.data.errors?.name)
         // }
     }
-
-    console.log(formData)
 
     return(
         

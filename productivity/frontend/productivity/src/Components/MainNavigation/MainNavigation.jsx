@@ -13,17 +13,19 @@ import {
     Dropdown,
     Modal,
     Button1,
-    Logo
+    Logo,
+    Tooltip
 } from '../index';
 import { useEffect } from 'react';
 
-// import axios from '../../utils/axios';
 import endpoints from '../../utils/endpoints';
 import {
     useAxios 
 } from '../../hooks/index';
+import DropdownSkeleton from '../../Skeletons/DropdownSkeleton/DropdownSkeleton';
 
-const MainNavigation = ({toggle,groups}) =>{
+
+const MainNavigation = ({toggle,groups,groupLoading}) =>{
 
     const axiosInstance = useAxios();
 
@@ -32,7 +34,17 @@ const MainNavigation = ({toggle,groups}) =>{
     const openGroupAddHandler = () => {
         toggle();
     }
-    
+
+    // const showCustomContext = (e) => {
+    //     e.preventDefault();
+    //     console.log(e.target);
+    //     console.log(e.target.getAttribute('group_id'))
+    // }
+
+    const deleteGroup = (e) => {
+
+    }
+
     return(
         <div className = 'mainnavigation'>
             <Logo />
@@ -55,54 +67,60 @@ const MainNavigation = ({toggle,groups}) =>{
                     <Dropdown
                         title = "Groups"
                     >
-                        {
-                            groups.length === 0 ?
-                            <span className="error">
-                                No groups joined or created yet!
-                            </span>:
-                            <ul className="dropdown-items">
-
-                                {
-                                    groups.map(group => (
-                                        <li>
-                                            <Link to = {`/group/${group._id}/`}>
-                                                <span className='hashtag'>
-                                                # </span>{group.name}
-                                            </Link>
-                                        </li>
-                                    ))
-                                }
-
-                                {/* <li>
-                                    <Link to = "/group/exam-preparation">
-                                        # Exam preparation
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to = "/group/ux-design-learn">
-                                        # UX design learn
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to = "/group/react-fun-parts">
-                                        # React fun parts
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to = "/group/exam-preparation">
-                                        # Exam preparation
-                                    </Link>
-                                </li> */}
-                            </ul>
+                        {   
+                            groupLoading ?
+                            <DropdownSkeleton />:
+                            <>
+                            {
+                                groups.length === 0 ?
+                                <span className="error">
+                                    No groups joined or created yet!
+                                </span>:
+                                <ul className="dropdown-items">
+                                    {
+                                        groups.map(group => (
+                                            <li 
+                                                // onContextMenu={showCustomContext}
+                                            >
+                                                <Link 
+                                                    to = {`/group/${group._id}/`}
+                                                >
+                                                    <span className='hashtag'>
+                                                    # </span>
+                                                    <p className='text'>
+                                                        {group.name}
+                                                    </p>
+                                                   <Tooltip
+                                                        text = "delete group"                                                   
+                                                        className='cross'
+                                                   >
+                                                    <span 
+                                                            onClick = {deleteGroup}
+                                                            group_id = {group._id}
+                                                        >
+                                                            <Icon  icon = "maki:cross" />
+                                                        </span>
+                                                   </Tooltip>
+                                                </Link>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            }
+                            </>
                         }
-                        <div 
+                        <Tooltip 
+                            text = "create group"
                             className="add-group"
-                            onClick = {openGroupAddHandler}
                         >
-                            <Icon 
-                                icon = "akar-icons:circle-plus-fill"
-                            />
+                            <div 
+                                onClick = {openGroupAddHandler}
+                            >
+                                <Icon 
+                                    icon = "akar-icons:circle-plus-fill"
+                                />
                         </div>
+                        </Tooltip>
                     </Dropdown>
                 <div className="hr"></div>
             </div>

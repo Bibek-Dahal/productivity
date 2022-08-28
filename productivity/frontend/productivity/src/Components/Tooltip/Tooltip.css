@@ -1,6 +1,10 @@
 .tooltip{
-    border:1px solid red;
     position:relative;
+}
+
+
+
+.tooltip-container{
 }
 
 .tooltip__trigger{
@@ -8,9 +12,43 @@
 }
 
 .tooltip__content{
-    position:absolute;
+    /* position:absolute;
     white-space:nowrap;
     top:-1em;
     right:-1em;
-    z-index:999;
+    z-index:999; */
+    display:none;
+    background:rgba(0,0,0,1);
+    padding:.5em 1em;
+    position:fixed;
+    border-radius:5px ;
+    color:white;
+    position:fixed;
 }
+
+.tooltip__content:before{
+    content:"";
+    position:absolute;
+    height:10px;
+    width:10px;
+    background:rgba(0,0,0,1);
+    bottom:-5px;
+    transform:translateX(-50%)rotate(45deg);
+    left:50%;
+}
+
+.tooltip__content.visible{
+    display:block;
+}
+
+@keyframes tooltip {
+    0%{
+        display:block;
+        opacity:0;
+    }
+
+    100%{
+        opacity:1;
+    }
+}
+

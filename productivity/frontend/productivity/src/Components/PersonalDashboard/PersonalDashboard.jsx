@@ -9,6 +9,8 @@ import {
     Modal
 } from '../index';
 
+import Tooltip from 'rc-tooltip'
+
 const PersonalDashboard = () =>{
 
   return(

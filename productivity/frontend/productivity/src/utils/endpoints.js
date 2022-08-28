@@ -5,7 +5,8 @@ const endpoints = {
     register : '/api/register',
     login : '/api/login',
     getGroups : '/api/group/get-user-groups',
-    createGroup : '/api/group/create'
+    createGroup : '/api/group/create',
+    getGroupDetail : '/api/group'
 }
 
 export default endpoints;

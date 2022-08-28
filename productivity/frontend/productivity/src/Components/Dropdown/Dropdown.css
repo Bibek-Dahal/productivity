@@ -48,10 +48,31 @@
     text-transform: capitalize;
     color:var(--inactive-link);
     white-space: nowrap;
-    display:block;
+    display:flex;
     overflow:hidden;
     text-overflow: ellipsis;
     gap:.5em;
+    border-radius: 5px;
+}
+
+.dropdown .dropdown-items li a p.text{
+    max-width:170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown .dropdown-items li a:hover .cross{
+    display:block;
+}
+
+.dropdown .dropdown-items li a .cross{
+    margin-left:auto;
+    display: none;
+}
+
+.dropdown .dropdown-items li a .cross svg{
+    font-size:var(--fs-xs);
+    pointer-events: none;
 }
 
 .dropdown span.error{
@@ -68,7 +89,9 @@
 .dropdown .dropdown-items a:hover{
     /* color:var(--dark);
     text-decoration:underline; */
-    color:rgb(0, 0, 0);
+    /* color:rgb(0, 0, 0);
     background:#9d9d9d;
-    border-radius:5px;
+    border-radius:5px; */
+    background:var(--light-gray);
+    color:var(--black);
 }

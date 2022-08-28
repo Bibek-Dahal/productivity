@@ -4,7 +4,8 @@ import React,{
 import './GroupDashboarNavigation.css';
 
 import {
-    Logo
+    Logo,
+    Tooltip
 } from '../index';
 
 import {
@@ -38,92 +39,39 @@ const GroupDashboarNavigation = ({tasks,toggle,groupId}) =>{
                     <Dropdown 
                         title = "Tasks"
                     >
-                { 
-                                // tasks.length === 0 ?
-                                // <span className="error">
-                                //     No task created yet!
-                                // </span>:
-                                <ul className="dropdown-items">
-                                    <li>
-                                        <Link 
-                                            to = "/group/exam-preparation"
-                                            title ="database management system"
-                                        >
-                                            <span className='hashtag'>#</span> Database Management System 
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/ux-design-learn">
-                                            <span className='hashtag'>#</span> Differential math
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/react-fun-parts">
-                                            <span className='hashtag'>#</span> Numerical methods
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/exam-preparation">
-                                            <span className='hashtag'>#</span> Computer Networking
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link 
-                                            to = "/group/exam-preparation"
-                                            title ="database management system"
-                                        >
-                                            <span className='hashtag'>#</span> Database Management System 
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/ux-design-learn">
-                                            <span className='hashtag'>#</span> Differential math
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/react-fun-parts">
-                                            <span className='hashtag'>#</span> Numerical methods
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/exam-preparation">
-                                            <span className='hashtag'>#</span> Computer Networking
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link 
-                                            to = "/group/exam-preparation"
-                                            title ="database management system"
-                                        >
-                                            <span className='hashtag'>#</span> Database Management System 
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/ux-design-learn">
-                                            <span className='hashtag'>#</span> Differential math
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/react-fun-parts">
-                                            <span className='hashtag'>#</span> Numerical methods
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to = "/group/exam-preparation">
-                                            <span className='hashtag'>#</span> Computer Networking
-                                        </Link>
-                                    </li>
-                                </ul>
-                            }
+                        { 
+                            // tasks.length === 0 ?
+                            // <span className="error">
+                            //     No task created yet!
+                            // </span>:
+                            <ul className="dropdown-items">
+                                <li>
+                                    <Link 
+                                        to = "/group/exam-preparation"
+                                        title ="database management system"
+                                    >
+                                        <span className='hashtag'>
+                                                # </span>
+                                        <p className='text'>
+                                            Database management system
+                                        </p>
+                                    </Link>
+                                </li>
+                            </ul>
+                        }
+                        <Tooltip
+                            className = "add-group"
+                            text = "add task"
+                        >
                             <div 
-                                className="add-group"
                                 onClick = {openProjectAddHandler}
                             >
                                 <Icon 
                                     icon = "akar-icons:circle-plus-fill"
                                 />
                             </div>
-                        </Dropdown>
+                        </Tooltip>
+                    </Dropdown>
                     <div className="hr"></div>
             </div>
         </div>
