@@ -10,7 +10,7 @@ const displayValidationError = (err)=>{
 }
 
 const displayMongooseValidationError = (req,res,error)=>{
-    console.log('hello i am called')
+    // console.log('hello i am called')
     let err = {
         errors:{},
         status:"failed",

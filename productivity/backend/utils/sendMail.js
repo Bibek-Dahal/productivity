@@ -44,28 +44,43 @@ const sendMail = async (user,subject,extra=null)=>{
         const bodyTitle = "You are invited to join a group"
         const bodyDescription = `Please click on the link below so that you can be a member of ${extra.group.name}`
         const PORT = process.env.PORT || 8000
-        const encodedUserId = encoder.encode(new TextEncoder().encode(user._id))
-        const encodedGroupName = encoder.encode(new TextEncoder().encode(extra.group.name)) 
-        const token = await jwt.sign(
-          {
-            id: user._id
-          }, process.env.JWT_SECRET_KEY, { expiresIn: 5*24*60*60 }
-          );
-        link = `http:127.0.0.1:${PORT}/api/group/${encodedGroupName}/join/${token}`
-        html = await ejs.renderFile(path,{title:subject,link:link,button:"Join",bodyTitle:bodyTitle,bodyDescription:bodyDescription,user:user})
+
+        
+        user.forEach(async (user)=> {
+          const encodedUserId = encoder.encode(new TextEncoder().encode(user._id))
+          const encodedGroupName = encoder.encode(new TextEncoder().encode(extra.group.name)) 
+          const token = await jwt.sign(
+            {
+              id: user._id
+            }, process.env.JWT_SECRET_KEY, { expiresIn: 5*24*60*60 }
+            );
+            link = `http:127.0.0.1:${PORT}/api/group/${encodedGroupName}/join/${token}`
+            html = await ejs.renderFile(path,{title:subject,link:link,button:"Join",bodyTitle:bodyTitle,bodyDescription:bodyDescription,user:user})
+        
+        
+          let info = await transporter.sendMail({
+            to: user.email, // list of receivers
+            // to: "bibekdahal479@gmail.com",
+            subject: subject, // Subject line
+            html: html
+          });
+  
+          console.log(info.messageId)
+        });
+      }
+
+      if(subject !== "Group Invitation Email"){
+        let info = await transporter.sendMail({
+          to: user.email, // list of receivers
+          // to: "bibekdahal479@gmail.com",
+          subject: subject, // Subject line
+          html: html
+        });
+
+        console.log(info.messageId)
       }
 
 
-
-      let info = await transporter.sendMail({
-        to: user.email, // list of receivers
-        // to: "bibekdahal479@gmail.com",
-        subject: subject, // Subject line
-        html: html
-      });
-
-
-      console.log(info.messageId)
 }
 
 export default sendMail

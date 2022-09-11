@@ -137,12 +137,15 @@ class GroupController{
     static inveteMember = async (req,res)=>{
         const {email,group_name} = req.body
         try{
-            const user = await User.findOne({email:req.body.email})
+            console.log(email)
+            const users = await User.find({email:{$in:email}},{_id:1,email:1})
+            console.log(users)
+            const user = await User.findOne({email:req.body.email[0]})
             if(user){
                 //check if group exists and invitor is owner of group
                 const group = await Group.findOne({group:group_name,user:req.user_id})
                 if(group){
-                    await sendMail(user,"Group Invitation Email",{group: group})
+                    await sendMail(users,"Group Invitation Email",{group: group})
                     res.status(200).send({
                         message:"invitation send",
                         success: true

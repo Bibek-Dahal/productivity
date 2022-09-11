@@ -81,10 +81,10 @@ class GroupValidation{
     static invite = (req,res,next)=>{
         const schema = Joi.object({
             email: Joi.
-                string().
-                trim().
-                email().
+                array().
+                items(Joi.string().email()).
                 required(),
+                
             group_name: Joi.
                 string().
                 required()
