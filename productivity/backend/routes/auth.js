@@ -38,12 +38,16 @@ router.put('/password-change',[
 // verify user
 router.post('/user/:userId/verify/:token',UserController.verifyUser)
 
-//resend user password verification email
+//resend user verification email
 router.post('/register/resend-email',[
     AuthValidation.passwordResetEmail,
     UserController.resendVerificationMail
 ])
 
-//resend user verification email
+//find user by email
+router.post('/find-user-by-email',[
+    AuthValidation.passwordResetEmail,
+    UserController.findUserByEmail
+])
 
 export default router

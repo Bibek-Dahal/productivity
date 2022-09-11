@@ -60,7 +60,7 @@ class UserController{
              if(result && user){
                 
                 await user.save()
-                res.redirect('/login')
+                res.redirect('http://127.0.0.1:3000/login')
 
              }else{
                 res.status(400).send({
@@ -304,6 +304,28 @@ class UserController{
         displayMongooseValidationError(req,res,error)
     }
 
+   }
+
+   static findUserByEmail = async (req,res)=>{
+    try{
+        const user = await User.findOne({email:req.body.email},{email:1})
+        if(user){
+            res.status(200).send({
+                user: user,
+                success: true
+            })
+        }else{
+            res.status(404).send({
+                message: "user not found",
+                success: false
+            })
+        }
+    }catch(error){
+        res.status(500).send({
+            message: "something went wrong"
+        })
+    }
+    
    }
 }
 

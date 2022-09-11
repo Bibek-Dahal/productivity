@@ -1,6 +1,28 @@
 import Joi from "joi"
+import User from "../../models/User.js";
 import showValidationsError from "../../utils/showValidationsError.js"
 const pswdPtrn = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$/;
+
+
+const userLookup = async (email,helpers)=>{
+    let user;
+    try{
+        console.log('inside userlookup')
+        // user = await User.findOne({email:email})
+        if(email==="bibekdahal47@gmail.com"){
+            // console.log(helpers)
+            console.log('email already exists')
+            throw new Error('sorry babe');
+        }
+        console.log('hello babs')
+        return email
+        
+    }catch(error){
+        console.log(error)
+    }
+    
+  
+}
 
 class AuthValidation{
     /*
@@ -16,12 +38,17 @@ class AuthValidation{
                     min(3).
                     max(50).
                     required(),
+                    
     
                 email: Joi.
                     string().
                     trim().
                     email().
-                    required(),
+                    required().
+                    custom(userLookup,"custom validation").
+                    messages({
+                        'any.custom':'email already exists'
+                    }),
             
                 password: Joi.
                     string().
@@ -42,9 +69,9 @@ class AuthValidation{
                     }),
 
                 skills:Joi.
-                array().
-                items(Joi.string().trim()).
-                max(15)
+                    array().
+                    items(Joi.string().trim()).
+                    max(15)
 
             })
     
