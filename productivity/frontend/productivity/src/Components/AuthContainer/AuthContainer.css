@@ -1,26 +1,34 @@
 .authcontainer{
-    display:grid;
     height:100vh;
-    width:100vw;
-    grid-template-columns:1fr;
-    box-shadow:5px 5px 100px rgb(165, 165, 165);
+    display:flex;
 }
 
-.authform >*{
-}
-
-.authcontainer >*{
+.authcontainer .bg img,
+.authcontainer .bg{
+    position:fixed;
+    height:100%;
     width:100%;
-    padding:2em;
+    left:0;
+    top:0;
+    z-index:-1;
+}
+
+.authcontainer .bg img{
+    object-fit:cover;
+    object-position: left center;
 }
 
 .authcontainer .authform{
     width:100%;
-    max-width:500px;
     display:flex;
     flex-direction: column;
     gap:3em;
-    height:calc(100vh - 50px);
+    padding:2em;
+    background:var(--dark-discord);
+    /* border-radius:5px; */
+    height:100%;
+    transition:all 500ms ease;
+    /* box-shadow:5px 5px 100px rgb(10, 10, 10); */
 }
 
 .authcontainer .authform form > small{
@@ -32,24 +40,35 @@
     margin-left:.5em
 }
 
-.authcontainer__main{
-    overflow-y:Scroll;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    overflow-x:hidden;
-    /* background:rgb(255, 255, 255); */
-    animation:slideltr 500ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-    gap:5em;
-    /* height:200vh; */
-}
-
 .authcontainer__main >*{
     width:100%;
 }
 
+.authform .top-part{
+    text-align: center;
+}
+
+.authform .top-part h1{
+    font-weight:bold;
+}
+
+.authform .top-part p{
+    opacity:.6;
+    margin-top:.5em;
+}
+
+.authform .logo{
+    /* border:1px solid red; */
+    width:fit-content;
+    margin-left:auto;
+    margin-right: auto;
+    margin-bottom:2em;
+}
+
 .authcontainer__main{
-    /* background:pink; */
+    /* border:1px solid red; */
+    width:100%;
+    max-width:700px;
 }
 
 .authcontainer__main__logo{
@@ -66,14 +85,13 @@
 
 .authform h1{
     font-weight:600;
-    font-size:var(--fs-largest);
+    font-size:var(--fs-xxxl);
     position:relative;
 }
 
 .authform h1:before{    
     content:"";
     position:absolute;
-    
 }
 
 .authcontainer input[type = "submit"],
@@ -108,20 +126,28 @@
     /* margin-bottom:2em; */
 }
 
-.authform{
-}
-
 .slidertl{
     animation:slidertl 500ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
+.scaleDown{
+    animation : scaleDown 600ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
 
-@media only screen and (min-width : 800px){
+@media only screen and (min-width : 700px){
     .authcontainer{
-        grid-template-columns:1fr 1fr;
+        justify-content: center;
+        align-items:center;
     }
 
     .authcontainer .authform{
+        width:92%;
+        height:unset;
+        margin:auto;
+        border-radius:5px;
     }
-    
+
+    .authcontainer .authform .logo{
+        display: none;
+    }
 }

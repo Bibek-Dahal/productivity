@@ -15,7 +15,8 @@ import {
     Button1,
     Logo,
     Tooltip,
-    ConfirmDeleteGroup
+    ConfirmDeleteGroup,
+    SmallModal
 } from '../index';
 import { useEffect } from 'react';
 
@@ -31,6 +32,8 @@ const MainNavigation = ({toggle,groups,groupLoading,setGroups}) =>{
 
     const [addGroup,setAddGroup] = useState(false);
     const [showConfirmDelete,setShowConfirmDelete] = useState(false);
+    const [showConfirmLogout,setShowConfirmLogout] = useState(false);
+
     const [groupDeleteId,setGroupDeleteId] = useState(null);
 
     const openGroupAddHandler = () => {
@@ -142,11 +145,18 @@ const MainNavigation = ({toggle,groups,groupLoading,setGroups}) =>{
                 background = "var(--red)"
                 className = "bgred"
             >
-                <Link to = "/logout">Logout</Link>
+                <Link 
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setShowConfirmLogout(prev => !prev);
+                    }}
+                    to = "/logout"
+                
+                >Logout</Link>
             </Button1>
            {
-            showConfirmDelete &&
-                <Modal
+                showConfirmDelete &&
+                <SmallModal
                     className="visible padding-dribble"
                 >
                         <ConfirmDeleteGroup 
@@ -155,7 +165,21 @@ const MainNavigation = ({toggle,groups,groupLoading,setGroups}) =>{
                             groupDeleteId = {groupDeleteId}
                             groups = {groups}
                         />
-                </Modal>
+                </SmallModal>
+           }
+
+            {
+                showConfirmLogout &&
+                <SmallModal
+                    className="visible padding-dribble"
+                >
+                        <ConfirmDeleteGroup 
+                            toggleModal = {setShowConfirmDelete}
+                            setGroups = {setGroups}
+                            groupDeleteId = {groupDeleteId}
+                            groups = {groups}
+                        />
+                </SmallModal>
            }
         </div>
 

@@ -66,7 +66,7 @@ body{
     --fs-xl:1.2rem;
     --fs-xxl:1.5rem;
     --fs-xxxl:2rem;
-    --fs-largest:2rem;
+    --fs-largest:2.5rem;
 
     --nav-height:30px;
 
@@ -196,6 +196,10 @@ li{
     animation : slideltr 500ms ease-in-out;
 }
 
+.zoomOut{
+    animation : zoomOut 500ms ease-in-out forwards;
+}
+
 .hashtag{
     margin-right:.5em;
     font-size:var(--fs-xl);
@@ -214,6 +218,36 @@ li{
     }
     to{
         transform:translateX(0%);
+    }
+}
+
+@keyframes scaleDown {
+    0%{
+        opacity:0;
+        transform:scale(1.1)translateY(-100px);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1)translateY(10px);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1)translateY(0px);
+    }
+}
+
+@keyframes zoomOut {
+    0%{
+        opacity:0;
+        transform:scale(1.2);
+    }
+    50%{
+        opacity:1;
+        transform:scale(.98);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1);
     }
 }
 

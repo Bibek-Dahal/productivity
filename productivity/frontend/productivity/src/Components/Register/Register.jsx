@@ -84,9 +84,9 @@ const Register = () =>{
     
     return(
         <div className ='authform register'>
-            {/* <div className="logo">
+            <div className="logo">
                 <img src={Logo} alt="" />
-            </div> */}
+            </div>
             <div className="top-part">
                 {/* <p>
                     <span className="back-btn">

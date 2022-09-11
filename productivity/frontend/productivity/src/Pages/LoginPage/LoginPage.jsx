@@ -13,13 +13,18 @@ const LoginPage = () =>{
     return(
         <>
             <AuthContainer>
-               <div className="authcontainer__main">
-                    <div className = "authcontainer__main__logo">
+               <div className={
+                `
+                authcontainer__main
+                ${window.innerWidth > 600 ? "scaleDown" : ""}
+                `
+               }>
+                    {/* <div className = "authcontainer__main__logo">
                         <img src = {Logo} />
-                    </div>
+                    </div> */}
                     <Login />
                </div>
-               <Appintro />
+               {/* <Appintro /> */}
             </AuthContainer>
         </>
     );

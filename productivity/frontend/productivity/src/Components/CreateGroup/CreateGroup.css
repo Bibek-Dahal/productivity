@@ -41,6 +41,11 @@
     font-size:var(--fs-xxl);
 }
 
+.creategroup .empty-void{
+    height:24px;
+    width:24px;
+}
+
 
 .creategroup form{
     margin-top:7em;

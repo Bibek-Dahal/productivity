@@ -12,7 +12,8 @@ import {
     UserProfile,
     Modal,
     CreateGroup,
-    ConfirmDeleteGroup
+    ConfirmDeleteGroup,
+    SmallModal
 } from '../../Components/index';
 
 import {
@@ -28,6 +29,7 @@ import {
 const PersonalDashboardPage = () =>{
 
     const [showAddGroup,setShowAddGroup] = useState(false);
+    const [showLogoutUI,setShowLogoutUI] = useState(false);
 
     const [groups,setGroups] = useState([]);
     const [groupLoading,setGroupLoading] = useState(true);
@@ -76,12 +78,24 @@ const PersonalDashboardPage = () =>{
                 showAddGroup &&
                 <Modal
                     className = "visible padding-dribble"
+                    toggle = {toggle}
                 >
                     <CreateGroup 
-                        toggle = {toggle}
                         setGroups = {setGroups}
+                        toggle = {toggle}
                     />
                 </Modal>
+            }
+            {
+                showLogoutUI &&
+                <SmallModal
+                    
+                >
+                    are you sure logout?
+                    <button>
+                        yes
+                    </button>
+                </SmallModal>
             }
            
         </div>

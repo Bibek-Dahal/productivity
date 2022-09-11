@@ -29,6 +29,7 @@ import VerifyToken from './VerifyToken/VerifyToken';
 import ConfirmDeleteGroup from './ConfirmDeleteGroup/ConfirmDeleteGroup';
 import InvitePeople from './InvitePeople/InvitePeople';
 import UserInfoSide from './UserInfoSide/UserInfoSide';
+import SmallModal from './SmallModal/SmallModal';
 
 export{
     Appintro,
@@ -61,5 +62,6 @@ export{
     VerifyToken,
     ConfirmDeleteGroup,
     InvitePeople,
-    UserInfoSide
+    UserInfoSide,
+    SmallModal
 }

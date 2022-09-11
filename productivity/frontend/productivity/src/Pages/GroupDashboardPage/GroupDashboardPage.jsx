@@ -52,7 +52,6 @@ const GroupDashboardPage = () =>{
         getGroupDetail();
     },[])
 
-
     return(
         <div className = 'groupdashboardpage'>
             <div className="dashboardpage__container">
@@ -79,8 +78,11 @@ const GroupDashboardPage = () =>{
                 showAddProject &&
                 <Modal
                     className = "visible padding-dribble"
+                    toggle = {toggle}
                 >
-                    <AddProject />
+                    <AddProject 
+                        toggle = {toggle}
+                    />
                 </Modal>
             }
         </div>

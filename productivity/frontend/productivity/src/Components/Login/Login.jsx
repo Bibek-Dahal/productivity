@@ -1,6 +1,7 @@
 import React,{
     useState,
-    useRef
+    useRef,
+    useEffect
 } from 'react';
 import './Login.css';
 
@@ -94,17 +95,19 @@ const Login = () =>{
 
     return(
         <div className ="authform login">
-            {/* <div className="logo">
+            <div className="logo">
                 <img src={Logo} alt="" />
-            </div> */}
+            </div>
             {
                 !showResendBtn &&
                 <>
                     <div className="top-part">
                         <h1>
-                            Login
+                            Welcome back!
                         </h1>
-                        
+                        <p>
+                            We're so excited to see you again
+                        </p>
                     </div>
                     <form 
                         onSubmit={formHandler}

@@ -6,7 +6,6 @@ const Appintro = () =>{
  return(
      <div className = 'appintro'>
      </div>
-
  );
 }
 

@@ -2,14 +2,14 @@
 }
 
 .confirmdeletegroup .container{
-    max-width:800px;
-    margin-top:5em;
+    /* max-width:800px;
+    margin-top:5em; */
 }
 
 .confirmdeletegroup .container h2{
-    font-weight:600;
+    /* font-weight:600;
     font-size:var(--fs-largest);
-    color:var(--white);
+    color:var(--white); */
 }
 
 .confirmdeletegroup .container button{
