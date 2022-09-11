@@ -41,7 +41,7 @@ router.post('/user/:userId/verify/:token',UserController.verifyUser)
 //resend user password verification email
 router.post('/register/resend-email',[
     AuthValidation.passwordResetEmail,
-    UserController.register
+    UserController.resendVerificationMail
 ])
 
 //resend user verification email
