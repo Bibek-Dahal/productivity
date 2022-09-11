@@ -146,30 +146,12 @@ const MainNavigation = ({toggle,groups,groupLoading,setGroups}) =>{
                 className = "bgred"
             >
                 <Link 
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setShowConfirmLogout(prev => !prev);
-                    }}
                     to = "/logout"
                 
                 >Logout</Link>
             </Button1>
            {
                 showConfirmDelete &&
-                <SmallModal
-                    className="visible padding-dribble"
-                >
-                        <ConfirmDeleteGroup 
-                            toggleModal = {setShowConfirmDelete}
-                            setGroups = {setGroups}
-                            groupDeleteId = {groupDeleteId}
-                            groups = {groups}
-                        />
-                </SmallModal>
-           }
-
-            {
-                showConfirmLogout &&
                 <SmallModal
                     className="visible padding-dribble"
                 >

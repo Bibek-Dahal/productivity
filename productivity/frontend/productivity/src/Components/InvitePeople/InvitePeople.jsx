@@ -15,27 +15,28 @@ import {
 import { toast } from 'react-toastify';
 
 const InvitePeople = ({setShowInvitePeople,groupId,group}) =>{
+
     const [emails,setEmails] = useState([]);
     const [currentEmail,setCurrentEmail] = useState("");
-
-    const changeHandler = (e) => {
-        setCurrentEmail(e.target.value);
-    }
     const axiosInstance = useAxios();
 
-    const keypresshandler = (e) => {
-        if(e.charCode == 13){
-            e.preventDefault()
-            console.log(currentEmail);
-            setEmails(prev => (
-                [
-                    currentEmail,
-                    ...prev
-                ]
-            ))
-            setCurrentEmail("");
-        }
+    const changeHandler = async (e) => {
+        setCurrentEmail(e.target.value);
     }
+
+    // const keypresshandler = (e) => {
+    //     if(e.charCode == 13){
+    //         e.preventDefault()
+    //         console.log(currentEmail);
+    //         setEmails(prev => (
+    //             [
+    //                 currentEmail,
+    //                 ...prev
+    //             ]
+    //         ))
+    //         setCurrentEmail("");
+    //     }
+    // }
 
     const removeEmail = (e) => {
         console.log(e.target)
@@ -48,19 +49,41 @@ const InvitePeople = ({setShowInvitePeople,groupId,group}) =>{
 
     const invitePeopleHandler = async () => {
         console.log('inviting people',emails);
+        // try{
+        //     const res = await axiosInstance.post(endpoints.invitePeople,{
+        //         email : emails[0],
+        //         group_name : group.name 
+        //     });
+        //     console.log(res);
+        //     setShowInvitePeople(false);
+        //     toast.success(res.data.message);
+        // }catch(err){
+        //     console.log(err);
+        // }
+    
+    }   
+
+    const findPerson = async (e) => {
+        console.log('finding ',currentEmail);
         try{
-            const res = await axiosInstance.post(endpoints.invitePeople,{
-                email : emails[0],
-                group_name : group.name 
+            console.log(e.target)
+            const res = await axiosInstance.post(endpoints.getUserByEmail,{
+                email : currentEmail
             });
             console.log(res);
-            setShowInvitePeople(false);
-            toast.success(res.data.message);
+            if(!emails.includes(res.data.user.email)){
+                setEmails(prev => (
+                    [
+                        ...prev,
+                        res.data.user.email
+                    ]
+                ))
+            }
+            setCurrentEmail("");
         }catch(err){
             console.log(err);
         }
-    
-    }   
+    }
 
     return(
         <div className = 'invitepeople'>
@@ -87,15 +110,20 @@ const InvitePeople = ({setShowInvitePeople,groupId,group}) =>{
                     icon = "fluent:mail-20-filled"
                     onChange={changeHandler}
                     type = "text"
-                    onKeyPress = {keypresshandler}
                     value = {currentEmail}
                 />
-                <button
+                {/* <button
                     onClick = {invitePeopleHandler}
                 >
                     Invite all
+                </button> */}
+                <button
+                    onClick = {findPerson}
+                >
+                    find person
                 </button>
             </div>
+           
             <div className="emails-list-container">
                 {
                     emails.map((email,id) => (
@@ -117,6 +145,16 @@ const InvitePeople = ({setShowInvitePeople,groupId,group}) =>{
                     ))
                 }
             </div>
+            {
+                emails.length > 0 &&
+                    <div className = "invite-btn">
+                        <button
+                            onClick = {invitePeopleHandler}
+                        >
+                            invite all
+                        </button>
+                    </div>
+            }
             
         </div>
     );

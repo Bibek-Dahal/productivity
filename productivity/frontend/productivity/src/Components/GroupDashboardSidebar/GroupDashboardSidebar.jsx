@@ -23,10 +23,14 @@ const GroupDashboardSidebar = ({group}) =>{
     const getMembers = () => {
         group?.members?.forEach(member => {
             setMembers(prev => {
-                return[
-                    ...prev,
-                    member
-                ]
+                if(member != admin._id){
+                    return[
+                        ...prev,
+                        member
+                    ]
+                }else{
+                    return [...prev]
+                }
             })
         })
     }
@@ -34,7 +38,7 @@ const GroupDashboardSidebar = ({group}) =>{
     const getAdmin = async () => {
         try{   
             const res = await axiosInstance.get(endpoints.getProfile);
-            console.log(res);
+            console.log('admin = ',res);
             setAdmin(res.data.data);
         }catch(err){
             console.log(err);

@@ -64,12 +64,15 @@
     margin-bottom:0;
 }
 
-.invitepeople .main button{
-    position:absolute;
+.invitepeople .invite-btn{
+    display: flex;
+    margin-top:5em;
+}
+
+.invitepeople .invite-btn button{
     width: fit-content;
-    padding:0 2em;
-    height:100%;
-    right:0;
+    white-space:nowrap;
+    padding:1em 3em;
     font-size:var(--fs-s);
     font-weight:600;
     color:white;
@@ -79,6 +82,18 @@
     border-radius:5px;
 }
 
+.invitepeople .main button{
+    width: fit-content;
+    white-space:nowrap;
+    padding:0 1em;
+    font-size:var(--fs-s);
+    font-weight:600;
+    color:white;
+    background:var(--discord-purple);
+    border:none;
+    cursor: pointer;
+    border-radius:0 5px 5px 0;
+}
 
 .invitepeople .main button:hover{
     background:var(--discord-purple-dark);

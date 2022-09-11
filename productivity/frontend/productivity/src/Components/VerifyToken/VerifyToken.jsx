@@ -39,10 +39,10 @@ const VerifyToken = () =>{
     return(
         <div className = 'verifytoken'>
             {
-                verified ?
+                !verified ?
                     <Loader 
-                        icon = "icomoon-free:spinner2"
-                        text = "submitting..."
+                        icon = "lucide:loader-2"
+                        text = "verifying..."
                         fontSize = "3rem"
                     />:
                     <Navigate to = "/login" />    

@@ -10,7 +10,8 @@ const endpoints = {
     groupExists :'/api/group/group-exists',
     resendEmailVerification : '/api/register/resend-email',
     invitePeople : '/api/group/invite-member',
-    getProfile : '/api/profile'
+    getProfile : '/api/profile',
+    getUserByEmail:'/api/find-user-by-email'
 }
 
 export default endpoints;

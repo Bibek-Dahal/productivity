@@ -10,14 +10,14 @@
     justify-content: center;
     align-items: center;
     animation:scaleUp 200ms ease-in-out;
-    background:rgba(255, 255, 255, 0.631);
-    color:blue;
+    background:var(--dark-1);
+    color:white;
+    opacity:.7;
 }
 
 .loader svg{
     animation:spin 1.5s linear infinite;
 }
-
 
 .bottomUp{
     animation:bottomUp 500ms linear forwards;

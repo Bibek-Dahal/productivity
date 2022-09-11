@@ -20,7 +20,7 @@ import {
 const GroupDashboard = () =>{
     const {groupId,group} = useOutletContext();
     const [showInvitePeople,setShowInvitePeople] = useState(false);
-
+    
     console.log('inside groupdashboard ', group)
 
     return(

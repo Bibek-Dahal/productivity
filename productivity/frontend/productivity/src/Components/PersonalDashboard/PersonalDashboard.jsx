@@ -12,7 +12,7 @@ import {
 import Tooltip from 'rc-tooltip'
 
 const PersonalDashboard = () =>{
-
+  
   return(
       <div className = 'personaldashboard nav-padding'>
         <h1>Dashboard</h1>
