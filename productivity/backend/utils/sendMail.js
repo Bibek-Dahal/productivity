@@ -31,13 +31,14 @@ const sendMail = async (user,subject,extra=null)=>{
 
       }else if(subject === 'User Verification Email'){
         console.log('inside else')
-        const bodyTitle = `We're happy you signed up for Productivity. To start exploring the productivity webapp please confirm your email address.`
+        const bodyTitle = `We're too happy you signed up for Productivity. To start exploring the productivity webapp please confirm your email address.`
         const bodyDescription = "Please click on the link below to verify your email. Thank You!"
         let PORT = process.env.PORT || 8000
-        
-        link = `http:127.0.0.1:${PORT}/api/user/${encodedText}/verify/${token}`
+        console.log('sending mail')
+        // link = `http:127.0.0.1:${PORT}/api/user/${encodedText}/verify/${token}`
+        link = `http://127.0.0.1:3000/verify-account/${encodedText}/${token}`;
         html = await ejs.renderFile(path,{title:subject,link:link,button:"Verify",bodyTitle:bodyTitle,bodyDescription:bodyDescription,user:user})
-
+        
 
       }else if(subject === "Group Invitation Email"){
         console.log(extra.group.name)
@@ -51,7 +52,8 @@ const sendMail = async (user,subject,extra=null)=>{
             id: user._id
           }, process.env.JWT_SECRET_KEY, { expiresIn: 5*24*60*60 }
           );
-        link = `http:127.0.0.1:${PORT}/api/group/${encodedGroupName}/join/${token}`
+        // link = `http:127.0.0.1:${PORT}/api/group/${encodedGroupName}/join/${token}`
+        link = `http://127.0.0.1:3000/accept-group-invite/${encodedGroupName}/${token}`;
         html = await ejs.renderFile(path,{title:subject,link:link,button:"Join",bodyTitle:bodyTitle,bodyDescription:bodyDescription,user:user})
       }
 
