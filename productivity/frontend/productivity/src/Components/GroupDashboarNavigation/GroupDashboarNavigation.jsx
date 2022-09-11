@@ -2,20 +2,17 @@ import React,{
     useState
 } from 'react';
 import './GroupDashboarNavigation.css';
-
 import {
     Logo,
-    Tooltip
+    Tooltip,
+    Button1
 } from '../index';
-
 import {
     Link,
     NavLink
 } from 'react-router-dom';
-
 import { Icon } from '@iconify/react';
 import Dropdown from '../Dropdown/Dropdown';
-
 
 const GroupDashboarNavigation = ({tasks,toggle,groupId}) =>{
 
@@ -30,7 +27,7 @@ const GroupDashboarNavigation = ({tasks,toggle,groupId}) =>{
 
                     <NavLink 
                         to = {`/group/${groupId}/`}
-                        activeClassName = 'active'
+                        // className = {`${(navData) => (navData.isActive ? "active" : "")}`}
                     >
                         <Icon icon = "akar-icons:home" />
                         dashboard
@@ -40,11 +37,11 @@ const GroupDashboarNavigation = ({tasks,toggle,groupId}) =>{
                         title = "Tasks"
                     >
                         { 
-                            // tasks.length === 0 ?
-                            // <span className="error">
-                            //     No task created yet!
-                            // </span>:
-                            <ul className="dropdown-items">
+                            tasks.length === 0 ?
+                            <span className="error">
+                                No task created yet!
+                            </span>:
+                            <ul className="dropdown-items customScrollbar">
                                 <li>
                                     <Link 
                                         to = "/group/exam-preparation"
@@ -59,6 +56,7 @@ const GroupDashboarNavigation = ({tasks,toggle,groupId}) =>{
                                 </li>
                             </ul>
                         }
+                        
                         <Tooltip
                             className = "add-group"
                             text = "add task"
@@ -74,6 +72,12 @@ const GroupDashboarNavigation = ({tasks,toggle,groupId}) =>{
                     </Dropdown>
                     <div className="hr"></div>
             </div>
+            <Button1
+                background = "var(--black)"
+                // className = "bgred"
+            >
+                <Link to = "#">Go back</Link>
+            </Button1>
         </div>
 
  );

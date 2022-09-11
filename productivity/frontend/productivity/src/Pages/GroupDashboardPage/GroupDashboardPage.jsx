@@ -22,9 +22,8 @@ import{
 } from '../../hooks/index';
 
 const GroupDashboardPage = () =>{
-
     const axiosInstance = useAxios();
-
+    
     const [showAddProject,setShowAddProject] = useState(false);
     const [tasks,setTasks] = useState([]);
 
@@ -48,7 +47,6 @@ const GroupDashboardPage = () =>{
             console.log('err',err);
         }
     }
-
 
     useEffect(() => {
         getGroupDetail();

@@ -26,6 +26,9 @@ import Loader from './Loader/Loader';
 import Logo from './Logo/Logo';
 import AcceptGroupInvite from './AcceptGroupInvite/AcceptGroupInvite';
 import VerifyToken from './VerifyToken/VerifyToken';
+import ConfirmDeleteGroup from './ConfirmDeleteGroup/ConfirmDeleteGroup';
+import InvitePeople from './InvitePeople/InvitePeople';
+import UserInfoSide from './UserInfoSide/UserInfoSide';
 
 export{
     Appintro,
@@ -55,5 +58,8 @@ export{
     Loader,
     Logo,
     AcceptGroupInvite,
-    VerifyToken
+    VerifyToken,
+    ConfirmDeleteGroup,
+    InvitePeople,
+    UserInfoSide
 }

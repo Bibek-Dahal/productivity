@@ -23,9 +23,9 @@ const VerifyToken = () =>{
         try{
             const res = await axiosInstance.post(`/api/user/${user_id}/verify/${token}`)
             console.log(res);
-            if(res.status == 200){
+            if(res.status == "200"){
+                toast.success(res.data.message);
                 setVerified(true);
-                toast.success('account verified successfully');
             }
         }catch(err){
             console.log('error = ',err);
@@ -46,7 +46,6 @@ const VerifyToken = () =>{
                         fontSize = "3rem"
                     />:
                     <Navigate to = "/login" />    
-
             }
         </div>
 

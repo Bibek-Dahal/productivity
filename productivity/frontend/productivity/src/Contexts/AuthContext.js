@@ -17,9 +17,10 @@ export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate();
         
-    const loginUser = async (formData,setLoading,setError,setErrors,from) => {
+    const loginUser = async (formData,setLoading,setError,setErrors,from,setShowResendBtn) => {
         console.log(formData)
         try{
+            setShowResendBtn(false);
             setLoading(1);
             let res = await axios.post(`${baseURL}${endpoints.login}`,formData);
             setLoading(0);
@@ -48,6 +49,9 @@ export const AuthProvider = ({children}) => {
                         password : "wrong"
                     }
                 })
+                if(err.response.status === 403){
+                    setShowResendBtn(true);
+                }
             }
         }
     }

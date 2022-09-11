@@ -31,8 +31,6 @@ const useAxios = () => {
         }
     })
 
-    console.log('inside useAxios',baseURL);
-        
     axiosInstance.interceptors.request.use(async req => {
         if(token){
             const user = jwt_decode(token);

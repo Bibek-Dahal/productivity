@@ -1,4 +1,4 @@
-.creategroup .close-btn{
+.close-btn{
     color:rgb(177, 177, 177);
 }
 
@@ -59,12 +59,50 @@
     font-size:var(--fs-xxl);
     font-weight:600;
     line-height:1.5;
+    color:var(--white);
 }
 
 .creategroup .form-field .input{
     position:relative;
     position:relative;
     max-width:600px;
+}
+
+.creategroup input,
+.creategroup textarea{
+    background:transparent;
+}
+
+.creategroup .input input.error{
+    border-bottom:2px solid red !important;
+    color:red;
+}
+
+.creategroup .input input.error + label{
+    color:red;
+}
+
+.creategroup small.error{
+    color:Red;
+    position:absolute;
+    bottom:-2em;
+    display:block;
+}
+
+.creategroup .invalid-icon{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:var(--fs-xxl);
+    color:red;
+}
+
+.creategroup .valid-icon{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:var(--fs-xxl);
+    color:green;
 }
 
 .creategroup .input input,
@@ -128,6 +166,7 @@
     transition:transform 200ms ease;
     transform-origin:left;
     font-weight:600;
+    color:var(--white);
     opacity:.5;
 }
 
@@ -135,7 +174,8 @@
     padding:.5em 2em;
     font-size:var(--fs-xl);
     border:none;
-    background:var(--black);
+    /* background:var(--black); */
+    background:var(--discord-purple);
     color: white;
     border-radius:5px;
     margin-top:4em;
@@ -143,7 +183,8 @@
 }
 
 .creategroup button.btn:hover{
-    background:rgb(67, 66, 66);
+    /* background:rgb(67, 66, 66); */
+    background:var(--discord-purple-dark);
 }
 
 .creategroup textarea[name = "description"]{

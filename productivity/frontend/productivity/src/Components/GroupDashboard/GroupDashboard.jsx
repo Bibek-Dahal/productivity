@@ -5,29 +5,57 @@ import React,{
 } from 'react';
 import './GroupDashboard.css';
 
+import { Icon } from '@iconify/react';
+
 import {
     useParams,
     useOutletContext
 } from 'react-router-dom';
-import { GroupDashboardNavigation } from '..';
+import { 
+    GroupDashboardNavigation,
+    InvitePeople,
+    Modal
+} from '..';
 
 const GroupDashboard = () =>{
-
     const {groupId,group} = useOutletContext();
+    const [showInvitePeople,setShowInvitePeople] = useState(false);
 
-    // useEffect(() => {
-    //     console.log('rendere GroupDashboard')
-    // }, [groupId])
-
-    console.log('groupdetails = ',group)
+    console.log('inside groupdashboard ', group)
 
     return(
-        <div className = 'groupdashboard'>
-            <h1 className="groupTitle">
-                {group.name}
-            </h1>
-        </div>
-
+        <>
+            <div className = 'groupdashboard'>
+                <div className="top">
+                    <h2 className="groupTitle">
+                        <span className="hashtag">
+                            #
+                        </span>
+                        <span>
+                            {group.name}
+                        </span>
+                    </h2>
+                    <div className="action-btns">
+                        <Icon 
+                            icon = "carbon:face-add" 
+                            onClick = {() => setShowInvitePeople(true)}
+                        />
+                    </div>
+                </div>
+            </div>
+            {
+                showInvitePeople &&
+                <Modal 
+                    className = "visible padding-dribble"
+                >
+                    <InvitePeople 
+                        setShowInvitePeople = {setShowInvitePeople}
+                        groupId = {groupId}
+                        group = {group}
+                    />
+                </Modal>
+            }
+        </>
     );
 }
 

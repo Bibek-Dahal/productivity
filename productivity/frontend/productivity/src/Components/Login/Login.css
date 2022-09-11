@@ -3,8 +3,46 @@
 }
 
 .login a.forgot{
-    /* border:1px solid red; */
     display:block;
     text-align: right;
     margin-top:-1em;
+}
+
+.login .resend-btn{
+    background:var(--discord-purple);
+    margin-top:.5em;
+}
+
+.login .resend-btn:hover{
+    background:var(--discord-purple-dark);
+}
+
+.login .resend-btn-container-wrapper .cross{
+    position: absolute;
+    right:0;
+    top:0;
+    font-size:var(--fs-xl);
+    cursor: pointer;
+}
+
+.login .resend-btn-container svg:hover{
+    color:var(--discord-purple);
+}
+
+.login .resend-btn-container-wrapper{
+    padding-top:3em;
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    gap:3em;
+}
+
+.login .resend-btn-container{
+    display:flex;
+    flex-direction: column;
+    /* border:1px solid red; */
+}
+
+
+.resend-btn-container>*{
 }

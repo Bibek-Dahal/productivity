@@ -14,7 +14,8 @@ import {
     Modal,
     Button1,
     Logo,
-    Tooltip
+    Tooltip,
+    ConfirmDeleteGroup
 } from '../index';
 import { useEffect } from 'react';
 
@@ -25,24 +26,33 @@ import {
 import DropdownSkeleton from '../../Skeletons/DropdownSkeleton/DropdownSkeleton';
 
 
-const MainNavigation = ({toggle,groups,groupLoading}) =>{
-
+const MainNavigation = ({toggle,groups,groupLoading,setGroups}) =>{
     const axiosInstance = useAxios();
 
     const [addGroup,setAddGroup] = useState(false);
+    const [showConfirmDelete,setShowConfirmDelete] = useState(false);
+    const [groupDeleteId,setGroupDeleteId] = useState(null);
 
     const openGroupAddHandler = () => {
         toggle();
     }
 
-    // const showCustomContext = (e) => {
-    //     e.preventDefault();
-    //     console.log(e.target);
-    //     console.log(e.target.getAttribute('group_id'))
-    // }
+    const linkClickHandler = (e) => {
+        console.log(e.target);
+    }
 
     const deleteGroup = (e) => {
-
+        console.log('deleting group',e.target)
+        const groupId = e.target.getAttribute('group_id');
+        console.log(groupId)
+        console.log('setting showconfirmdelete');
+        setGroupDeleteId(groupId)
+        setShowConfirmDelete(true);
+        try{
+            // const res = await axiosInstance.delete()
+        }catch(err){
+            console.log(err);
+        }
     }
 
     return(
@@ -51,18 +61,20 @@ const MainNavigation = ({toggle,groups,groupLoading}) =>{
             <div className="links">
                 <NavLink 
                     to = "/dashboard"
-                    activeClassName = 'active'
+                    className={(navData) => (navData.isActive ? "active" : '')}
                 >
                     <Icon icon = "akar-icons:home" />
                     dashboard
                 </NavLink>
                 <NavLink 
                     to = "/activity"
-                    activeClassName = 'is-active'
+                    className={(navData) => (navData.isActive ? "active" : '')}
                 >
                     <Icon icon = "akar-icons:schedule" />
                     activity
                 </NavLink>
+               
+                
                 <div className="hr"></div>
                     <Dropdown
                         title = "Groups"
@@ -76,32 +88,34 @@ const MainNavigation = ({toggle,groups,groupLoading}) =>{
                                 <span className="error">
                                     No groups joined or created yet!
                                 </span>:
-                                <ul className="dropdown-items">
+                                <ul className="dropdown-items   customScrollbar">
                                     {
                                         groups.map(group => (
                                             <li 
                                                 // onContextMenu={showCustomContext}
+                                                key = {group._id}
                                             >
                                                 <Link 
                                                     to = {`/group/${group._id}/`}
+                                                    onClick = {linkClickHandler}
                                                 >
                                                     <span className='hashtag'>
                                                     # </span>
                                                     <p className='text'>
                                                         {group.name}
                                                     </p>
-                                                   <Tooltip
-                                                        text = "delete group"                                                   
-                                                        className='cross'
-                                                   >
+                                                </Link>
+                                                <Tooltip
+                                                    text = "delete group"                                                   
+                                                    className='cross'
+                                                >
                                                     <span 
                                                             onClick = {deleteGroup}
                                                             group_id = {group._id}
-                                                        >
-                                                            <Icon  icon = "maki:cross" />
-                                                        </span>
-                                                   </Tooltip>
-                                                </Link>
+                                                    >
+                                                        <Icon  icon = "maki:cross" />
+                                                    </span>
+                                                </Tooltip>
                                             </li>
                                         ))
                                     }
@@ -122,7 +136,7 @@ const MainNavigation = ({toggle,groups,groupLoading}) =>{
                         </div>
                         </Tooltip>
                     </Dropdown>
-                <div className="hr"></div>
+                <div className="hr2"></div>
             </div>
             <Button1
                 background = "var(--red)"
@@ -130,6 +144,19 @@ const MainNavigation = ({toggle,groups,groupLoading}) =>{
             >
                 <Link to = "/logout">Logout</Link>
             </Button1>
+           {
+            showConfirmDelete &&
+                <Modal
+                    className="visible padding-dribble"
+                >
+                        <ConfirmDeleteGroup 
+                            toggleModal = {setShowConfirmDelete}
+                            setGroups = {setGroups}
+                            groupDeleteId = {groupDeleteId}
+                            groups = {groups}
+                        />
+                </Modal>
+           }
         </div>
 
     );

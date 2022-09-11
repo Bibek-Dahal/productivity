@@ -1,5 +1,5 @@
 .personaldashboard{
-    background:var(--body-bg);
+    /* background:var(--body-bg); */
     padding:2em;
     overflow-y:scroll;
 }

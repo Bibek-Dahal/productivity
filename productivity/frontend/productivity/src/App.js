@@ -78,13 +78,12 @@ function App() {
               <Route path = ""  element = {<GroupDashboard />} />
             </Route>
             <Route path = "/accept-group-invite/:group_name/:accept_token" element = {<AcceptGroupInvitePage />}/>
-            <Route path = "/verify-token/:user_id/:token" element = {<VerifyTokenPage />} />
+            <Route path = "/verify-account/:user_id/:token" element = {<VerifyTokenPage />} />
           </Routes>
       }
       <ToastContainer 
         autoClose = {5000}
       />
-      
     </div>
   );
 }

@@ -15,8 +15,6 @@ export default function RequiredAuth({children}){
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('inside requireAuth');
-        console.log('inside useEfffect ', location.pathname);
     },[])
 
 

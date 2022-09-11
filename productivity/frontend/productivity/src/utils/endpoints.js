@@ -6,7 +6,11 @@ const endpoints = {
     login : '/api/login',
     getGroups : '/api/group/get-user-groups',
     createGroup : '/api/group/create',
-    getGroupDetail : '/api/group'
+    getGroupDetail : '/api/group',
+    groupExists :'/api/group/group-exists',
+    resendEmailVerification : '/api/register/resend-email',
+    invitePeople : '/api/group/invite-member',
+    getProfile : '/api/profile'
 }
 
 export default endpoints;

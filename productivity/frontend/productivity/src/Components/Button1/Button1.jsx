@@ -9,6 +9,9 @@ const Button1 = ({className,background,children}) =>{
             button1
             ${className}
         `}
+        style = {{
+            background : background
+        }}
     >
         {children}
      </div>

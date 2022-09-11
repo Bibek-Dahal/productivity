@@ -29,7 +29,8 @@ const Modal = ({toggle,className,children}) =>{
             </div>
             <div className={
                 `modal-overlay`
-            }></div>
+            }
+            ></div>
         </>
     );
 }

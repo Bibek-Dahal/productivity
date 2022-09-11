@@ -1,5 +1,5 @@
 .dropdown-container{
-    /* border:1px solid red; */
+    color:white;
 }
 
 .dropdown h1{
@@ -12,10 +12,8 @@
 .dropdown .top div{
     display:flex;
     align-items: center;
-    gap:1em;
-    /* border:1px solid red; */
+    /* gap:1em; */
     padding:0 .5em;
-    margin-bottom:1em;
 }
 
 .dropdown .top{
@@ -24,22 +22,28 @@
 
 .dropdown .top > div{
     cursor:pointer;
-
 }
 
 .dropdown .dropdown-items{
     display:flex;
     flex-direction: column;
     gap:.2em;
+    margin-top:1em;
+    max-height:200px;
+    overflow-y:auto;
+}
+
+.dropdown .list-container::-webkit-scrollbar {
+    width: 4px;
 }
 
 .dropdown .list-container{
-    overflow-y:scroll;
-    margin-top:1em;
+    /* background:var(--dark-2); */
+    /* border-radius:5px; */
+    padding:1em 0;
 } 
 
-.dropdown .list-container.active{
-    max-height:600px;
+.dropdown .list-container{
 }
 
 .dropdown .dropdown-items li a{
@@ -51,8 +55,8 @@
     display:flex;
     overflow:hidden;
     text-overflow: ellipsis;
-    gap:.5em;
     border-radius: 5px;
+    width:100%;
 }
 
 .dropdown .dropdown-items li a p.text{
@@ -61,18 +65,21 @@
     text-overflow: ellipsis;
 }
 
-.dropdown .dropdown-items li a:hover .cross{
+.dropdown .dropdown-items li:hover .cross{
     display:block;
 }
 
-.dropdown .dropdown-items li a .cross{
+.dropdown .dropdown-items li .cross{
     margin-left:auto;
     display: none;
+    padding:0 1em 0 .5em;
+    cursor: pointer;
 }
 
-.dropdown .dropdown-items li a .cross svg{
+.dropdown .dropdown-items li .cross svg{
     font-size:var(--fs-xs);
     pointer-events: none;
+    color:rgb(192, 192, 192);
 }
 
 .dropdown span.error{
@@ -87,11 +94,15 @@
 }
 
 .dropdown .dropdown-items a:hover{
-    /* color:var(--dark);
-    text-decoration:underline; */
-    /* color:rgb(0, 0, 0);
-    background:#9d9d9d;
-    border-radius:5px; */
-    background:var(--light-gray);
-    color:var(--black);
+    color:white;
+}
+
+.dropdown-items li{
+    display:flex;
+    align-items: center;
+}
+
+.dropdown-items li:hover{
+    background:var(--active);
+
 }

@@ -11,7 +11,8 @@ import {
     MainNavigation,
     UserProfile,
     Modal,
-    CreateGroup
+    CreateGroup,
+    ConfirmDeleteGroup
 } from '../../Components/index';
 
 import {
@@ -30,7 +31,7 @@ const PersonalDashboardPage = () =>{
 
     const [groups,setGroups] = useState([]);
     const [groupLoading,setGroupLoading] = useState(true);
-
+    
     const axiosInstance = useAxios();
 
     function toggle(){
@@ -63,6 +64,7 @@ const PersonalDashboardPage = () =>{
                         toggle = {toggle}
                         groups = {groups}
                         groupLoading = {groupLoading}
+                        setGroups = {setGroups}
                     />
                 </Sidebarleft>
                 <Outlet />
@@ -81,7 +83,7 @@ const PersonalDashboardPage = () =>{
                     />
                 </Modal>
             }
-
+           
         </div>
 
     );

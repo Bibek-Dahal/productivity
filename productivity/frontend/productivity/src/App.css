@@ -1,18 +1,26 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px var(--dark-2) inset;
+  -webkit-text-fill-color: var(--white) !important;
+}
+
 body{
     --black : #000;
     --green:#12b024;
     --blu:#3758A4;
     --dark-blue : #3A54AA;
-    --blue : #1B72E8;
+    --blue : #62aeff;
     --body-bg : rgb(255, 255, 255);
     --light-gray:#F6F8F9;
     --inactive-link:#ACACAC;
     --dark : #000000;
     --nav-line:#EDEDED;
-    --red :red;
+    --red :rgb(119, 19, 19);
     --sidebar-border:#E6EBED;
     --body-bg : #FEFEFF;
     --dark-hover : #000;
@@ -33,8 +41,26 @@ body{
     --active : #3C3F45; */
 
 
-    --body-bg:#ffff;
+    /* discord theme */
+    --body-bg : #2E3036;
+    --nav-line:#373B3E;
+    --active : #3C3F45;
+    --discord-light:#7B7D84;
+    --dark-2:#35373e;
+    --dark-3:rgb(24, 24, 24);
+    --overlay:#968b8b66;
+    --overlay:rgba(39, 36, 36, 0.912);
+    --body-bg-2:#37393E;
+    --body-bg-3:#212325;
+    --white:rgb(207, 207, 207);
+    --thumb:#191a1d;
 
+    --discord-purple : #5964F2;
+    --discord-purple-dark : #4952cb;
+
+    /* ////////////// */
+
+    /* --body-bg:#ffff; */
     --fs-s:.9rem;
     --fs-l:1rem;
     --fs-xl:1.2rem;
@@ -44,7 +70,7 @@ body{
 
     --nav-height:30px;
 
-    font-size:14px;
+    font-size:16px;
 
     background:var(--body-bg);
     /* font-family: 'Poppins', sans-serif; */
@@ -55,7 +81,7 @@ body{
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 /* ::-webkit-scrollbar-track {
@@ -64,7 +90,7 @@ body{
 
 ::-webkit-scrollbar-thumb {
     background: var(--thumb);
-    border-radius:5em;
+    border-radius:10em;
 }
   
 /* Handle on hover */
@@ -121,6 +147,16 @@ a{
     padding:0;
 } */
 
+body{
+    color:white;
+}
+
+.customScrollbar{
+    overflow-y: auto;
+}
+
+
+
 .sidebar{
     /* padding-left:2em;
     padding-right:2em; */
@@ -128,11 +164,13 @@ a{
     overflow-y: auto;
 }
 
-.sidebar::-webkit-scrollbar-thumb{
+.sidebar::-webkit-scrollbar-thumb,
+.customScrollbar::-webkit-scrollbar-thumb{
     display:none;
 }
 
-.sidebar:hover::-webkit-scrollbar-thumb{
+.sidebar:hover::-webkit-scrollbar-thumb,
+.customScrollbar:hover::-webkit-scrollbar-thumb{
     display:block;
 }
 
@@ -151,16 +189,23 @@ li{
 }
 
 .slidertl{
-    animation : slidertl 300ms ease-in-out;
+    animation : slidertl 500ms ease-in-out;
 }
 
 .slideltr{
-    animation : slideltr 300ms ease-in-out;
+    animation : slideltr 500ms ease-in-out;
 }
 
 .hashtag{
     margin-right:.5em;
     font-size:var(--fs-xl);
+}
+
+.circle-medium,
+.circle-medium img{
+    height:35px;
+    width:35px;
+    border-radius:50%;
 }
 
 @keyframes slidertl {
@@ -185,5 +230,6 @@ li{
 
 @media only screen and (min-width : 800px){
     body{
+        --fs-largest:2.5rem;
     }
 }

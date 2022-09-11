@@ -1,5 +1,13 @@
 .sidebarleft{
-    border-right:1px solid var(--sidebar-border);
+    border-right:1px solid var(--nav-line);
+    overflow:hidden !important;
+    /* border:1px solid red; */
+    padding-top:2em;
+    padding-bottom:2em;
+}
+
+.sidebarleft > .mainnavigation{
+    /* border:1px solid red; */
 }
 
 .sidebar:hover{

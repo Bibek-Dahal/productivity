@@ -1,16 +1,16 @@
 .dashboardpage__container{
     display:grid;
-    grid-template-columns:300px minmax(500px,2fr) 350px;
+    grid-template-columns:300px minmax(500px,2fr) 300px;
     height:100vh;
     position:fixed;
     width:100%;
 }
 
-.dashboardpage__container >*{
+.dashboardpage__container >*:not(.sidebarleft){
     padding : 0 1.5em;
     padding-top:2em;
 }
 
 .dashboardpage__container >*:nth-of-type(2){
-    background:var(--light-gray);
+    background:var(--body-bg-2);
 }

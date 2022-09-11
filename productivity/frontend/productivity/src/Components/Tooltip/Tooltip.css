@@ -19,6 +19,7 @@
     z-index:999; */
     display:none;
     background:rgba(0,0,0,1);
+    /* background:rgb(255, 255, 255); */
     padding:.5em 1em;
     position:fixed;
     border-radius:5px ;

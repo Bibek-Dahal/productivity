@@ -36,6 +36,7 @@ const CreateGroup = ({toggle,setGroups}) =>{
     const [current,setCurrent] = useState(1);
     const [groupEntered , setGroupEntered] = useState(false);
     const [descriptionEntered , setDescriptionEntered] = useState(false);
+    const [groupError,setGroupError] = useState({});
 
     const [checkingGroup,setCheckingGroup] = useState(false);
     const [validGroup,setValidGroup] = useState(undefined);
@@ -60,18 +61,42 @@ const CreateGroup = ({toggle,setGroups}) =>{
         setCurrent(prev => ++prev);
     }
 
-    const checkUniqueGroupAndSave = (e) => {
+    const checkUniqueGroupAndSave = async (e) => {
         GroupFocusHandler();
-        setCheckingGroup(true);
-        setValidGroup(false);
+        setGroupError({})
         setFormData(prev => {
             return{
                 ...prev,
                 [e.target.name ]: inputRef.current.value
             }
         });
-        setCheckingGroup(false);
-        setValidGroup(true)
+        setValidGroup(false);
+        setCheckingGroup(true);
+        try{
+            const res = await axiosInstance.post(endpoints.groupExists,{
+                "name" : inputRef.current.value
+            });
+            // console.log(res);
+            setCheckingGroup(false);
+            setValidGroup(true)
+        }catch(err){
+            setCheckingGroup(false);
+            // console.log(err);
+            if(err.response.data.errors){
+                setGroupError(prev => {
+                    return{
+                        name : err.response.data.errors.name
+                    }
+                });
+            }
+            if(err.response.data.message){
+                setGroupError(prev => {
+                    return{
+                        message : err.response?.data.message
+                    }
+                });
+            }
+        }
     }
 
     const formHandler = (e) => {
@@ -126,28 +151,11 @@ const CreateGroup = ({toggle,setGroups}) =>{
             toast.error(err.response?.data.message)
             toast.error(err.response?.data.errors?.name)
         }
-        // formData.title = formData.name;
-        // formData.description = formData.name;
-        // formData.members = [user.id]
-        // try{
-        //     const res = await axiosInstance.post(endpoints.createGroup,formData);
-        //     console.log(res);
-        //     toast.success(res.data.message);
-        //     // navigate('/dashboard');
-        //     setGroups(prev => {
-        //         return[
-        //             ...prev,
-        //             res.data?.group
-        //         ]
-        //     })
-        //     toggle();
-        // }catch(err){
-        //     console.log('error occured',err);
-        //     toast.error(err.response?.data.message)
-        //     toast.error(err.response?.data.errors?.name)
-        // }
     }
 
+    console.log(groupError);
+    console.log(Object.values(groupError));
+        
     return(
         
         <div className = 'creategroup'>
@@ -191,7 +199,7 @@ const CreateGroup = ({toggle,setGroups}) =>{
                 <form onSubmit = {formHandler} action="">
                 {
                         current == 1 &&
-                        <div className = "slidertl">
+                        <div className = "">
                             <div className="form-field">
                             <h1>
                                 Let's start with a name for your Group
@@ -204,7 +212,7 @@ const CreateGroup = ({toggle,setGroups}) =>{
                                     ref = {inputRef}
                                     onFocus = {GroupFocusHandler}
                                     onChange = {checkUniqueGroupAndSave}
-                                    className = {`${groupEntered ? "focus" : ""}`}
+                                    className = {`${groupEntered ? "focus" : ""} ${Object.values(groupError).length > 0 ? "error" : ""}`}
                                     value = {formData.name}
                                 />
                                 <label htmlFor="">
@@ -214,9 +222,32 @@ const CreateGroup = ({toggle,setGroups}) =>{
                                         "Group name"
                                     }
                                 </label>
-                                
+                                {
+                                    Object.values(groupError).length > 0 &&
+                                    <>
+                                        {
+                                            Object.values(groupError).map(err => (
+                                                <small className="error">
+                                                    {err}
+                                                </small>
+                                            ))
+                                        }
+                                        {
+                                            <span className="invalid-icon">
+                                                <Icon icon = "ant-design:exclamation-circle-filled" />
+                                            </span>
+                                        }
+                                    </>
+                                }
+                                {
+                                    validGroup &&
+                                    <span className="valid-icon">
+                                        <Icon icon = "teenyicons:tick-circle-solid" />
+                                    </span>
+                                }
                             </div>
                         </div>
+                       
                         {
                             validGroup && groupEntered ?
                                 <button 
@@ -236,7 +267,7 @@ const CreateGroup = ({toggle,setGroups}) =>{
                 }
                 {
                     current == 2 &&
-                    <div className = "slidertl">
+                    <div className = "">
                             <div className="form-field">
                                 <h1>
                                     Describe something about your group

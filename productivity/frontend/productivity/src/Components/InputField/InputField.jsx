@@ -15,7 +15,9 @@ const InputField = ({
         value,
         error,
         onfocus,
-        icon
+        icon,
+        setVerifyEmail,
+        onKeyPress
     }) =>{
 
     const inputRef = useRef(null);
@@ -24,20 +26,26 @@ const InputField = ({
     const [visiblePassword,setVisiblePassword] = useState(false);
 
     const focusHandler = (e) => {
-        onfocus(e);
-
+        if(onfocus) onfocus(e);
     }
 
     const changeHandler = (e) => {
+        if(e.target.getAttribute('name') == 'verify-email'){
+            setVerifyEmail(inputRef.current.value);
+        }else{
+            onChange(e);
+        }
         if(inputRef.current.value != ""){
             setFull(true);
         }else setFull(false);
-
-        onChange(e);
     }
 
     const togglePasswordVisible = (e) => {
         setVisiblePassword(prev => !prev);
+    }
+
+    const keypresshandler = (e) => {
+        if(onKeyPress) onKeyPress(e);
     }
 
     useEffect(() => {
@@ -69,6 +77,7 @@ const InputField = ({
                         ref = {inputRef}
                         required
                         className = {`${full ? "focus" : ""}`}
+                        onKeyPress = {keypresshandler}
                     />
                     <label>
                         <Icon icon = {icon} />

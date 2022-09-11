@@ -31,6 +31,7 @@ const Dropdown = ({title,children}) =>{
                 </div>
                 <div className={
                     `list-container
+                  
                     ${
                         open ? "active" : ""
                     }

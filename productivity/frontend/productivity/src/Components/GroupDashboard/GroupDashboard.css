@@ -1,3 +1,33 @@
 .groupdashboard{
     overflow-y:auto;
+    position:relative;
+    padding:0 !important;
+}
+
+.groupdashboard .groupTitle{
+    height:7vh;
+    display:flex;
+    align-items: center;
+    font-weight:600;
+    text-transform:capitalize;
+}
+
+.groupdashboard .top{
+    background:var(--body-bg);
+    padding:0 1em;
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.groupdashboard .action-btns{
+    /* border:1px solid red; */
+    font-size:var(--fs-xxl);
+    display:flex;
+    gap:.5em;
+}
+
+.groupdashboard .action-btns svg{
+    cursor: pointer;
 }
