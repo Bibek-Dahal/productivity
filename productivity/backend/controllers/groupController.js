@@ -140,7 +140,7 @@ class GroupController{
             const users = await User.find({email:{$in:email}},{_id:1,email:1})
             if(users){
                 //check if group exists and invitor is owner of group
-                const group = await Group.findOne({group:group_name,user:req.user_id})
+                const group = await Group.findOne({name:group_name,user:req.user_id})
                 if(group){
                     await sendMail(users,"Group Invitation Email",{group: group})
                     res.status(200).send({

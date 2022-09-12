@@ -8,11 +8,12 @@ const userLookup = async (email,helpers)=>{
     let user;
     try{
         console.log('inside userlookup')
-        // user = await User.findOne({email:email})
-        if(email==="bibekdahal47@gmail.com"){
+        user = await User.findOne({email:email})
+        console.log(user)
+        if(user){
             // console.log(helpers)
             console.log('email already exists')
-            throw new Error('sorry babe');
+            return helpers.message("email already exists")
         }
         console.log('hello babs')
         return email
@@ -28,7 +29,7 @@ class AuthValidation{
     /*
         validation for registration
     */
-        static register(req,res,next){
+        static async register (req,res,next){
 
             const schema = Joi.object({
                 username: Joi.
@@ -44,11 +45,42 @@ class AuthValidation{
                     string().
                     trim().
                     email().
-                    required().
-                    custom(userLookup,"custom validation").
-                    messages({
-                        'any.custom':'email already exists'
-                    }),
+                    /*external(async (value,helpers)=>{
+                        let user;
+                        console.log(helpers.prefs)
+                        console.log('inside userlookup')
+                        user = await User.findOne({email:value})
+                        if(user){
+                            // console.log(helpers)
+                            console.log('email already exists')
+                            // return helpers.error("email already exists")
+                            // throw new Error('email already exists')
+
+                            throw new Joi.ValidationError(
+                                "string.email",
+                                [
+                                  {
+                                    message: "email already exists",
+                                    path: ["email"],
+                                    type: "string.email",
+                                    context: {
+                                      key: "email",
+                                      label: "email",
+                                      value,
+                                    },
+                                  },
+                                ],
+                                value
+                              );
+                        }
+                        console.log('hello babs')
+                        return email
+                            
+                        
+                        
+                      
+                    }).*/
+                    required(),
             
                 password: Joi.
                     string().
@@ -75,7 +107,7 @@ class AuthValidation{
 
             })
     
-            showValidationsError(req,res,next,schema)
+            await showValidationsError(req,res,next,schema)
             
         }
  

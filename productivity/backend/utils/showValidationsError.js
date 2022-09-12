@@ -6,12 +6,11 @@ const showValidationsError = async (req,res,next,schema)=>{
     // const { error, value } = schema.validate(req.body,{abortEarly:false,errors:{label:'key'},wrap: {label: false},allowUnknown:true});
     /*try{
         const value = await schema.validateAsync(req.body,{abortEarly:false,errors:{label:'key'},wrap: {label: false}});
-        console.log(value)
         next()
 
     }catch(error){
         console.log('hello inside showValError')
-        console.log(error)
+        // console.log(error)
         const err = error.details
 
         let validationErrors = {}
