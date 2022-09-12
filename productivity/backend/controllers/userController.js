@@ -308,7 +308,7 @@ class UserController{
 
    static findUserByEmail = async (req,res)=>{
     try{
-        let regex = new RegExp(`${req.body.email}`)
+        let regex = new RegExp(`(${req.body.email})@gmail.com`)
         console.log(regex)
         const user = await User.find({email:{$regex:regex, $options: 'i'}},{password:0})
         if(user){
