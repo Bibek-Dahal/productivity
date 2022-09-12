@@ -4,7 +4,8 @@ import React,{
 import './InvitePeople.css';
 
 import {
-    InputField
+    InputField,
+    SearchResult
 } from '../index';
 
 import { Icon } from '@iconify/react';
@@ -60,8 +61,13 @@ const InvitePeople = ({setShowInvitePeople,groupId,group}) =>{
         // }catch(err){
         //     console.log(err);
         // }
-    
     }   
+
+    const endPeopleSearch = async () => {
+        console.log('array emptied');
+        setCurrentEmail("");
+        setEmails(prev => []);
+    }
 
     const findPerson = async (e) => {
         console.log('finding ',currentEmail);
@@ -122,6 +128,10 @@ const InvitePeople = ({setShowInvitePeople,groupId,group}) =>{
                 >
                     find person
                 </button>
+                <SearchResult 
+                    className = "found-people-container"
+                    endPeopleSearch = {endPeopleSearch}
+                />
             </div>
            
             <div className="emails-list-container">

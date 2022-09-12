@@ -21,6 +21,7 @@
 
 .invitepeople .main{
     margin-top:3em;
+    position:relative;
 }
 
 .invitepeople .emails-list-container{

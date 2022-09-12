@@ -46,15 +46,13 @@ const AcceptGroupInvite = () =>{
         joinGroup()
     }, [])
 
-    console.log('groupId = ',groupId)
-
     return(
         <div className = 'acceptgroupinvite'>
              {
                 !joined ?
                     <Loader 
-                        icon = "icomoon-free:spinner2"
-                        text = "joining group..."
+                        icon = "lucide:loader-2"
+                        text = "verifying token..."
                         fontSize = "4rem"
                     />:
                     <Navigate to = {`/group/${groupId}`} />    

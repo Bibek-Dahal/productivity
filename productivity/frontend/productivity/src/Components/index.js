@@ -30,6 +30,7 @@ import ConfirmDeleteGroup from './ConfirmDeleteGroup/ConfirmDeleteGroup';
 import InvitePeople from './InvitePeople/InvitePeople';
 import UserInfoSide from './UserInfoSide/UserInfoSide';
 import SmallModal from './SmallModal/SmallModal';
+import SearchResult from './SearchResult/SearchResult';
 
 export{
     Appintro,
@@ -63,5 +64,6 @@ export{
     ConfirmDeleteGroup,
     InvitePeople,
     UserInfoSide,
-    SmallModal
+    SmallModal,
+    SearchResult
 }

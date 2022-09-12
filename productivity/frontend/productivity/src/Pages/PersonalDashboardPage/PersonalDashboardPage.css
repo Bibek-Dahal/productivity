@@ -7,7 +7,7 @@
 }
 
 .dashboardpage__container >*:not(.sidebarleft){
-    padding : 0 1.5em;
+    /* padding : 0 1.5em; */
     padding-top:2em;
 }
 
