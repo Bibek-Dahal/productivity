@@ -204,6 +204,15 @@ class AuthValidation{
         /*
             Group Controller Validations
         */
+            static findUserByEmail(req,res,next){
+                const schema = Joi.object({
+                    email: Joi.
+                        string().
+                        required(),
+                })
+        
+                showValidationsError(req,res,next,schema)
+            }
     
 }
 

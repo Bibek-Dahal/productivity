@@ -308,7 +308,9 @@ class UserController{
 
    static findUserByEmail = async (req,res)=>{
     try{
-        const user = await User.findOne({email:req.body.email},{email:1})
+        let regex = new RegExp(`${req.body.email}`)
+        console.log(regex)
+        const user = await User.find({email:{$regex:regex, $options: 'i'}},{password:0})
         if(user){
             res.status(200).send({
                 user: user,
