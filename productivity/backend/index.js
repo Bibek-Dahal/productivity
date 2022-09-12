@@ -135,3 +135,4 @@ io.on('connection',(socket)=>{
 });
 
 
+console.log(process.env.MAILTRAP_USERNAME,process.env.MAILTRAP_PASSWORD)

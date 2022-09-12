@@ -41,6 +41,7 @@ const sendMail = async (user,subject,extra=null)=>{
         
 
       }else if(subject === "Group Invitation Email"){
+        console.log('inside group invitation')
         console.log(extra.group.name)
         const bodyTitle = "You are invited to join a group"
         const bodyDescription = `Please click on the link below so that you can be a member of ${extra.group.name}`
@@ -58,16 +59,19 @@ const sendMail = async (user,subject,extra=null)=>{
       }
 
 
-
+      console.log('sending mail to ',user);
+     try{
       let info = await transporter.sendMail({
         to: user.email, // list of receivers
         // to: "bibekdahal479@gmail.com",
         subject: subject, // Subject line
         html: html
       });
-
-
       console.log(info.messageId)
+     }catch(err){
+      console.log('error ',err);
+     }
+
 }
 
 export default sendMail

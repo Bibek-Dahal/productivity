@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 
 const authMiddleware = async (req,res,next)=>{
-    try{
+    try{    
+        console.log('inside authmiddleware',req.headers.authorization.split(' '))
         if(req.headers.authorization.split(' ').length == 2){
 
             const [token_name,token] = req.headers.authorization.split(" ")

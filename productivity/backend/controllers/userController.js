@@ -34,7 +34,6 @@ class UserController{
             // console.log(typeof(error))
             // console.log('hello i am called')
             displayMongooseValidationError(req,res,error)
-           
         } 
     }
 
@@ -60,8 +59,12 @@ class UserController{
              if(result && user){
                 
                 await user.save()
-                res.redirect('http://127.0.0.1:3000/login')
-
+                // commented by ashish
+                // res.redirect('http://127.0.0.1:3000/login')
+                res.status(200).send({
+                    message:"verification successfull",
+                    success : true
+                })
              }else{
                 res.status(400).send({
                     message: "user verification failed",
@@ -81,6 +84,7 @@ class UserController{
         try{
             const user = await User.findOne({email:req.body.email})
             //sends mail if user exists and is_active is false
+            console.log('found = ',user)
             if(user && user.is_active == false){
                 await sendMail(user,"User Verification Email")
                 res.status(200).send({

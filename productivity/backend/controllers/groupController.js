@@ -137,7 +137,6 @@ class GroupController{
     static inveteMember = async (req,res)=>{
         const {email,group_name} = req.body
         try{
-           
             const users = await User.find({email:{$in:email}},{_id:1,email:1})
             if(users){
                 //check if group exists and invitor is owner of group

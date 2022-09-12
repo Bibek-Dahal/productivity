@@ -79,6 +79,7 @@ class GroupValidation{
     }
 
     static invite = (req,res,next)=>{
+        console.log('validation invite')
         const schema = Joi.object({
             email: Joi.
                 array().
