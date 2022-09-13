@@ -182,6 +182,13 @@
     }
     axios.get('/api/group/members-details/<groupId>',options)
 
+# 10 . Find User By email
+
+    options = {
+        headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+
+    axios.get('/api/find-user-by-email/<email>',options)
 
 
 

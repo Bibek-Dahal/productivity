@@ -45,8 +45,8 @@ router.post('/register/resend-email',[
 ])
 
 //find user by email
-router.post('/find-user-by-email',[
-    AuthValidation.findUserByEmail,
+router.get('/find-user-by-email/:email',[
+    authMiddleware,
     UserController.findUserByEmail
 ])
 
