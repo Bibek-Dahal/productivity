@@ -73,6 +73,14 @@
 
     axios.post('/api/register/resend-email',data)
 
+## 8 . Find User By email
+
+    options = {
+        headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+
+    axios.get('/api/find-user-by-email/<email>',options)
+
 # Profile
 
 # 1. Get User Profile
@@ -137,7 +145,7 @@
     axios.put('api/group/<groupId>/update',data,options)
 
 
-# 4. Delete Group
+## 4. Delete Group
 
     options = {
         headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
@@ -145,7 +153,7 @@
 
     axios.delete('api/group/<groupId>/delete',options)
 
-# 5. List All Groups User Belongs To
+## 5. List All Groups User Belongs To
 
     options = {
         headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
@@ -153,7 +161,7 @@
 
     axios.get('api/group/get-user-groups',options)
 
-# 6. Invite Member To Group
+## 6. Invite Member To Group
 
     data = {
         "email": "",
@@ -165,30 +173,31 @@
 
     axios.post('/api/group/invite-member',data,options)
 
-# 7. Join Group From Link Received Through email
+## 7. Join Group From Link Received Through email
 
     axios.post('api/group/<groupName>/join/<token>')
 
-# 8. Chekck If Group Exists
+## 8. Chekck If Group Exists
 
     data = {
         "name": ""
     }
     axios.post('/api/group/group-exists',data)
 
-# 9. Get Group Members Details
+## 9. Get Group Members Details
     options = {
         headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
     }
     axios.get('/api/group/members-details/<groupId>',options)
 
-# 10 . Find User By email
 
+# Chat
+
+## 1. List All The Chats
     options = {
-        headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
     }
-
-    axios.get('/api/find-user-by-email/<email>',options)
+    axios.get('/api/group/chat/<groupId>',options)
 
 
 

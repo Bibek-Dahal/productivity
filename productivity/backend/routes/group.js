@@ -5,9 +5,10 @@ import GroupController from '../controllers/groupController.js'
 import GroupValidations from '../middlewares/validations/group.js'
 import task from './task.js'
 import AuthValidation from '../middlewares/validations/auth.js'
+import chat from './chat.js'
 
 router.use('/task',task) //handles task routes
-
+router.use('/chat',chat)
 
 
 //create group
