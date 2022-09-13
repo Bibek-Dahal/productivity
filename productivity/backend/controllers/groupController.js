@@ -89,7 +89,9 @@ class GroupController{
 
    static retrive = async (req,res)=>{
         try{
-            const group = await Group.findOne({_id:req.params.groupId,user:req.user_id}) //fetch group
+            // const group = await Group.findOne({_id:req.params.groupId,user:req.user_id}) //fetch group
+
+            const group = await Group.findOne({_id:req.params.groupId})
             // console.log(group)
             if(group){
                 //runs if user is owner of group
@@ -149,8 +151,8 @@ class GroupController{
                         success: true
                     })
                 }else{
-                    res.status(404).send({
-                        message: "group not found",
+                    res.status(403).send({
+                        message: "sorry, the sender is not owner of the group",
                         success: false
                     })
                 }
@@ -180,7 +182,7 @@ class GroupController{
                 // console.log(group)
 
                 //checks if user already belongs to group
-                const belongs = await Group.findOne({members:user._id})
+                const belongs = await group.members.includes(user._id)
                 console.log(belongs)
                 if(!belongs){
                     console.log('inside if')
@@ -209,6 +211,35 @@ class GroupController{
                 success: false
             })
         }
+    }
+
+    static getGroupMembersDetail = async (req,res,next)=>{
+        const {groupId} = req.params
+        console.log(groupId)
+        try{
+            const group = await Group.findOne({_id:groupId})
+            console.log(group.members)
+            const members = await User.find({_id:{$in:group.members}})
+
+            if(group && members){
+                console.log('group found')
+                // console.log(group)
+                res.status(200).send({
+                    users: members,
+                    success: true
+                })
+            }else{
+                res.status(404).send({
+                    success: false,
+                })
+            }
+            }catch(error){
+                res.status(500).send({
+                    message: "something went worng"
+                })
+            }
+            
+
     }
 
 }
