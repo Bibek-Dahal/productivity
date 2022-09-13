@@ -53,7 +53,7 @@ router.post('/:groupName/join/:token',GroupController.acceptGroupInvitation)
 router.post('/group-exists',GroupValidations.groupExists)
 
 //get details of all members of group
-router.get('/members-details/:groupId(\[a-zA-Z0-9]{24}\)',[authMiddleware,GroupController.getGroupMembersDetail])
+//router.get('/members-details/:groupId(\[a-zA-Z0-9]{24}\)',[authMiddleware,GroupController.getGroupMembersDetail])
 
 export default router
 
