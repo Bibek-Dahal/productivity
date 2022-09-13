@@ -176,6 +176,13 @@
     }
     axios.post('/api/group/group-exists',data)
 
+# 9. Get Group Members Details
+    options = {
+        headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.get('/api/group/members-details/<groupId>',options)
+
+
 
 
 
