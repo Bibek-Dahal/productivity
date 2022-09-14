@@ -79,7 +79,9 @@ class UserController{
 
     static resendVerificationMail = async (req,res)=>{
         try{
+            console.log(req.body.email)
             const user = await User.findOne({email:req.body.email})
+            console.log(user)
             //sends mail if user exists and is_active is false
             if(user && user.is_active == false){
                 sendMail(user,"User Verification Email")
