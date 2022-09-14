@@ -19,7 +19,7 @@ class UserController{
             let user = User(req.body)
             await user.save()
 
-            await sendMail(user,"User Verification Email")
+            sendMail(user,"User Verification Email")
         
             const data = {
                 message:"user created successfully",
@@ -82,7 +82,7 @@ class UserController{
             const user = await User.findOne({email:req.body.email})
             //sends mail if user exists and is_active is false
             if(user && user.is_active == false){
-                await sendMail(user,"User Verification Email")
+                sendMail(user,"User Verification Email")
                 res.status(200).send({
                     message:"verification email sent",
                     success: true
@@ -209,7 +209,7 @@ class UserController{
             console.log(user)
             if(user !== null){
 
-                await sendMail(user,"Password Reset Email")
+                sendMail(user,"Password Reset Email")
                 //sent mail
                 res.status(200).send({
                     message:"password reset email sent",
