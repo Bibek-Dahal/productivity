@@ -13,7 +13,7 @@ class ChatController{
                 //checks if user blongs to the group
                 console.log(req.user_id)
                 if(group.members.includes(req.user_id)){
-                    const chat = await Chat.find({group:groupId})
+                    const chat = await Chat.find({group:groupId}).populate('user','-password')
                     res.status(200).send({
                         chats: chat,
                         success: true

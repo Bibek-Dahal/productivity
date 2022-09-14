@@ -116,7 +116,7 @@ io.on('connection',(socket)=>{
 
             // console.log('username',chat.user.username)
 
-            io.in(room).emit("new-chat-message",{user:populated_chat.user.username,message:message})
+            io.in(room).emit("new-chat-message",{user:populated_chat.user,message:message})
             console.log('chat message created')
         }catch(error){
             console.log(error)
