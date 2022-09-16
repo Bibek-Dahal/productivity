@@ -145,7 +145,7 @@ class GroupController{
                 //check if group exists and invitor is owner of group
                 const group = await Group.findOne({name:group_name,user:req.user_id})
                 if(group){
-                    await sendMail(users,"Group Invitation Email",{group: group})
+                    sendMail(users,"Group Invitation Email",{group: group})
                     res.status(200).send({
                         message:"invitation send",
                         success: true
@@ -192,10 +192,10 @@ class GroupController{
                     //     message: "user joined in the group",
                     //     success: true
                     // })
-                    res.redirect('/')
+                    res.redirect(`http://127.0.0.1:3000/group/${group._id}?msg=group joined successfully`)
                 }else{
                     console.log('inside else')
-                    res.redirect('/')
+                    res.redirect(`http://127.0.0.1:3000/group/${group._id}?msg=already in the group`)
                 }
             }else{
                 res.status(400).send({

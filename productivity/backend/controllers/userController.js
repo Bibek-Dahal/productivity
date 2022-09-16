@@ -60,7 +60,7 @@ class UserController{
              if(result && user){
                 
                 await user.save()
-                res.redirect('http://127.0.0.1:3000/login')
+                res.redirect('http://127.0.0.1:3000/login?msg=account verified successfully')
 
              }else{
                 res.status(400).send({

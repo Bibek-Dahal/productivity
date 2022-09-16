@@ -8,6 +8,7 @@ import base_dir from "../index.js";
 
 
 const sendMail = async (user,subject,extra=null)=>{
+  try{
       let html;
       let link;
       const path = `${base_dir}/views/email.ejs`
@@ -80,7 +81,9 @@ const sendMail = async (user,subject,extra=null)=>{
         console.log(info.messageId)
       }
 
-
+    }catch(error){
+      console.log('mail could not be sent')
+    }
 }
 
 export default sendMail
