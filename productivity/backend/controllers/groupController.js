@@ -91,7 +91,7 @@ class GroupController{
         try{
             // const group = await Group.findOne({_id:req.params.groupId,user:req.user_id}) //fetch group
 
-            const group = await Group.findOne({_id:req.params.groupId},{password:0}).populate('user members','-password')
+            const group = await Group.findOne({_id:req.params.groupId},{password:0}).populate('user members task.task_user','-password')
             // console.log(group)
             if(group){
                 //runs if user is owner of group

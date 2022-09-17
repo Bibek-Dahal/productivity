@@ -199,6 +199,54 @@
     }
     axios.get('/api/group/chat/<groupId>',options)
 
+# Task
+
+## 1. Create Task
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+
+    data = {
+        "task_title":"",
+        "task_description":"",
+        "task_deadline":"2022-10-20",
+        "task_is_completed":false
+    }
+
+    axios.post('/api/group/task/create/<groupId>',data,options)
+
+## 2. Retrive Task
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+
+    axios.get('/api/group/task/retrive/<groupId>/<taskId>',optioins)
+
+## 3. Update Task
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+
+    data = {
+        "task_title":"",
+        "task_description":"",
+        "task_is_completed":false,
+        "task_deadline": "2022-11-12"
+    }
+
+    axios.put('/api/group/task/update/<groupId>/<taskId>',data,options)
+
+## 4. Delete Task
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+
+    axios.delete('/api/group/task/delete/<groupId>/<taskId>',options)
+
+
+
+
+
 
 
 

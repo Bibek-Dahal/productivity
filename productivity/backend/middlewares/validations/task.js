@@ -8,8 +8,7 @@ class TaskValidations{
 
         static createTask = (req,res,next)=>{
             const schema = Joi.object({
-                task: Joi.object({
-                        task_user: Joi.string().trim().alphanum().required(),
+                // task: Joi.object({
                         task_title: Joi.string().trim().min(3).max(30).required(),
                         task_description: Joi.string().trim().max(100).required(),
                         task_deadline: Joi.date().iso().required(),
@@ -18,17 +17,28 @@ class TaskValidations{
                             array().
                             items(
                                 Joi.object({
-                                    goals_user: Joi.string().trim().alphanum().required(),
                                     goals_title: Joi.string().trim().min(3).max(30).required(),
                                     goals_description: Joi.string().trim().max(100).required(),
                                     goals_deadline: Joi.date().iso().required(),
                                     goals_is_completed: Joi.boolean().default(false)
                                 })
-                            ).required()
+                            )
+                            // .required()
     
-                    }).required()   
+                    // }).required()   
             })
     
+            showValidationsError(req,res,next,schema)
+        }
+
+        static updateTask = (req,res,next)=>{
+            const schema = Joi.object({
+                task_title: Joi.string().trim().min(3).max(30).required(),
+                task_description: Joi.string().trim().max(100).required(),
+                task_deadline: Joi.date().iso().required(),
+                task_is_completed: Joi.boolean().default(false),
+            })
+
             showValidationsError(req,res,next,schema)
         }
     
