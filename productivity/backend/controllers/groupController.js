@@ -274,6 +274,31 @@ class GroupController{
         }
     }
 
+    static leaveGroup = async(req,res)=>{
+        try{
+            const {groupId} = req.params
+            //finds group if user belongs to the group
+            const group = await Group.findOne({_id:groupId,members:req.user_id})
+
+            if(group){
+
+                await Group.updateOne({_id:groupId},{$pull:{members:req.user_id}})
+                res.status(200).send({
+                    success: true
+                })
+
+            }else{
+                res.status(404).send({
+                    message: 'group not found'
+                })
+            }
+        }catch(error){
+            res.status(500).send({
+                message: 'something went wrong'
+            })
+        }
+    }
+
 }
 
 export default GroupController
