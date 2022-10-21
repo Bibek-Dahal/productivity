@@ -13,8 +13,8 @@ const displayMongooseValidationError = (req,res,error)=>{
     // console.log('hello i am called')
     let err = {
         errors:{},
-        status:"failed",
-        message:"unable to register"
+        success:"false",
+       
     };
     if (error.name === "ValidationError") {
         
