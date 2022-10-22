@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+
+body{
+    --error-red:rgb(237, 15, 15);
+    --success-green:rgb(35, 209, 35);
+
+    --black : #111111;
+    --white : #fbfbfb;
+    --greyish-white:#fffefed5;
+    --dark-primary : #36393F;
+    --dark-secondary : #2F3136;
+    --dark-tertiary : #212325;
+    --secondary-text:#fffefe92;
+    --upper-secondary-text:#fffefeb8;
+    --discord-blue : #5864F3;
+    --discord-blue-dark : #4550c4;
+    --discord-purple:mediumorchid;
+
+    --secondary-text:#111111b0;
+    --gray-white:#ddd;
+
+    --fs-xs:.7rem;
+    --fs-s : .9rem;
+    --fs-n : 1rem;
+    --fs-m : 1.05rem;
+    --fs-ml:1.5rem;
+    --fs-l : 1.2rem;
+    --fs-xl : 2rem;
+
+    font-family: 'Roboto', sans-serif;
+    /* background:var(--white); */
+}
+
+
+.secondary-text{
+    color:var(--secondary-text);
+}
+
+
+.small{
+    font-size:var(--fs-s);
+}
+
+.no-scrollbar::-webkit-scrollbar{
+    display:none;
+}
+
+a{
+    text-decoration: none;
+    color:unset;
+}

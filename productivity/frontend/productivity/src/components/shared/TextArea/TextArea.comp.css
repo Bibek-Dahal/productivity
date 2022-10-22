@@ -1,0 +1,17 @@
+.create-group .textarea{
+    /* border:1px solid red; */
+}
+
+.create-group .textarea textarea{
+    padding:.5em;
+    resize:vertical;
+    border:2px solid var(--gray-white);
+    outline:none;
+    width: 100%;
+}
+
+.inputfield textarea:focus{
+    border:2px solid var(--discord-blue);
+    color:var(--discord-blue);
+}
+

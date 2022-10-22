@@ -1,0 +1,80 @@
+.inputfield{
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+}
+
+.inputfield .input{
+    position:relative;
+    color:inherit;
+}
+
+.inputfield .input svg.main-icon{
+    left:.7em;
+    width:20px;
+    pointer-events:none;
+}
+
+.inputfield .input svg.eye-icon{
+    right:.7em;
+    width:20px;
+    cursor: pointer;
+    opacity:.5;
+}
+
+.inputfield .input svg.eye-icon:hover{
+    opacity: 1;
+}
+
+.inputfield .input svg{
+    position:absolute;
+    height:100%;
+    color:inherit;
+}
+
+.inputfield label{
+    font-weight:600;
+}
+
+.inputfield input{
+    width:100%;
+    border-radius:3px;
+    background:transparent;
+    color:inherit;
+    border:2px solid var(--gray-white);
+    outline: none;
+}
+
+.inputfield input:focus{
+    border:2px solid var(--discord-blue);
+}
+
+.inputfield.icon input{
+    /* padding-left:2.5em; */
+}
+
+.inputfield small,
+.inputfield.error svg,
+.inputfield.error input,
+.inputfield.error label{
+    color:var(--error-red);
+}
+
+.inputfield.error input{
+    border:2px solid var(--error-red);
+}
+
+.inputfield label{
+    text-transform: uppercase;
+}
+
+.inputfield.success small,
+.inputfield.success svg,
+.inputfield.success input,
+.inputfield.success label{
+    color:var(--success-green);
+}
+
+.inputfield.success input{
+    border:2px solid var(--success-green);
+}

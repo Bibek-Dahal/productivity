@@ -1,0 +1,20 @@
+.emailverification-container{
+    /* border:1px solid red; */
+}
+
+.emailverification-container form{
+    margin-top:2em;
+}
+
+.emailverification-container input{
+    font-size:var(--fs-n);
+}
+
+.emailverification-container button{
+    width:100%;
+}
+
+.emailverification-container button.invalid{
+    opacity:.5;
+    pointer-events: none;
+}

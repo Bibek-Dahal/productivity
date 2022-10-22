@@ -1,0 +1,78 @@
+.loading{
+    animation : loading 1000ms linear infinite;
+}
+
+.discord-bounce{
+    animation : discord-bounce 350ms ease;
+}
+
+.discord-tooltip{
+    animation : discord-tooltip 200ms ease;
+}
+
+.firebase-transition{
+    animation : firebase-transition 300ms ease;
+}
+
+.modal-appear{
+    animation : modal-appear 300ms ease;
+}
+
+@keyframes loading {
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+@keyframes discord-bounce {
+    0%{
+        transform:translateY(-40px)scale(1.03);
+    }
+
+    50%{
+        transform:translateY(10px) scale(1);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+
+
+@keyframes discord-tooltip {
+    0%{
+        transform:translate(-2px,-50%)scale(.96);
+    }
+    50%{
+        transform:translate(2px,-50%)scale(1);
+    }
+    100%{
+        transform:translate(0px,-50%);
+    }
+}
+
+@keyframes firebase-transition {
+    /* 0%{
+        transform:translateX(100%)scale(.95);
+    }
+    100%{
+        transform:translateX(0%)scale(1);
+    } */
+}
+
+@keyframes modal-appear {
+    0%{
+        transform:translate(-50%,-50%)scale(.7);
+    }
+    50%{
+        transform:translate(-50%,-50%)scale(1.02);
+    }
+    100%{
+        transform:translate(-50%,-50%)scale(1);
+    }
+}
