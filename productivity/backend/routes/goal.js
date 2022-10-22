@@ -25,4 +25,16 @@ router.get('/retrive/:groupId/:taskId/:goalId',[
     GoalController.retrive
 ])
 
+//update goal of particular task
+router.put('/update/:groupId/:taskId/:goalId',[
+    authMiddleware,
+    GoalController.update
+])
+
+//update goal of particular task
+router.delete('/delete/:groupId/:taskId/:goalId',[
+    authMiddleware,
+    GoalController.delete
+])
+
 export default router
