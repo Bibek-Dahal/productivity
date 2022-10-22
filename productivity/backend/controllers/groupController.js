@@ -10,22 +10,29 @@ class GroupController{
     */
 
     static create = async (req,res)=>{
-        const {name} = req.body
         try{
+            const {name} = req.body
             req.body.user = req.user_id
             req.body.members = [req.user_id]
             console.log(req.body)
-            const group = await Group.create(req.body)
-            // console.log(await group.save())
-            res.status(201).send({
-                message:"group created",
-                group:group,
-                success: true
+            try{
+                const group = await Group.create(req.body)
+                // console.log(await group.save())
+                res.status(201).send({
+                    message:"group created",
+                    group:group,
+                    success: true
 
-            })
+                })
+            }catch(error){
+                displayMongooseValidationError(req,res,error)
+            }
+            
 
         }catch(error){
-            displayMongooseValidationError(req,res,error)
+            res.status(500).send({
+                message: 'something went wrong'
+            })
         }
     }
 
@@ -240,6 +247,56 @@ class GroupController{
             }
             
 
+    }
+
+    static groupExists = async(req,res)=>{
+        try{
+            console.log('i am called')
+            const {name} = req.body
+            const group = await Group.findOne({name:name})
+            if(group){
+                res.status(400).send({
+                    errors:{
+                        name: 'group with group name already exists'
+                    },
+                    success: false
+                })
+            }else{
+                res.status(200).send({
+                    message: 'group with group name can be created',
+                    success: true
+                })
+            }
+        }catch(error){
+            res.status(500).send({
+                message: 'something went wrong'
+            })
+        }
+    }
+
+    static leaveGroup = async(req,res)=>{
+        try{
+            const {groupId} = req.params
+            //finds group if user belongs to the group
+            const group = await Group.findOne({_id:groupId,members:req.user_id})
+
+            if(group){
+
+                await Group.updateOne({_id:groupId},{$pull:{members:req.user_id}})
+                res.status(200).send({
+                    success: true
+                })
+
+            }else{
+                res.status(404).send({
+                    message: 'group not found'
+                })
+            }
+        }catch(error){
+            res.status(500).send({
+                message: 'something went wrong'
+            })
+        }
     }
 
 }

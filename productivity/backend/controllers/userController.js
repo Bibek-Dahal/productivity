@@ -15,26 +15,28 @@ class UserController{
                 let cloud_res = await cloudinary.v2.uploader.upload(req.file.path,{folder:"node"})
                 req.body.avatar = cloud_res.secure_url
             }
-            
-            let user = User(req.body)
-            await user.save()
 
-            sendMail(user,"User Verification Email")
-        
-            const data = {
-                message:"user created successfully",
-                success:true,
-                
-            }
-            res.status(201).send(data)
+            try{
+                let user = User(req.body)
+                await user.save()
+
+                sendMail(user,"User Verification Email")
             
-  
+                const data = {
+                    message:"user created successfully",
+                    success:true,
+                    
+                }
+                res.status(201).send(data)
+            }catch(error){
+                displayMongooseValidationError(req,res,error)
+            }
+            
         }catch(error){
-            // console.log(error)
-            // console.log(typeof(error))
-            // console.log('hello i am called')
-            displayMongooseValidationError(req,res,error)
-           
+            
+            res.status(500).send({
+                message: 'something went wrong'
+            })
         } 
     }
 
@@ -170,32 +172,37 @@ class UserController{
         try{
             let user = await User.findById(req.user_id)
             let result = await User.checkUser(old_password,user.password)
-            if(result){
-        
-                //change the password
-                user.password = new_password
-                await user.save()
-                res.status(200).send({
-                    message:"password changed successfull",
-                    success:true
-                })
-        
-            }else{
-                
-                res.status(400).send({
-                    errors:{
-                        old_password:"old password does not match current password"
-                    },
-                    message:"password change failed"
 
-                })
-                
+            try{
+                if(result){
+        
+                    //change the password
+                    user.password = new_password
+                    await user.save()
+                    res.status(200).send({
+                        message:"password changed successfull",
+                        success:true
+                    })
+            
+                }else{
+                    
+                    res.status(400).send({
+                        errors:{
+                            old_password:"old password does not match current password"
+                        },
+                        message:"password change failed"
+    
+                    })
+                    
+                }
+            }catch(error){
+                displayMongooseValidationError(req,res,error)
             }
-
         }catch(error){
-            displayMongooseValidationError(req,res,error)
+            res.status(500).send({
+                message: 'something went wrong'
+            })
         }
-        
     }
 
     /*
@@ -271,21 +278,29 @@ class UserController{
             return res.status(400).send({message:"Token Expired"});
         }
 
-        const user = await User.findById(id)
+        try{
+            const user = await User.findById(id)
 
         //checks if user is present and token is valid
-        if(result && user){
-            //check if token blongs to user
-            console.log(typeof(result.id))
-            console.log(user._id.toString())
-            if(result.id == user._id){
-                //reset user password
-                user.password = new_password
-                await user.save()
-                res.status(200).send({
-                    message:"password reset successfull",
-                    success:true
-                })
+            if(result && user){
+                //check if token blongs to user
+                console.log(typeof(result.id))
+                console.log(user._id.toString())
+                if(result.id == user._id){
+                    //reset user password
+                    user.password = new_password
+                    await user.save()
+                    res.status(200).send({
+                        message:"password reset successfull",
+                        success:true
+                    })
+
+                }else{
+                    res.status(400).send({
+                        message:"password cannot be reseted",
+                        success:true
+                    })
+                }
 
             }else{
                 res.status(400).send({
@@ -293,17 +308,17 @@ class UserController{
                     success:true
                 })
             }
+        }catch(error){
+            console.log(error)
+            displayMongooseValidationError(req,res,error)
 
-        }else{
-            res.status(400).send({
-                message:"password cannot be reseted",
-                success:true
-            })
         }
         
+        
     }catch(error){
-        console.log(error)
-        displayMongooseValidationError(req,res,error)
+        res.status(500).send({
+            message: 'something went wrong'
+        })
     }
 
    }

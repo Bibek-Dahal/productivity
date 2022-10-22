@@ -50,7 +50,14 @@ router.post('/:groupName/join/:token',GroupController.acceptGroupInvitation)
 
 
 //check if group exists
-router.post('/group-exists',GroupValidations.groupExists)
+router.post('/group-exists',[
+    GroupValidations.groupExists,
+    GroupController.groupExists
+
+])
+
+//leave group
+router.post('/leave/:groupId',[authMiddleware,GroupController.leaveGroup])
 
 //get details of all members of group
 //router.get('/members-details/:groupId(\[a-zA-Z0-9]{24}\)',[authMiddleware,GroupController.getGroupMembersDetail])

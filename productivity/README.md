@@ -190,6 +190,12 @@
     }
     axios.get('/api/group/members-details/<groupId>',options)
 
+## 10. Leave Group
+    options = {
+        headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.post('/api/group/leave/<groupId>',options)
+
 
 # Chat
 
