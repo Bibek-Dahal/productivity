@@ -1,5 +1,6 @@
 import express from 'express'
 import auth from './routes/auth.js';
+import user from './routes/user.js'
 import connectDb from './config/database.js';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
@@ -48,6 +49,7 @@ connectDb(uri,options)
 app.use('/api',auth) //handle auth routes
 app.use('/api/profile',profile) //handles profie routes
 app.use('/api/group',group) //handle group routes
+app.use('/api/user',user) //handle group routes
 
 
 

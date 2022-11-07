@@ -249,6 +249,13 @@
 
     axios.delete('/api/group/task/delete/<groupId>/<taskId>',options)
 
+# User
+## 1. Groups History
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.get('/api/user/history')
+
 
 
 
