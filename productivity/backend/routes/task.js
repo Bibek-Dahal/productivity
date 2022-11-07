@@ -4,6 +4,10 @@ const router = express.Router()
 import TaskController from '../controllers/taskController.js'
 import authMiddleware from '../middlewares/authMiddleware.js'
 import TaskValidations from '../middlewares/validations/task.js'
+import goal from './goal.js'
+
+//forward route to goal 
+router.use('/goal',goal)
 
 //create task
 router.post('/create/:groupId',[authMiddleware,TaskValidations.createTask,TaskController.create])
@@ -16,6 +20,6 @@ router.delete('/delete/:groupId/:taskId',[authMiddleware,TaskController.delete])
 
 
 //retrive task
-router.get('/retrive/:groupId/:taskId',[authMiddleware,TaskController.retrive])
+router.get('/retrive/:groupId/:taskId/:goalId',[authMiddleware,TaskController.retrive])
 
 export default router
