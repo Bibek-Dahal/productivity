@@ -7,7 +7,9 @@ function PersonalActivity({className}){
             `
            }
         >
-            personal activity
+            <p>
+                personal activity
+            </p>
         </div>
     )
 }

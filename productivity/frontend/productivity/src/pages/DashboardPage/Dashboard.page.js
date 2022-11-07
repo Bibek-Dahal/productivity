@@ -6,6 +6,8 @@ import {
     NavLink
 } from 'react-router-dom';
 
+import {Icon} from '@iconify/react'
+
 import {
     Dashboard,
     GroupList,
@@ -62,12 +64,14 @@ function DashboardPage(){
                         }}
                         end
                     >
+                        <Icon icon = "humbleicons:dashboard" />
                         dashboard
                     </NavLink> 
                     <NavLink 
                         
                         to = "/dashboard/activity"
                     >
+                        <Icon icon = "humbleicons:dashboard" />
                         activity
                     </NavLink>    
                 </ul>            

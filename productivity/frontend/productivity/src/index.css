@@ -24,10 +24,11 @@ body{
     --discord-blue : #5864F3;
     --discord-blue-dark : #4550c4;
     --discord-purple:mediumorchid;
-
+    --blue : #0095ff;
+    --blue-light : #318eff41;
     --secondary-text:#111111b0;
     --gray-white:#ddd;
-
+    
     --fs-xs:.7rem;
     --fs-s : .9rem;
     --fs-n : 1rem;

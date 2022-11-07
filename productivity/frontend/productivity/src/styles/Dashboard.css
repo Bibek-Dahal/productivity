@@ -1,14 +1,16 @@
 .dashboard-container{
-    /* background:pink; */
     height:100vh;
     display:grid;
     overflow-y: hidden;
+    /* gap:1em; */
 }
 
 .dashboard-container >*{
-    padding:1em;
     padding-top:2em;
+    /* border:1px solid red; */
 }
+
+
 
 .dashboard-container.with-mini-left{
     grid-template-columns:70px 250px 1fr 300px;
@@ -20,24 +22,44 @@
 
 }
 
-.dashboard-left-mini{
-    /* overflow-y:scroll;
-    overflow-x:visible; */
-    /* box-shadow:2px 2px 10px #ddd; */
-}
-
-a.active{
-    color:var(--white);
-    background:var(--discord-blue);
-}
-
-.dashboard-left{
-    background:#faf9fa;
-}
-
 .dashboard-center,
 .dashboard-left,
 .dashboard-left-mini
 {
-    border-right:2px solid rgb(238, 238, 238);
+    /* background:#f3f3f4; */
+}
+
+.dashboard-left-mini{
+    /* overflow-y:scroll;
+    overflow-x:visible; */
+    /* box-shadow:2px 2px 10px #ddd; */
+    /* box-shadow:2px 0px 30px rgb(228, 228, 228); */
+    /* border-right:2px solid rgb(240, 240, 240); */
+    /* background:rgb(228, 228, 228); */
+}
+
+.dashboard-container a{
+    display:flex;
+    align-items: center;
+    gap:.5em;
+    border-radius:4px;
+}
+
+.dashboard-container a svg{
+    font-size:var(--fs-l);
+}
+
+a.active{
+    color:var(--blue);
+    background:var(--blue-light);
+}
+
+.dashboard-left{
+    /* background:#eef3f5; */
+}
+
+
+.dashboard-container >*{
+    /* border:1px solid red; */
+    padding:1em;
 }

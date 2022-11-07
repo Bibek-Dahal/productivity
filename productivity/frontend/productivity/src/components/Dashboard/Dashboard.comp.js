@@ -3,7 +3,9 @@ function Dashboard({className}){
         <div
             className = {`${className ? className : ""}`}
         >
-            dashboard
+            <p>
+                dashboard
+            </p>
         </div>
     )
 }

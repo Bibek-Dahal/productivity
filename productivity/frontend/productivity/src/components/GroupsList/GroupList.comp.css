@@ -1,17 +1,19 @@
 .grouplist-container{
-    padding:.5em;
+    /* padding:.5em; */
     display:flex;
 }
 
 .grouplist .group{
     height:45px;
     width:45px;
-    /* border:1px solid red; */
-    border-radius:50%;
+    /* border-radius:50%; */
+    border-radius:5px;
     cursor:pointer;
-    background:rgb(234, 234, 234);
-    margin:1em 0;
+    padding:.5em;
+    /* margin:1em 0; */
     font-weight:600;
+    /* box-shadow:0px 0px 20px rgb(220, 220, 220); */
+    background:rgb(244, 241, 241);
 }
 
 .image{
@@ -24,7 +26,11 @@
 }
 
 .grouplist{
-    
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+    margin-left:auto;
+    margin-right: auto;
 }
 
 .grouplist .group-tooltip{
@@ -40,12 +46,11 @@
     z-index:999;
     top:50%;
     transform:translateY(-50%);
-    left:130%;
+    left:calc(100% + 2em);
     padding:.5em .8em;
     border-radius:4px;
     font-weight:600;
     display:none;
-    clip-depth: 2;
 }
 
 .grouplist .group-tooltip .image:hover ~ .group-tooltip-text{
@@ -74,7 +79,7 @@
 }
 
 .group:hover .delete-group-icon{
-    display:block;
+    display:flex;
 }
 
 .group .delete-group-icon svg path{
@@ -86,10 +91,24 @@
 
 .group .delete-group-icon{
     position:absolute;
-    right:-1em;
-    top:-1em;
+    right:-.5em;
+    top:-.5em;
     cursor: pointer;
-    padding-left:1em;
-    padding-bottom:1em;
+    /* padding-left:1em; */
+    /* padding-bottom:1em; */
+    /* display:none; */
+    background:var(--blue);
     display:none;
+    justify-content: center;
+    align-items: center;
+    padding:.2em;
+    border-radius:50%;
+    color:var(--white);
+}
+
+.grouplist hr{
+    padding:.1em;
+    background:rgba(199, 199, 199, 0.167);
+    border:none;
+    border-radius:5px;
 }
