@@ -15,6 +15,8 @@ const sendMail = async (user,subject,extra=null)=>{
       
       const encoder = await new Base64Encoder({ url: true }).optimize();
       let encodedText = encoder.encode(new TextEncoder().encode(user._id))
+
+
       const token = await jwt.sign({
           id: user._id
           }, process.env.JWT_SECRET_KEY, { expiresIn: 5*24*60*60 });
@@ -78,10 +80,21 @@ const sendMail = async (user,subject,extra=null)=>{
           html: html
         });
 
+      if(subject === 'Goal Completed'){
+        
+        let info = await transporter.sendMail({
+          to: `${extra.emails}`, // list of receivers
+          // to: "bibekdahal479@gmail.com",
+          subject: subject, // Subject line
+          html: `<h1> ${user.username} has completed his goal </h1>`
+        });
+      }
+
         console.log(info.messageId)
       }
 
     }catch(error){
+      console.log(error)
       console.log('mail could not be sent')
     }
 }

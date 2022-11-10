@@ -5,6 +5,8 @@ import transporter from "../config/mail_config.js";
 import cloudinary from "../config/cloudinary.js";
 import { displayMongooseValidationError } from "../utils/displayValidationError.js";
 import sendMail from '../utils/sendMail.js'
+import Group from '../models/Group.js'
+import mongoose  from "mongoose";
 
 class UserController{
     //function for registering new user
@@ -345,6 +347,91 @@ class UserController{
         })
     }
     
+   }
+
+   static userHistory = async (req,res)=>{
+    try{
+        const user = await User.findById(req.user_id) 
+        console.log(req.user_id)
+        const groups = await Group.find({user:req.user_id})
+        let history = groups.map((group)=>{
+            const name = group.name
+            //calculate number of task created
+            let taskCreated = 0
+            let taskCompleted = 0
+            let goalCreated = 0
+            let goalCompleted = 0
+            group.task.forEach((task)=>{
+                //calculates number of task Created
+                if(task.task_user == req.user_id){
+                    taskCreated++
+                }
+                //calculate number of task Completed
+                if(task.task_user == req.user_id && task.task_is_completed == true ){
+
+                    taskCompleted++
+                    goalCreated = task.task_goals.length
+                    task.task_goals.forEach((goal)=>{
+                        if(goal.goal_is_completed == true){
+                            goalCompleted++
+                        }
+                    })
+                }
+            })
+
+            
+            
+            return {
+                name,
+                taskCreated,
+                taskCompleted,
+                goalCreated,
+                goalCompleted
+            }
+        })
+        console.log(history)
+        // console.log(group)
+        const numOfGroupCreated = await Group.aggregate([
+            {   
+              $match: {
+                user:mongoose.Types.ObjectId(req.user_id)
+              }
+            },
+            {
+                $count: "count"
+            }
+          ])
+
+          const numOfGroupJoined = await Group.aggregate([
+            {   
+              $match: {
+                members:mongoose.Types.ObjectId(req.user_id)
+              }
+            },
+            {
+                $count: "count"
+            }
+          ])
+        
+        // Group.find({user:req.user_id})
+        // const noOfGroupJoined = Group.find({user:req.user_id})
+        res.status(200).send({
+            success:true,
+            numOfGroupJoined:numOfGroupJoined[0].count,
+            numOfGroupCreated:numOfGroupCreated[0].count,
+            history
+
+        })
+
+
+    }catch(error){
+        console.log(error)
+        res.status(500).send({
+            message:'something went wrong'
+        })
+    }
+
+
    }
 }
 
