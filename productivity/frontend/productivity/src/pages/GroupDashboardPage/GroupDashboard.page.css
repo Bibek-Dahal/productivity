@@ -1,0 +1,54 @@
+.group-dashboard .members-container{
+    display:flex;
+    flex-direction: column;
+    gap:1.5em;
+}
+
+.group-dashboard .members-container .title{
+   text-transform: uppercase;
+   font-weight:500;
+   text-decoration: underline;
+   display:flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.group-dashboard .members-container .title .addMemberIcon{
+    cursor: pointer;
+}
+
+.group-dashboard .members-container .title svg{
+    font-size:var(--fs-ml);
+}
+
+.group-dashboard .members-container >*{
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+}
+
+.group-dashboard .members-container .people {
+    display:flex;
+    gap:.6em;
+    align-items: center;
+    text-transform: capitalize;
+    padding:.5em;
+    padding-left:1em;
+    border-radius:3px;
+    /* border:2px solid rgb(241, 241, 241); */
+    cursor: pointer;
+    opacity:.6;
+}
+
+.group-dashboard .members-container .people:hover {
+    background:rgb(239, 239, 239);
+    cursor: pointer;
+    opacity:1;
+}
+
+.group-dashboard .members-container .people img{
+    height:30px;
+    width:30px;
+    border-radius:50%;
+    object-fit: cover;
+}

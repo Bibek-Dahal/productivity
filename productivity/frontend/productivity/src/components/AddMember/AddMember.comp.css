@@ -1,0 +1,102 @@
+.addmember-container{
+    margin-top:3em;
+    position:relative;
+}
+
+.addmember-container input{
+    width:100%;
+    padding:.5em 1em;
+    border:1px solid rgb(202, 202, 202);
+    font-size:var(--fs-n);
+    outline:none;
+}
+
+.peoples-container{
+    margin-top:1em;
+}
+
+.peoples-container .people,
+.search-result-container .people{
+    padding:.7em;
+    display:flex;
+    align-items: center;
+    gap:1em;
+    border-radius:5px;
+    /* box-shadow:2px 2px 10px #ddd; */
+    border:2px solid rgb(235, 235, 235);
+    margin:.5em 0;
+    transition:transform 200ms ease;
+}
+
+.search-result-container .people{
+    border:none;
+}
+
+.peoples-container .people:hover{
+    background:rgb(238, 238, 238);
+    cursor: pointer;
+    transform:scale(1.03);
+}
+
+.peoples-container .people img,
+.search-result-container .people img{
+    height:30px;
+    width:30px;
+    border-radius:50%;
+}
+
+.search-result-container{
+    position:absolute;
+    background:white;
+    width:100%;
+    border-radius:0 0 5px 5px;
+    box-shadow:3px 3px 100px rgb(158, 158, 158);
+    z-index:999;
+    padding:.5em 1em;
+}
+
+.search-result-container .people:hover{
+    transform:scale(1.01);
+    background:rgb(239, 239, 239);
+    cursor: pointer;
+}
+
+.addmember-container .people .info{
+    display:flex;
+    flex-direction: column;
+    gap:.3em;
+}
+
+.addmember-container .people .email{
+    opacity:.5;
+    font-size:var(--fs-s);
+}
+
+.addmember-container .search-result-container .people >* {
+   pointer-events: none;
+}
+
+.addmember-container .peoples-container .people{
+    position:relative;
+}
+
+.addmember-container .peoples-container .people .delete-people-icon{
+    position:absolute;
+    right:1em;
+}
+
+.addmember-container .peoples-container .people .delete-people-icon svg{
+    pointer-events: none;
+}
+
+.addmember-container button{
+    padding:.6em 1em;
+    width:100%;
+    margin-top:3em;
+    font-weight:500;
+    font-size:var(--fs-n);
+    color:white;
+    background:var(--discord-blue);
+    border:none;
+    cursor: pointer;
+}

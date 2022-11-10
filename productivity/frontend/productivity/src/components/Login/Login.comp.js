@@ -60,6 +60,14 @@ function Login(){
 
     const {validEmail,validPassword} = useAuthContext();
 
+    const location = useLocation();
+
+    const from  = location.state?.from ? location.state?.from : '/dashboard';
+
+    useEffect(() => {
+        console.log('location = ',location)
+    },[])
+
     const loginHandler = (e) => {
         e.preventDefault();
         // console.log('logging = ',data)
@@ -82,11 +90,11 @@ function Login(){
                       pauseOnHover : true
                     }
                 });
-                navigate({
-                    pathname : '/dashboard'
-                });
+                console.log('navigating to dashboard');
+                navigate(from.pathname);
             })
             .catch(err => {
+                console.log('inside catch',err)
                 setSubmitting(false)
                 if(err?.response.status == "403"){
                     console.log('verify');
@@ -122,7 +130,6 @@ function Login(){
                         ))
                     }
                 }
-                // console.log(errors)
             })
     }
     

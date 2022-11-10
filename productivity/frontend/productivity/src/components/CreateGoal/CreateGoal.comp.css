@@ -1,0 +1,31 @@
+.creategoal-container{
+    /* transform:scale(.9); */
+    display:flex;
+    flex-direction: column;
+    gap:2em;
+    background:rgb(242, 242, 242);
+    padding:2em; 
+}
+
+.creategoal-container .field{
+    display: flex;
+    flex-direction: column;
+    gap:.5em;
+}
+
+.creategoal-container .field input,
+.creategoal-container .field textarea{
+    padding:.5em;
+    border:1px solid #ddd;
+}
+
+.creategoal-container button{
+    padding:.8em;
+    font-weight: 600;
+    text-transform: capitalize;
+    background:var(--blue);
+    border:none;
+    border-radius:3px;
+    color:white;
+    cursor: pointer;
+}

@@ -8,7 +8,6 @@
     box-sizing: border-box;
 }
 
-
 body{
     --error-red:rgb(237, 15, 15);
     --success-green:rgb(35, 209, 35);
@@ -24,10 +23,14 @@ body{
     --discord-blue : #5864F3;
     --discord-blue-dark : #4550c4;
     --discord-purple:mediumorchid;
-    --blue : #0095ff;
+    --blue : #048ae9;
     --blue-light : #318eff41;
     --secondary-text:#111111b0;
-    --gray-white:#ddd;
+    --gray-white:rgba(233, 233, 233, 0.715);
+    --gray-white-light:rgba(231, 231, 231, 0.318);
+    --msg-box-sent:#00B2FF;
+    /* --msg-box:#006AFF; */
+    --msg-box-recieved:rgb(223, 223, 223);
     
     --fs-xs:.7rem;
     --fs-s : .9rem;
@@ -41,11 +44,9 @@ body{
     /* background:var(--white); */
 }
 
-
 .secondary-text{
     color:var(--secondary-text);
 }
-
 
 .small{
     font-size:var(--fs-s);
@@ -53,6 +54,21 @@ body{
 
 .no-scrollbar::-webkit-scrollbar{
     display:none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background:none;
+    /* background:rgb(242, 240, 240); */
+}
+    
+::-webkit-scrollbar-thumb {
+    background:rgb(196, 189, 189);
+    outline:none;
+    border-radius:5px;
 }
 
 a{

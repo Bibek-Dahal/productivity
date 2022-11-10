@@ -11,7 +11,9 @@ import {
     NotFoundPage,
     LoginPage,
     RegisterPage,
-    DashboardPage
+    DashboardPage,
+    GroupDashBoardPage,
+    LogoutPage
 } from './pages/';
 
 import PrivateRoute from './utils/Routes/Private.route';
@@ -40,6 +42,12 @@ function App(){
                         </PrivateRoute>
                     }
                 />
+                <Route path = "/group/:group_id/*" element = {
+                    <PrivateRoute>
+                        <GroupDashBoardPage/>
+                    </PrivateRoute>
+                }/>
+                <Route path = "/logout" element = {<LogoutPage />} />
                 <Route path = "*" element = {<NotFoundPage />}/>
            </Routes>
         </div>

@@ -1,0 +1,42 @@
+.create-task span.add-goal{
+    width:fit-content;
+    padding:.5em .7em;
+    background:rgba(0, 128, 0, 0.312);
+    border:none;
+    color:rgb(0, 86, 0);
+    font-weight:500;
+    border-radius:3px;
+    cursor: pointer;
+}
+
+.create-task table td,
+.create-task table th{
+    padding:.5em;
+    border:1px solid #ddd;
+    text-align: left;
+}
+
+.create-task table{
+    width:100%;
+}
+
+
+.create-task table tr >*:last-child{
+    cursor: pointer;
+}
+
+.create-task table tr >*:last-child svg{
+    font-size:var(--fs-l);
+    pointer-events: none;
+}
+
+.create-task table tr >*:last-child:hover svg path{
+    fill:rgb(209, 6, 6);
+}
+
+.create-group .field{
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+    margin-bottom:2em;
+}

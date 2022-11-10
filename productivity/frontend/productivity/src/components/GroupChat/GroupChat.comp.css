@@ -1,0 +1,87 @@
+.chatbox-container{
+    /* border:1px solid red; */
+    height:100vh;
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    padding:0;
+    position: relative;
+    overflow-y: hidden;
+}
+
+.chatbox-container >*{
+    width:100%;
+    padding:1em;
+    /* border:1px solid red; */
+}
+
+/* title */
+
+.chatbox-container .title{
+    background:white;
+    width: 100%;
+    font-weight:600;
+    border-bottom:2px solid rgb(239, 239, 239);
+    height:50px;
+}
+
+/* input area */
+.chatbox-container .input-area {
+    margin-top:auto;
+    /* background:pink; */
+    position:absolute;
+    bottom:0em;
+    height:70px;
+    background:white;
+    padding:1em;
+    display: flex;
+    align-items: center;
+}
+
+.chatbox-container .input-area form{
+    display:grid;
+    grid-template-columns:1fr 35px;
+    gap:.5em;
+    /* border:1px solid red; */
+    width:100%;
+}
+
+.chatbox-container .input-area input{
+    padding:.5em 1em;
+    border-radius:5em;
+    border:none;
+    background:rgb(231, 231, 231);
+    outline: none;
+    font-size:var(--fs-n);
+}
+
+.chatbox-container .input-area form button{
+    border-radius:50%;
+    width:35px;
+    height:35px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background:none;
+    border:none;
+    cursor: pointer;
+}
+
+.chatbox-container .input-area form button svg{
+    font-size:var(--fs-ml);
+    color:var(--blue);
+}
+
+.chatbox-container .msg-area{
+    height:calc(100vh - 110px);
+    overflow-y: scroll;
+}
+
+.chatbox-container .msg-area .date{
+    display: block;
+    opacity:.5;
+    font-size:var(--fs-xs);
+    letter-spacing: .3px;
+    text-align: center;
+    margin:5em 0;
+}

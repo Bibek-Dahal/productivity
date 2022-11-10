@@ -57,7 +57,7 @@ function AuthProvider({children}){
                 localStorage.setItem('token',res.data.token);
                 resolve(res);
             }catch(err){
-                console.log('error while logging',err);
+                // console.log('error while logging',err);
                 reject(err);
             }
         })

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
 
 function PrivateRoute({children}){
@@ -8,12 +8,19 @@ function PrivateRoute({children}){
 
     const navigate = useNavigate();
 
-    if(!user) navigate('/login');
+    useEffect(() => {
+        console.log('inside private route')
+    },[])
+
+    const location = useLocation();
+
+    if(!user) {
+        console.log('naviagting to login');
+        return <Navigate to = "/login" state = {{from : location}}/>
+    }
 
     return(
-            {
-                ...children
-            }
+        {...children}
     )
 }
 
