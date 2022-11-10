@@ -35,7 +35,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 const port = 8000;
-const uri = 'mongodb://localhost:27017' 
+// const uri = 'mongodb://localhost:27017' 
+const uri = 'mongodb://127.0.0.1:27017' 
+
 const options = {
     "dbName":"productivity",
 }
