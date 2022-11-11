@@ -196,6 +196,14 @@
     }
     axios.post('/api/group/leave/<groupId>',options)
 
+## 11. Kick User From Group
+    options = {
+        headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.post('/api/group/kick/<groupId>/<memberId>',options)
+
+'/kick/:groupId/:memberId'
+
 
 # Chat
 

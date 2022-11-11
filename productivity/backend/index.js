@@ -62,6 +62,7 @@ io.listen(server)
 
 io.on('connection',(socket)=>{
     console.log('new web socket connection added')
+    
     socket.on('new-user',(data)=>{
         users.push(socket.id)
         console.log(users)
