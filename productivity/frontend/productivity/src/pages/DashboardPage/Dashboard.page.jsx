@@ -119,7 +119,7 @@ function DashboardPage(){
                         className = {(navData) => navData.isActive ? "active" : "" }
 
                     >
-                        <Icon icon = "bxs:dashboard" /> dashboard
+                        <Icon icon = "ic:outline-dashboard" /> dashboard
                     </NavLink>
                     <NavLink 
                         to = "/dashboard/activity"

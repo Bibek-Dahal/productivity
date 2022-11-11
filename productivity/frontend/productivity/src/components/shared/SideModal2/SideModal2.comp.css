@@ -1,6 +1,6 @@
 .sidemodal{
     position:fixed;
-    width:500px;
+    width:600px;
     background:var(--white);
     z-index:999;
     border-radius:10px;

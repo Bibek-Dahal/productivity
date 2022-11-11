@@ -60,6 +60,12 @@ function CreateProject({groups,toggle,setGroups,getGroupDetail}){
                 [e.target.name] : e.target.value
             }
         ))
+        setErrors(prev => (
+            {
+                ...prev,
+                [e.target.name] : null
+            }
+        ))
     }
 
     useEffect(() => {
@@ -74,7 +80,19 @@ function CreateProject({groups,toggle,setGroups,getGroupDetail}){
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        console.log('submitted',data)
+        // console.log('submitted',data)
+        console.log('length = ',data.task_description.length)
+        if(data.task_description.length > 100){
+            createNotification('danger','cannot create','task description is too long',5000);
+            setErrors(prev => (
+                {   
+                    ...prev,
+                    task_description : "too long"
+                }
+            ))
+            return;
+        }
+        console.log('submitted')
         axiosInstance.post(`${endpoints.createTask}/${group_id}`,data)
             .then(res => {
                 console.log(res);
@@ -109,7 +127,7 @@ function CreateProject({groups,toggle,setGroups,getGroupDetail}){
                         type = "text"
                         value = {data.task_title}
                         onChange = {onChangeHandler}
-                        error = {errors.name}
+                        error = {errors.task_title}
                         focusColor = "var(--discord-blue)"
                         // msg = {titleMsg}
                     />
@@ -120,6 +138,7 @@ function CreateProject({groups,toggle,setGroups,getGroupDetail}){
                         onChange = {onChangeHandler}
                         focusColor = "var(--discord-blue)"
                         className = "textarea"
+                        error = {errors.task_description}
                     />
                     <div className="field">
                         <label>deadline</label>
@@ -145,9 +164,18 @@ function CreateProject({groups,toggle,setGroups,getGroupDetail}){
                                                     onClick={deleteGoal}
                                                     title = {goal.goals_title}
                                                 >
-                                                    <Icon icon = "fluent:delete-20-filled"/>
+                                                    <Icon icon = "ri:delete-bin-5-line"/>
+                                                </div>
+                                                <div 
+                                                    className="editGoal" 
+                                                    // onClick={editGoal}
+                                                    title = {goal.goals_title}
+                                                >
+                                                    <Icon icon = "clarity:edit-line"/>
                                                 </div>
                                             </td>
+                                            {/* <td> */}
+                                            {/* </td> */}
                                         </tr>
                                     ))
                                 }

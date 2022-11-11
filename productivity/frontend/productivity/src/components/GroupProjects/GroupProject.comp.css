@@ -1,0 +1,109 @@
+.groupProjects{
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+}
+
+.groupProjects .filter-input-container{
+    margin-top:2em;
+}
+
+.groupProjects .filter-input-container input{
+    width:100%;
+    padding:.8em 1em;
+    font-size:var(--fs-n);
+    outline:none;
+    border:none;
+    background:rgb(255, 255, 255);
+    box-shadow:0 2px 20px rgb(239, 239, 239);
+    border-radius:10px;
+    font-weight:500;
+}
+
+.groupProjects .filter-result-container{
+    margin-top:2em;
+}
+
+.groupProjects .project{
+    width:100%;
+    max-width:800px;
+    margin:.2em auto;
+    background:white;
+    padding:1em;
+    border-radius:7px;
+    border:1px solid rgb(235, 235, 235);
+    font-size:var(--fs-n);
+    cursor: pointer;
+    transition:transform 200ms ease;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:2em;
+}
+
+.groupProjects .project:hover{
+    transform:scale(1.01);
+}
+
+.groupProjects .project__left{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.groupProjects .project__left >*{
+    display:block;
+}
+
+.groupProjects .project__left__bottom{
+    margin-top:1em;
+}
+
+.groupProjects .project__left__bottom .description{
+    max-width:500px;
+    display:block;
+    opacity:.4;
+    line-height:1.5;
+}
+
+.groupProjects .project__left__top{
+    display:flex;
+    align-items: center;
+    gap:1em;
+}
+
+.groupProjects .project__left__top .title{
+    text-transform: capitalize;
+    font-weight:600;
+    font-size:var(--fs-l);
+}
+
+.groupProjects .project__left__top .date{
+    opacity:.4;
+}
+
+.groupProjects .project__right{
+    display:flex;
+    gap:1em;
+}
+
+.groupProjects .project button{
+    border-radius:5px;
+    border:none;
+    height:40px;
+    width:40px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.groupProjects .project button svg{
+    font-size:var(--fs-l);
+}
+
+.groupProjects .project button.delete{
+    background:var(--dark-red);
+    color:white;
+}

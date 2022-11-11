@@ -14,6 +14,7 @@ import CreateProject from './CreateProject/CreateProject.comp';
 import CreateGoal from './CreateGoal/CreateGoal.comp';
 import GroupChat from './GroupChat/GroupChat.comp';
 import AddMember from './AddMember/AddMember.comp';
+import GroupProjects from './GroupProjects/GroupProjects.comp';
 
 export{
     Login,
@@ -31,5 +32,6 @@ export{
     CreateProject,
     CreateGoal,
     GroupChat,
-    AddMember
+    AddMember,
+    GroupProjects
 }

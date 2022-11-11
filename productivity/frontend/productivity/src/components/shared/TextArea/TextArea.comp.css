@@ -8,6 +8,7 @@
     border:2px solid var(--gray-white);
     outline:none;
     width: 100%;
+    height:100px;
 }
 
 .inputfield textarea:focus{
@@ -15,3 +16,13 @@
     color:var(--discord-blue);
 }
 
+
+.create-group .textarea.error textarea{
+    border:2px solid var(--error-red);
+    color:var(--error-red);
+} 
+
+.create-group .textarea.error small.error{
+    text-align: right;
+    margin-top:-.7em;
+}

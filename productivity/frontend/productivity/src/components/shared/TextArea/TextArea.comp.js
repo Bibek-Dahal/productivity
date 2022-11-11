@@ -10,7 +10,8 @@ function TextArea({
     className,
     icon,
     value,
-    focusColor
+    focusColor,
+    error
 }){
 
     const inputFieldRef = useRef(null);
@@ -32,6 +33,7 @@ function TextArea({
         <div
             className = {`
                 ${className ? className : ""} inputfield ${icon ? "icon" : ""} 
+                ${error ? "error" : ""}
             `}
             ref = {inputFieldRef}
         >
@@ -53,6 +55,12 @@ function TextArea({
                     onChange = {onChange}
                 />
             </div>
+            {
+                error && 
+                    <small className = "error">
+                        {error}
+                    </small>
+            }
         </div>
     )
 }

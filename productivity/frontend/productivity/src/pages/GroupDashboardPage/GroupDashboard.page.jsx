@@ -25,7 +25,8 @@ import {
     CreateGroup,
     CreateProject,
     GroupChat,
-    AddMember
+    AddMember,
+    GroupProjects
 } from '../../components/';
 
 import useSocketContext from '../../hooks/useSocketContext';
@@ -184,7 +185,7 @@ function DashboardPage(){
                         to = {`/group/${group_id}/dashboard`}
                         className = {(navData) => navData.isActive ? "active" : "" }
                     >
-                        <Icon icon = "bxs:dashboard" /> group dashboard
+                        <Icon icon = "ic:outline-dashboard" /> group dashboard
                     </NavLink>
                     <NavLink 
                         to = {`/group/${group_id}/activity`}
@@ -198,12 +199,18 @@ function DashboardPage(){
                     >
                        <Icon icon = "ant-design:message-outlined" /> Chat with friends
                     </NavLink>
+                    <NavLink 
+                        to = {`/group/${group_id}/projects`}
+                        className = {(navData) => navData.isActive ? "active" : "" }
+                    >
+                       <Icon icon = "bytesize:work" /> View projects
+                    </NavLink>
                 </div>
                 <hr/>
                 <div className="groupsList">
                     <div className="title">
                         <span >
-                            Tasks
+                            Projects
                         </span>
                         <div 
                             className="add-group-btn"
@@ -241,6 +248,7 @@ function DashboardPage(){
                 <Route path = "/dashboard" element = {<GroupDashboard className = "dashboard-center"/>}/>
                 <Route path = "/activity" element = {<GroupActivity className = "dashboard-center"/>}/>
                 <Route path = "/chat" element = {<GroupChat group ={group} className = "dashboard-center"/>} />
+                <Route path = "/projects" element = {<GroupProjects group = {group} className = "dashboard-center" />} />
             </Routes>
             <SidebarRight>
                 <div className="members-container">

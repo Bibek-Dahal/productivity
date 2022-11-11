@@ -23,6 +23,8 @@
 
 .create-task table tr >*:last-child{
     cursor: pointer;
+    display:flex;
+    gap:1em;
 }
 
 .create-task table tr >*:last-child svg{
@@ -30,8 +32,12 @@
     pointer-events: none;
 }
 
-.create-task table tr >*:last-child:hover svg path{
+.create-task table tr .deleteGoal:hover svg path{
     fill:rgb(209, 6, 6);
+}
+
+.create-task table tr .editGoal:hover svg {
+    color:var(--blue);
 }
 
 .create-group .field{
