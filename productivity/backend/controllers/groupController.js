@@ -199,10 +199,10 @@ class GroupController{
                     //     message: "user joined in the group",
                     //     success: true
                     // })
-                    res.redirect(`http://127.0.0.1:3000/group/${group._id}?msg=group joined successfully`)
+                    res.redirect(`http://127.0.0.1:3000/group/${group._id}/dashboard?msg=group joined successfully`)
                 }else{
                     console.log('inside else')
-                    res.redirect(`http://127.0.0.1:3000/group/${group._id}?msg=already in the group`)
+                    res.redirect(`http://127.0.0.1:3000/group/${group._id}/dashboard?msg=already in the group`)
                 }
             }else{
                 res.status(400).send({
