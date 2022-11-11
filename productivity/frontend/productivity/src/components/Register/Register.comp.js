@@ -60,12 +60,15 @@ function Register(){
     })
 
     useEffect(() => {
-        if(email) setData(prev => (
-            {
-                ...prev,
-                email : email
-            }
-        ))
+        if(email) {
+            setData(prev => (
+                {
+                    ...prev,
+                    email : email
+                }
+            ))
+            validateEmail(email)
+        }
     },[])
 
     const {validEmail,validPassword} = useAuthContext();
@@ -76,7 +79,6 @@ function Register(){
         register(data)
             .then(res => {
                 setSubmitting(false);
-                console.log('res = ',res);
                 navigate({
                     pathname : '/login',
                     search : `?email=${data.email}`
@@ -114,6 +116,32 @@ function Register(){
                     ))
                 }
                 console.log(errors)
+            })
+    }
+
+    const validateEmail = async (email) => {
+        validEmail(email)
+            .then(res => {
+                setMsg(prev => (
+                    {
+                        ...prev,
+                        email : "valid email"
+                    }
+                ))
+                setValid(prev => (
+                    {
+                        ...prev,
+                        email : true
+                    }
+                ))
+            })
+            .catch(err => {
+                setErrors(prev => (
+                    {
+                        ...prev,
+                        email : "invalid email"
+                    }
+                ))
             })
     }
 

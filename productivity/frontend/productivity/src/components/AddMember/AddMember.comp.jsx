@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useRef} from "react";
 
 import {InputField} from '../shared/';
 
@@ -16,7 +16,6 @@ function AddMember({toggle,group_name}){
     //     email : [],
     //     group_name : ""
     // })
-
     const [emails,setEmails] = useState([])
 
     const axiosInstance = useAxios();
@@ -24,9 +23,28 @@ function AddMember({toggle,group_name}){
     const [people,setPeople] = useState([]);
     const [addedPeople,setAddedPeople] = useState([]);
 
-     function addEmail(e){
+    const searchInputRef = useRef(null);
+
+    function addEmail(e){
         console.log('added people',JSON.parse(e.target.getAttribute('info')));
         const info = JSON.parse(e.target.getAttribute('info'))
+        if(emails.includes(info.email)){
+            Store.addNotification({
+                title: "failure!",
+                message: `${info.username} already added`,
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true,
+                  pauseOnHover : true
+                }
+            });
+            return;
+        }
         setAddedPeople(prev => (
             [
                 ...prev,
@@ -40,6 +58,7 @@ function AddMember({toggle,group_name}){
             ]
         ))
         setPeople([])
+        searchInputRef.current.value = "";
         Store.addNotification({
             title: "Successfull!",
             message: `${info.username} added successfully`,
@@ -79,45 +98,66 @@ function AddMember({toggle,group_name}){
 
     function removePeople(e){
         const usernameToDelete = e.target.getAttribute('username')
-        setAddedPeople(prev => {
-            return prev.filter(p => p.username !== usernameToDelete);
-        })
-        setEmails(prev => (prev.filter(p => p.username !== usernameToDelete)))
-    }   
+        const userToDelete = JSON.parse(e.target.getAttribute('user'))
+        console.log('usernameToDelete',usernameToDelete)
+        setAddedPeople(prev => prev.filter(p => p.username !== userToDelete.username))
+        setEmails(prev => prev.filter(email => email !== userToDelete.email))
+    }  
 
     function invitePeople(){
         console.log('inviting',emails)
-        axiosInstance.post(`${endpoints.invitePeople}`,{
-            email : emails,
-            group_name : group_name
-        })
-            .then(res => {
-                console.log(res);
-                Store.addNotification({
-                    title: "Successfull!",
-                    message: `invitation sent successfully`,
-                    type: "success",
-                    insert: "top",
-                    container: "top-right",
-                    animationIn: ["animate__animated", "animate__fadeIn"],
-                    animationOut: ["animate__animated", "animate__fadeOut"],
-                    dismiss: {
-                      duration: 5000,
-                      onScreen: true,
-                      pauseOnHover : true
-                    }
-                });
-                toggle();
+        if(emails.length == 0){
+            Store.addNotification({
+                title: "Failure!",
+                message: `no people were selected to invite`,
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true,
+                    pauseOnHover : true
+                }
+            });
+        }else{
+            axiosInstance.post(`${endpoints.invitePeople}`,{
+                email : emails,
+                group_name : group_name
             })
-            .catch(err => {
-                console.log('error occured',err);
-            })
+                .then(res => {
+                    console.log(res);
+                    Store.addNotification({
+                        title: "Successfull!",
+                        message: `invitation sent successfully`,
+                        type: "success",
+                        insert: "top",
+                        container: "top-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                          duration: 5000,
+                          onScreen: true,
+                          pauseOnHover : true
+                        }
+                    });
+                    toggle();
+                })
+                .catch(err => {
+                    console.log('error occured',err);
+                })
+        }
+        
     }
 
 
     return(
         <div className="addmember-container">
-            <input type="text" placeholder = "username to search" onChange={onChangeHandler}/>
+            <h2>
+                Search People
+            </h2>
+            <input type="text" ref = {searchInputRef} placeholder = "username to search" onChange={onChangeHandler}/>
                 
                     {/* <div 
                 // data.email.length !== 0 &&
@@ -159,6 +199,7 @@ function AddMember({toggle,group_name}){
                                         </div> 
                                     ))
                                 }
+                                
                             </div>
                             </>
                     }
@@ -190,7 +231,7 @@ function AddMember({toggle,group_name}){
                                                     {p.email}
                                                 </span>
                                             </div>
-                                            <div username = {p.username} className="delete-people-icon" onClick = {removePeople}>
+                                            <div user = {JSON.stringify(p)} className="delete-people-icon" onClick = {removePeople}>
                                                 <Icon icon = "fluent-emoji-high-contrast:cross-mark" />
                                             </div>
                                         </div>

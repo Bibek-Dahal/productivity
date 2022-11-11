@@ -6,7 +6,6 @@ import {
 
 function RegisterPage(){
 
-    console.log('inside login page');
     return(
         <AuthContainer>
             <Register />

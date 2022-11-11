@@ -1,6 +1,11 @@
 .addmember-container{
-    margin-top:3em;
+    /* margin-top:3em; */
+    /* border:1px solid red; */
     position:relative;
+}
+
+.addmember-container h2{
+    margin-bottom:1em;
 }
 
 .addmember-container input{
@@ -51,8 +56,10 @@
     width:100%;
     border-radius:0 0 5px 5px;
     box-shadow:3px 3px 100px rgb(158, 158, 158);
-    z-index:999;
+    z-index:9999;
     padding:.5em 1em;
+    max-height:300px;
+    overflow-y: scroll;
 }
 
 .search-result-container .people:hover{

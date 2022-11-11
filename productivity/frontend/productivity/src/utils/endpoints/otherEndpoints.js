@@ -5,7 +5,10 @@ const endpoints = {
     createTask : `/api/group/task/create`,
     retriveTasks : `/retrive/`,
     invitePeople : '/api/group/invite-member',
-    getUserByEmail:'/api/find-user-by-email'
+    getUserByEmail:'/api/find-user-by-email',
+    getProfile:`/api/profile`,
+    deleteGroup : `/api/group`,
+    deleteTask : `/api/group/task/delete`
 }
 
 export default endpoints;

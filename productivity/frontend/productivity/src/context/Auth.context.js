@@ -1,4 +1,5 @@
 import React,{
+    useEffect,
     useState
 } from "react";
 import axios from 'axios';
@@ -23,7 +24,6 @@ function AuthProvider({children}){
     }
 
     const validPassword = async (password) => {
-        console.log('testing = ',password)
         return new Promise((resolve,reject) => {
             if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(password)) return reject('invalid password')
             // if(!/.{8,}/.test(password)) return reject('at least 8 characters')
@@ -36,7 +36,6 @@ function AuthProvider({children}){
     }
     
     const register = async (data) => {
-        console.log('registering',data);
         return new Promise(async (resolve,reject) => {
             try{
                 const res = await axios.post(`${baseURL}${endpoints.register}`,data)
@@ -50,11 +49,12 @@ function AuthProvider({children}){
     }
 
     const login = async (data) => {
-        console.log('logging',data);
         return new Promise(async (resolve,reject) => {
             try{
                 const res = await axios.post(`${baseURL}${endpoints.login}`,data)
                 localStorage.setItem('token',res.data.token);
+                setUser(jwt_decode(res.data.token));
+                setToken(res.data.token);
                 resolve(res);
             }catch(err){
                 // console.log('error while logging',err);
@@ -64,10 +64,10 @@ function AuthProvider({children}){
     }
 
     const logout = async () => {
-        console.log('logging out');
         return new Promise( (resolve,reject) => {
             localStorage.removeItem('token');
             setUser(null);
+            setToken(null);
             resolve('logged out successfully');
         })
     }
@@ -82,6 +82,11 @@ function AuthProvider({children}){
         user : user,
         logout : logout
     }
+    useEffect(() => {
+        value.user = user;
+        value.token = token
+    },[user,token])
+
     return(
         <AuthContext.Provider
             value = {value}

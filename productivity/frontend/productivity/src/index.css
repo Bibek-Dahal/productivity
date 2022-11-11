@@ -11,7 +11,7 @@
 body{
     --error-red:rgb(237, 15, 15);
     --success-green:rgb(35, 209, 35);
-
+    --dark-red:rgb(216, 0, 0);
     --black : #111111;
     --white : #fbfbfb;
     --greyish-white:#fffefed5;
@@ -58,20 +58,30 @@ body{
 
 ::-webkit-scrollbar {
     width: 8px;
+    left:-100px;
 }
 
 ::-webkit-scrollbar-track {
     background:none;
-    /* background:rgb(242, 240, 240); */
+    /* background:rgb(232, 232, 232); */
 }
     
 ::-webkit-scrollbar-thumb {
     background:rgb(196, 189, 189);
     outline:none;
-    border-radius:5px;
+    border-radius:5em;
 }
 
 a{
     text-decoration: none;
     color:unset;
+}
+
+.grid-btns{
+    display:flex;
+    gap:.5em;
+
+}
+.grid-btns > button{
+    width:100%;
 }

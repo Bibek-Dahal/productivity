@@ -3,13 +3,15 @@
     width:500px;
     background:var(--white);
     z-index:999;
-    border-radius:5px;
+    border-radius:10px;
     padding:2em;
     left:50%;
     top:50%;
     transform:translate(-50%,-50%);
     overflow-y:auto;
+    /* height:auto; */
     max-height:600px;
+    transition:height 200ms ease;
 }
 
 .sidemodal ~ .overlay{
@@ -25,8 +27,11 @@
 
 .sidemodal .close-icon{
     position:absolute;
-    top:1em;
-    right:1em;
-    font-size:var(--fs-l);
+    right:1.4em;
+    top:1.4em;
+    font-size:var(--fs-ml);
     cursor: pointer;
+    /* border:1px solid red; */
+    background:white;
+    opacity:.5;
 }

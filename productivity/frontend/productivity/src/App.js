@@ -18,8 +18,22 @@ import {
 
 import PrivateRoute from './utils/Routes/Private.route';
 import ProtectedRoute from './utils/Routes/Protected.route';
+import { useEffect,useState } from 'react';
+
+import useSocketContext from './hooks/useSocketContext'
+
+import io from 'socket.io-client';
 
 function App(){
+
+    const {socket,setSocket} = useSocketContext();
+    
+    // creating a socket connection for all time
+    useEffect(() => {
+        const sockett = io(`http://${window.location.hostname}:8000`);
+        setSocket(sockett);
+    },[])
+
     return(
         <div id = "app">
            <Routes>
@@ -47,7 +61,9 @@ function App(){
                         <GroupDashBoardPage/>
                     </PrivateRoute>
                 }/>
-                <Route path = "/logout" element = {<LogoutPage />} />
+                <Route path = "/logout" element = {
+                        <LogoutPage />
+                } />
                 <Route path = "*" element = {<NotFoundPage />}/>
            </Routes>
         </div>

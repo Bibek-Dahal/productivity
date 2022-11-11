@@ -21,11 +21,8 @@ function useAxios(){
     const navigate = useNavigate();
 
     axiosInstance.interceptors.request.use(req => {
-        console.log('intercepted axios',token);
-
         if(token){
             const user =  jwt_decode(token);
-            console.log('user = ',user)
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
             if(!isExpired) return req; 
@@ -49,11 +46,9 @@ function useAxios(){
                         navigate('/login');
                     })
                     .catch(err => console.log('error while logging out',err));
-            console.log('req = ',req)
             req.headers.Authorization = `Bearer ${token}`
             return req;
         }
-        console.log('req = ',req)
 
         return req;
     })

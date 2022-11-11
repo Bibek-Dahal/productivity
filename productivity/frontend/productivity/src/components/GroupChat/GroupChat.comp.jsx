@@ -10,26 +10,39 @@ import { useEffect } from "react";
 import io from 'socket.io-client'
 import { useState } from "react";
 
-const socket = io();
+import useAuthContext from '../../hooks/useAuthContext';
+// import useSocketContext from '../../hooks/useSocketContext';
 
-function GroupChat({className}){
+// const socket = io();
 
-    // const [isConnected,setIsConnected] = useState(socket.connected)
-    const [socket,setSocket] = useState(null);
+function GroupChat({className,group}){
 
     const msgAreaRef = useRef(null);
+    const msgRef = useRef(null);
+
+    const {user} = useAuthContext();
+
+    // const {socket} = useSocketContext();
+
+    const sendMsg = (e) => {
+        // e.preventDefault();
+        // const msg = msgRef.current.value;
+        // const data = {
+        //     message:msg,
+        //     userId:user.id,
+        //     room:group
+        // }
+        // socket.emit('new-chat-message',data);
+    }
+
+
 
     useEffect(() => {
-        msgAreaRef.current.scrollTop = msgAreaRef.current.scrollHeight
-        console.log('creating connection')
-      
-        const newSocket = io(`http://${window.location.hostname}:8000`);
-        setSocket(newSocket);
-        
+        // console.log('socket = ',socket)
+        msgAreaRef.current.scrollTop = msgAreaRef.current.scrollHeight;
         return () => {
-            newSocket.close()
         };
-    },[setSocket])
+    },[])
     
 
     return(
@@ -117,8 +130,14 @@ function GroupChat({className}){
                 />
             </div>
             <div className="input-area">
-                <form action="">
-                    <input name="" type="text" placeholder = "Enter message here" autoFocus = {true}/>
+                <form action="" onSubmit = {sendMsg}>
+                    <input 
+                        name="msg" 
+                        type="text" 
+                        placeholder = "Enter message here" 
+                        autoFocus = {true}
+                        ref = {msgRef}
+                    />
                     <button type = "submit">
                         <Icon icon = "fluent:send-20-filled" />
                     </button>

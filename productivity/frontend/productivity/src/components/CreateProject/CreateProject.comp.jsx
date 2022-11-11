@@ -24,8 +24,9 @@ import endpoints from "../../utils/endpoints/otherEndpoints";
 import { useEffect } from "react";
 
 import {Icon} from '@iconify/react'
+import useNotification from "../../hooks/useNotification";
 
-function CreateProject({groups,toggle,setGroups}){
+function CreateProject({groups,toggle,setGroups,getGroupDetail}){
 
     const [submitting,setSubmitting] = useState(false);
     const [showAddGoal,setShowAddGoal] = useState(false);
@@ -37,6 +38,8 @@ function CreateProject({groups,toggle,setGroups}){
         task_goals : [],
         task_deadline : ""
     })
+
+    const createNotification = useNotification();
 
     const [errors,setErrors] = useState({
         task_title  : null,
@@ -75,7 +78,9 @@ function CreateProject({groups,toggle,setGroups}){
         axiosInstance.post(`${endpoints.createTask}/${group_id}`,data)
             .then(res => {
                 console.log(res);
+                getGroupDetail();
                 toggle();
+                createNotification('success','Created','created task successfully',5000);
             })
             .catch(err => {
                 console.log('error = ',err)

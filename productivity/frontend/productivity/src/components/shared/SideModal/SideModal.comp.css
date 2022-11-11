@@ -30,3 +30,7 @@
     font-size:var(--fs-l);
     cursor: pointer;
 }
+
+.sidemodal.auto{
+    height:auto !important;
+}

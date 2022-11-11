@@ -38,6 +38,21 @@
     /* border:2px solid rgb(241, 241, 241); */
     cursor: pointer;
     opacity:.6;
+    position:relative;
+}
+
+.group-dashboard .members-container .people .deleteBtn {
+    position:absolute;
+    right:1em;
+    display:none;
+}
+
+.group-dashboard .members-container .people .deleteBtn svg{
+    pointer-events: none;
+}
+
+.group-dashboard .members-container .people:hover .deleteBtn{
+    display:block;
 }
 
 .group-dashboard .members-container .people:hover {
@@ -52,3 +67,4 @@
     border-radius:50%;
     object-fit: cover;
 }
+

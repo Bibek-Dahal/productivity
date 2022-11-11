@@ -5,7 +5,6 @@ import {
 
 function LoginPage(){
 
-    console.log('inside login page');
     return(
         <AuthContainer>
             <Login />

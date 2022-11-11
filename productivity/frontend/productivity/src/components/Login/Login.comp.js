@@ -12,6 +12,7 @@ import {
 
 import {Store} from 'react-notifications-component';
 
+import useNotification from '../../hooks/useNotification';
 import {Icon} from '@iconify/react';
 import { useEffect, useState } from 'react';
 
@@ -46,6 +47,8 @@ function Login(){
         password : null
     })
 
+    const createNotification = useNotification();
+
     const [showVerification,setShowVerification] = useState(false);
 
     const navigate = useNavigate();
@@ -61,9 +64,10 @@ function Login(){
     const {validEmail,validPassword} = useAuthContext();
 
     const location = useLocation();
+    console.log('from = ',location.state);
 
-    const from  = location.state?.from ? location.state?.from : '/dashboard';
-
+    const from  = location.state?.from ? `${location.state?.from.pathname}${location.state?.from.search}` : '/dashboard';
+    
     useEffect(() => {
         console.log('location = ',location)
     },[])
@@ -76,44 +80,27 @@ function Login(){
             .then(res => {
                 setSubmitting(false);
                 console.log('res = ',res);
-                Store.addNotification({
-                    title: "Successfull!",
-                    message: "logged in successfully",
-                    type: "success",
-                    insert: "top",
-                    container: "top-right",
-                    animationIn: ["animate__animated", "animate__fadeIn"],
-                    animationOut: ["animate__animated", "animate__fadeOut"],
-                    dismiss: {
-                      duration: 5000,
-                      onScreen: true,
-                      pauseOnHover : true
-                    }
-                });
-                console.log('navigating to dashboard');
-                navigate(from.pathname);
+                createNotification("success","Successfull!","logged in successfully",5000);
+                console.log('navigating to',from);
+                navigate(from);
             })
             .catch(err => {
                 console.log('inside catch',err)
                 setSubmitting(false)
                 if(err?.response.status == "403"){
                     console.log('verify');
-                    Store.addNotification({
-                        title: "Verification incomplete!",
-                        message: "check your email for verification token or resend verification!",
-                        type: "danger",
-                        insert: "top",
-                        container: "top-right",
-                        animationIn: ["animate__animated", "animate__fadeIn"],
-                        animationOut: ["animate__animated", "animate__fadeOut"],
-                        dismiss: {
-                          duration: 5000,
-                          onScreen: true,
-                          pauseOnHover : true
-                        }
-                    });
+                    createNotification("danger","Verification incomplete!","check your email for verification token or resend verification!",5000);
                     setShowVerification(prev => !prev);
+                }else if(err?.response.status == "401"){
+                    setErrors(prev => (
+                        {
+                            email : "",
+                            password : ""
+                        }
+                    ))
+                    createNotification("danger","failre!",err?.response.data.message,5000);
                 }else{
+                    console.log('inside else')
                     const errors = err?.response?.data?.errors;
                     for(const key in errors){
                         setErrors(prev => (
@@ -152,20 +139,7 @@ function Login(){
             }
         ))
         if(paramMsg) {
-            Store.addNotification({
-                title: "Wonderful!",
-                message: paramMsg,
-                type: "success",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animate__animated", "animate__fadeIn"],
-                animationOut: ["animate__animated", "animate__fadeOut"],
-                dismiss: {
-                  duration: 5000,
-                  onScreen: true,
-                  pauseOnHover : true
-                }
-            });
+            createNotification("success","Wonderful!",paramMsg,5000);
         }
     },[])
 

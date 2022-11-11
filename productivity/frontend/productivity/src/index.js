@@ -12,14 +12,17 @@ import './styles/Dashboard.css';
 
 import App from './App';
 import AuthContextProvider from './context/Auth.context';
+import SocketProvider from './context/Socket.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <Router>
-        <AuthContextProvider>
-            <ReactNotifications />
-            <App />
-        </AuthContextProvider>
+        <SocketProvider>
+            <AuthContextProvider>
+                <ReactNotifications />
+                <App />
+            </AuthContextProvider>
+        </SocketProvider>
     </Router>
 )

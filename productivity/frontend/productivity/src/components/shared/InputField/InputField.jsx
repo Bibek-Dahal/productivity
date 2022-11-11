@@ -37,7 +37,7 @@ function InputField({
         <div
             className = {`
                 ${className ? className : ""} inputfield ${icon ? "icon" : ""} 
-                ${error ? "error" : ""}
+                ${error !== null ? "error" : ""}
                 ${msg ? "success" : ""}
             `}
             ref = {inputFieldRef}
