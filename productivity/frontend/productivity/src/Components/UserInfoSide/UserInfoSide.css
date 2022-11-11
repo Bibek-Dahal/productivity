@@ -3,3 +3,6 @@
     background:var(--body-bg-3);
     border-radius:5px;
 }
+.card{
+    background-color: aqua;
+}
