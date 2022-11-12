@@ -20,6 +20,6 @@ router.delete('/delete/:groupId/:taskId',[authMiddleware,TaskController.delete])
 
 
 //retrive task
-router.get('/retrive/:groupId/:taskId/:goalId',[authMiddleware,TaskController.retrive])
+router.get('/retrive/:groupId/:taskId',[authMiddleware,TaskController.retrive])
 
 export default router
