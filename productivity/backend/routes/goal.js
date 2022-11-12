@@ -19,7 +19,7 @@ router.get('/list/:groupId/:taskId',[
     GoalController.list
 ])
 
-//list all goals of particular task
+//retrive all goals of particular task
 router.get('/retrive/:groupId/:taskId/:goalId',[
     authMiddleware,
     GoalController.retrive
