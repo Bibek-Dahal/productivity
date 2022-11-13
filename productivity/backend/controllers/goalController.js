@@ -67,18 +67,19 @@ class GoalController{
             const {groupId,taskId,goalId} = req.params
             
             const group = await Group.findOne({_id:groupId,members:req.user_id,"task._id":taskId},{"task":{$elemMatch:{_id:taskId}}})
-
-            let goal = group.task[0].task_goals.filter((goal)=>goal._id==goalId)
+            console.log(group)
 
             
-            if(group){
+            
+            let goal = group?.task[0].task_goals.filter((goal)=>goal._id==goalId)
+            if(goal){
                 res.status(200).send({
                     goal: goal[0],
                     success: true
                 })
             }else{
                 res.status(404).send({
-                    message: 'group not found',
+                    message: 'goal not found',
                     success: false
                 })
             }

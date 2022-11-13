@@ -116,8 +116,10 @@ class TaskController{
             const group = await Group.findOne({_id:groupId,members:req.user_id,"task._id":taskId},{task:1})
 
             if(group){
+                // console.log(group)
+                
                 res.status(200).send({
-                    task: group,
+                    task: group.task.find((task)=> task._id == taskId),
                     success: true
                 })
             }else{

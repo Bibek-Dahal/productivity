@@ -196,6 +196,14 @@
     }
     axios.post('/api/group/leave/<groupId>',options)
 
+## 11. Kick User From Group
+    options = {
+        headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.post('/api/group/kick/<groupId>/<memberId>',options)
+
+'/kick/:groupId/:memberId'
+
 
 # Chat
 
@@ -255,6 +263,51 @@
             headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
     }
     axios.get('/api/user/history')
+
+# Goal
+## 1. Create Goal
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    data = {
+        "goals_title":"xyz2",
+        "goals_description":"",
+        "goals_deadline":"2022-12-07"
+    }
+    axios.post('api/group/task/goal/create/<groupId>/<taskId>',data,options)
+
+## 2. Retrive Goal
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.get('127.0.0.1:8000/api/group/task/goal/retrive/<groupID>/<taskId>/<gaolId>')
+
+## 3. List Goals
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.get('/api/group/task/goal/list/<groupId>/<taskId>')
+
+## 4. Update Goal
+    options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    data = {
+        "goals_title":"",
+        "goals_description":"",
+        "goals_deadline":"2023-12-07",
+        "goals_is_completed":"true"
+    }
+
+    axios.put('/api/group/task/goal/update/<groupId>/<taskId>/<goalId>',data,options)
+
+## Delete Goal
+ options = {
+            headers:{ 'Content-Type':'application/json','Authorization':`Bearer ${access_token}`}
+    }
+    axios.delete('/api/group/task/goal/delete/<groupId>/<taskId>/<goalId>')
+
+
 
 
 
