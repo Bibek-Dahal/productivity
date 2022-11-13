@@ -26,7 +26,8 @@ import {
     CreateProject,
     GroupChat,
     AddMember,
-    GroupProjects
+    GroupProjects,
+    ProjectDetail
 } from '../../components/';
 
 import useSocketContext from '../../hooks/useSocketContext';
@@ -248,7 +249,8 @@ function DashboardPage(){
                 <Route path = "/dashboard" element = {<GroupDashboard className = "dashboard-center"/>}/>
                 <Route path = "/activity" element = {<GroupActivity className = "dashboard-center"/>}/>
                 <Route path = "/chat" element = {<GroupChat group ={group} className = "dashboard-center"/>} />
-                <Route path = "/projects" element = {<GroupProjects group = {group} className = "dashboard-center" />} />
+                <Route path = "/projects" element = {<GroupProjects group = {group} getGroupDetail = {getGroupDetail} className = "dashboard-center" />} />
+                <Route path = "/projects/:projectId" element = {<ProjectDetail groupId = {group._id}  className = "dashboard-center" />} />
             </Routes>
             <SidebarRight>
                 <div className="members-container">

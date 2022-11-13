@@ -1,7 +1,7 @@
 import './SideModal.comp.css';
 import {Icon} from '@iconify/react';
 
-function SideModal({toggle,children,height}){
+function SideModal({toggle,children,height,variant}){
     return(
        <>
         <div className={`sidemodal modal-appear ${height ? height : ""}`}>

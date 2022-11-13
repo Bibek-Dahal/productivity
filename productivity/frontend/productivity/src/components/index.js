@@ -15,6 +15,12 @@ import CreateGoal from './CreateGoal/CreateGoal.comp';
 import GroupChat from './GroupChat/GroupChat.comp';
 import AddMember from './AddMember/AddMember.comp';
 import GroupProjects from './GroupProjects/GroupProjects.comp';
+import ProjectDetail from './ProjectDetail/ProjectDetail.comp';
+
+
+import Analytics from './Analytics/Analytics';
+import TransparentLoader from './shared/TransparentLoader/TransparentLoader';
+import Profile from './Profile/Profile.comp';
 
 export{
     Login,
@@ -33,5 +39,10 @@ export{
     CreateGoal,
     GroupChat,
     AddMember,
-    GroupProjects
+    GroupProjects,
+
+    Analytics,
+    TransparentLoader,
+    ProjectDetail,
+    Profile
 }

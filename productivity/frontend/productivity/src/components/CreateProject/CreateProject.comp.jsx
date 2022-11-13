@@ -209,7 +209,7 @@ function CreateProject({groups,toggle,setGroups,getGroupDetail}){
                             >
                         {
                             !submitting ? 
-                            "create group":
+                            "create project":
                             <Loader 
                                 icon = "fluent:spinner-ios-20-filled"
                                 className = "loading"

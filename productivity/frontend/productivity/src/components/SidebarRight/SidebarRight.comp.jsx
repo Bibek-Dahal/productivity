@@ -2,10 +2,15 @@ import React from 'react';
 
 import './SidebarRight.comp.css';
 
-function SidebarRight({children}){
+function SidebarRight({width,children}){
 
     return(
-        <div className="sidebarRight sidebar">
+        <div 
+            className="sidebarRight sidebar"
+            style = {{
+                width : `${width ? width : "auto"}`
+            }}    
+        >
             {children}
         </div>
     )

@@ -17,7 +17,8 @@ import {
     SidebarLeft,
     SidebarRight,
     AddGroup,
-    CreateGroup
+    CreateGroup,
+    Profile
 } from '../../components/';
 
 import {
@@ -187,9 +188,7 @@ function DashboardPage(){
             <SidebarRight>
                 {
                     userProfile &&
-                    <h1>
-                        {userProfile.username}
-                    </h1>
+                       <Profile userProfile = {userProfile}/>                     
                 }
             </SidebarRight>
             {

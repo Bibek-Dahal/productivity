@@ -8,6 +8,8 @@ const endpoints = {
     getUserByEmail:'/api/find-user-by-email',
     getProfile:`/api/profile`,
     deleteGroup : `/api/group`,
+    deleteTask : `/api/group/task/delete`,
+    getTaskDetail : `/api/group/task/retrive`,
     deleteTask : `/api/group/task/delete`
 }
 

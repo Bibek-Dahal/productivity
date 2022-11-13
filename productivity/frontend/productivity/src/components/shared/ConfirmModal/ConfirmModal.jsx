@@ -9,7 +9,9 @@ function ConfirmModal({setConfirmation,setConfirm}){
             <div className="grid-btns">
                 <button
                     className='canceldelete'
-                    onClick = {() => setConfirmation(prev => !prev)}
+                    onClick = {() => {
+                        setConfirmation(prev => !prev);
+                    }}
                 >
                     cancel
                 </button>
