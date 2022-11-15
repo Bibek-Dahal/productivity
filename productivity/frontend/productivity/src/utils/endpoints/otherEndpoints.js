@@ -10,7 +10,8 @@ const endpoints = {
     deleteGroup : `/api/group`,
     deleteTask : `/api/group/task/delete`,
     getTaskDetail : `/api/group/task/retrive`,
-    deleteTask : `/api/group/task/delete`
+    deleteTask : `/api/group/task/delete`,
+    updateTask : `/api/group/task/update`
 }
 
 export default endpoints;

@@ -203,6 +203,7 @@ function DashboardPage(){
                     <NavLink 
                         to = {`/group/${group_id}/projects`}
                         className = {(navData) => navData.isActive ? "active" : "" }
+                        end
                     >
                        <Icon icon = "bytesize:work" /> View projects
                     </NavLink>

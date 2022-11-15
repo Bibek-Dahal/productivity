@@ -5,6 +5,7 @@ import TextArea from './TextArea/TextArea.comp';
 import SideModal2 from './SideModal2/SideModal2.comp';
 import Msg from './Msg/Msg.comp';
 import ConfirmModal from './ConfirmModal/ConfirmModal';
+import ToggleEditInput from './ToggleEditInput/ToggleEditInput';
 
 export{
     InputField,
@@ -13,5 +14,6 @@ export{
     TextArea,
     SideModal2,
     Msg,
-    ConfirmModal
+    ConfirmModal,
+    ToggleEditInput
 }

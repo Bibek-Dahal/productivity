@@ -85,3 +85,8 @@ a{
 .grid-btns > button{
     width:100%;
 }
+
+
+.shadow-card{
+    box-shadow:1px 1px 20px rgb(232, 232, 232);
+}

@@ -39,7 +39,7 @@ function Profile({userProfile}){
                     flexDirection : "column",
                     gap : "1em",
                     padding : ".7em",
-                    boxShadow : "2px 2px 10px #ddd"
+                    // boxShadow : "2px 2px 10px #ddd"
                 }}
             >
                 <CardHeader

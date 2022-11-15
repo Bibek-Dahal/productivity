@@ -1,7 +1,7 @@
 .dashboard-container{
     height:100vh;
     display:grid;
-    grid-template-columns:300px 1fr 400px;
+    grid-template-columns:300px 1fr 350px;
     overflow-y:hidden;
 }
 
