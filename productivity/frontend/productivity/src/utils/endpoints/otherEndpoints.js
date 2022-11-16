@@ -11,7 +11,9 @@ const endpoints = {
     deleteTask : `/api/group/task/delete`,
     getTaskDetail : `/api/group/task/retrive`,
     deleteTask : `/api/group/task/delete`,
-    updateTask : `/api/group/task/update`
+    updateTask : `/api/group/task/update`,
+    updateProfile : `/api/profile/update`,
+    getAllChats : `/api/group/chat/`
 }
 
 export default endpoints;

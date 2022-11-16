@@ -21,6 +21,8 @@ import ProjectDetail from './ProjectDetail/ProjectDetail.comp';
 import Analytics from './Analytics/Analytics';
 import TransparentLoader from './shared/TransparentLoader/TransparentLoader';
 import Profile from './Profile/Profile.comp';
+import ProfileUpdate from './ProfileUpdate/ProfileUpdate';
+
 
 export{
     Login,
@@ -44,5 +46,6 @@ export{
     Analytics,
     TransparentLoader,
     ProjectDetail,
-    Profile
+    Profile,
+    ProfileUpdate
 }

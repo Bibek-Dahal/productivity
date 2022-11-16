@@ -25,6 +25,7 @@ function useAxios(){
             const user =  jwt_decode(token);
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
+            if(isExpired) console.log('it is expired')
             if(!isExpired) return req; 
             else 
                 logout()

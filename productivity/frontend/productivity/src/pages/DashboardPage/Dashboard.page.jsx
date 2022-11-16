@@ -80,6 +80,7 @@ function DashboardPage(){
     }
 
     useEffect(() => {
+        console.log('inside dashboard page')
         getGroups();
         // just for temp
         getProfile();
@@ -188,7 +189,7 @@ function DashboardPage(){
             <SidebarRight>
                 {
                     userProfile &&
-                       <Profile userProfile = {userProfile}/>                     
+                       <Profile userProfile = {userProfile} getProfile = {getProfile}/>                     
                 }
             </SidebarRight>
             {

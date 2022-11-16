@@ -10,7 +10,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Box } from "@mui/system";
 import {SideModal} from '../shared/';
 
-function Profile({userProfile}){
+import {ProfileUpdate} from '../'
+
+function Profile({userProfile,getProfile}){
     // const axiosInstance = useAxios();
     const [user,setUser] = useState(null);
     const [showUpdateProfile,setShowUpdateProfile] = useState(false);
@@ -63,13 +65,12 @@ function Profile({userProfile}){
                     <Badge 
                         overlap="circular"
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                        badgeContent={
-                        <IconButton color="primary" aria-label="upload picture" component="label">
-                            {/* <input hidden accept="image/*" type="file" name='file' />
-                            <AddCircleIcon />  */}
-                        </IconButton>
-                    }>
-                        <Avatar sx={{ width: 100, height: 100 }}></Avatar>
+                       >
+                        {
+                            !(user?.avatar) ?
+                            <Avatar sx={{ width: 100, height: 100 }}></Avatar>:
+                            <img src = {user?.avatar} />
+                        }
                     </Badge>
                 <Box
                     sx = {{
@@ -80,7 +81,21 @@ function Profile({userProfile}){
                     }}
                 >
                     <span align="center">{user?.username}</span>
-                    <span align="center">UI Ux Engineer</span> 
+                    {
+                        user?.skills &&
+                        <div className="skills-container">
+                                {
+                                    user.skills.map(item => (
+                                        <Button 
+                                            variant="outlined"
+                                            key = {item}
+                                        >
+                                            {item}
+                                        </Button>
+                                    ))
+                                }
+                        </div>
+                    }
                 </Box>
                 {/* <Typography> */}
                 {/* </Typography> */}
@@ -104,7 +119,9 @@ function Profile({userProfile}){
                     variant = "full"
                     toggle = {() => setShowUpdateProfile(prev => !prev)}
                 >
-                    update profile page
+                    <ProfileUpdate 
+                        toggle = {() => setShowUpdateProfile(prev => !prev)}
+                        userProfile = {user} setProfile = {setUser} getProfile = {getProfile}/>
                 </SideModal>
             }
         </div>

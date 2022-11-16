@@ -22,16 +22,16 @@ import { useEffect,useState } from 'react';
 
 import useSocketContext from './hooks/useSocketContext'
 
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 function App(){
 
-    const {socket,setSocket} = useSocketContext();
+    // const {socket,setSocket} = useSocketContext();
     
     // creating a socket connection for all time
     useEffect(() => {
-        const sockett = io(`http://${window.location.hostname}:8000`);
-        setSocket(sockett);
+        // const sockett = io(`http://${window.location.hostname}:8000`);
+        // setSocket(sockett);
     },[])
 
     return(

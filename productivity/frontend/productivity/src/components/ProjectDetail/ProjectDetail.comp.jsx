@@ -9,12 +9,17 @@ import endpoints from '../../utils/endpoints/otherEndpoints';
 import {Icon} from '@iconify/react';
 
 import {
+    CreateGoal
+} from '../';
+
+import {
     ConfirmModal,
     SideModal,
     ToggleEditInput
 } from '../shared/'
 
 import './ProjectDetail.comp.css';
+import useAuthContext from '../../hooks/useAuthContext';
 
 function ProjectDetail({groupId,className}){
 
@@ -44,6 +49,8 @@ function ProjectDetail({groupId,className}){
     })
 
     const [goals,setGoals] = useState([])
+
+    const {user} = useAuthContext();
 
     const axiosInstance = useAxios();
     const navigate = useNavigate();
@@ -115,6 +122,10 @@ function ProjectDetail({groupId,className}){
     }
 
     useEffect(() => {
+        
+    },[])
+
+    useEffect(() => {
         if(groupId){
             getTask();
         }
@@ -139,21 +150,26 @@ function ProjectDetail({groupId,className}){
                         icon = "akar-icons:arrow-left"
                     />
                 </span>
-                <span 
-                    className="delete"
-                    onClick = {deleteProject}
-                >
-                    <Icon 
-                        icon = "ri:delete-bin-5-line"
+                {
+                    taskData.task_user == user.id &&
+                    <span 
+                        className="delete"
+                        onClick = {deleteProject}
+                    >
+                        <Icon 
+                            icon = "ri:delete-bin-5-line"
                     />
-                </span>
-                
+                    </span>
+                }
             </div>
             <div className="content">
                 <div className="content__header">
                     <h2>
                         Project - {taskData.task_title}
                     </h2>
+                    {
+                    taskData.task_user == user.id &&
+
                     <span 
                         className="edit"
                         onClick = {editProject}
@@ -168,6 +184,8 @@ function ProjectDetail({groupId,className}){
                                 />
                         }
                     </span>
+                }
+                    
                 </div>
                 <form 
                     action="" 
@@ -233,12 +251,18 @@ function ProjectDetail({groupId,className}){
                     <h2>
                         Goals
                     </h2>
-                    <div 
-                        className="add-goal"
-                        onClick = {() => setShowAddGoal(true)}
-                    >
-                        <Icon icon = "carbon:add-alt" />
-                    </div>
+                    {
+                        console.log(taskData,user)
+                    }
+                    {
+                        taskData.task_user == user.id &&
+                            <div 
+                                className="add-goal"
+                                onClick = {() => setShowAddGoal(true)}
+                            >
+                                <Icon icon = "carbon:add-alt" />
+                            </div>
+                    }
                 </div>
                 <div className="goals">
                     {
@@ -294,7 +318,10 @@ function ProjectDetail({groupId,className}){
                 <SideModal
                     toggle = {() => setShowAddGoal(prev => !prev)}
                 >
-                    show add goal
+                    <CreateGoal 
+                        toggle = {() => setShowAddGoal(prev => !prev)}
+                        setGoals = {setGoals}
+                    />
                     {/* get task will be called when goal is added */}
                 </SideModal>
             }

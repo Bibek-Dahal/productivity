@@ -42,15 +42,14 @@
     display:grid;
     grid-template-columns:1fr 35px;
     gap:.5em;
-    /* border:1px solid red; */
     width:100%;
 }
 
 .chatbox-container .input-area input{
-    padding:.5em 1em;
+    padding:.8em 1.5em;
     border-radius:5em;
     border:none;
-    background:rgb(231, 231, 231);
+    background:rgba(231, 231, 231, 0.54);
     outline: none;
     font-size:var(--fs-n);
 }

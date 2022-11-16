@@ -143,9 +143,9 @@ function DashboardPage(){
     },[])
 
     useEffect(() => {
-        socket?.emit('new-user',{
-            roomId : group._id
-        })
+        // socket?.emit('new-user',{
+        //     roomId : group
+        // })
     },[socket])
 
     useEffect(() => {
