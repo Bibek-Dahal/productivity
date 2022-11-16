@@ -17,8 +17,8 @@ class ProfileValidation{
         
                     skills: Joi.array().
                         items(Joi.string().trim()).
-                        max(10).
-                        required()
+                        max(10)
+                        
                 
                 })
         
