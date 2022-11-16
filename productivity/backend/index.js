@@ -14,6 +14,9 @@ export default base_dir
 dotenv.config()
 let users = []
 
+// added by ashish
+let rooms = {}
+
 
 //socket io conf
 const io = new Server({
@@ -63,22 +66,40 @@ const server = app.listen(port,()=>{
 io.listen(server)
 
 io.on('connection',(socket)=>{
-    console.log('new web socket connection added')
+    console.log('new web socket connection')
     
     socket.on('new-user',(data)=>{
-        users.push(socket.id)
-        console.log(users)
-        socket.join(`${data.roomId}`)
-        
+        console.log('called new user',data)
+        // users.push(socket.id)
+        // console.log(users)
+        // socket.join(`${data.roomId}`)
+        // console.log('joined room',data.roomId)
+
+        // added by ashish
+        console.log('rooms = ',rooms);
+        if(!rooms[data.roomId]){
+            console.log('room available')
+            rooms[data.roomId] = [socket.id]
+            console.log('joined a room',rooms)
+        }else{
+            console.log('room already unavailable');
+            rooms[data.roomId] = [...rooms[data.roomId],socket.id]
+            console.log('room joined',rooms)
+        }
+        socket.join(data.roomId);
     })
 
     socket.on('disconnect', () => {
+
+        console.log('disconnected');
         
-        let filtered = users.filter(function(value, index, arr){ 
-            return value == socket.id;
-        });
-        users.splice(filtered[0],1)
-        console.log('remaining users',users)
+
+
+        // let filtered = users.filter(function(value, index, arr){ 
+        //     return value == socket.id;
+        // });
+        // users.splice(filtered[0],1)
+        // console.log('remaining users',users)
     });
 
     
@@ -108,6 +129,7 @@ io.on('connection',(socket)=>{
 
     socket.on('new-chat-message',async (data)=>{
         const {room,message,userId} = data
+        console.log('inside new chat msg',data)
         try{
             const chat = await Chat.create({
                 group: room,
@@ -117,16 +139,33 @@ io.on('connection',(socket)=>{
 
             const populated_chat = await chat.populate('user')
             console.log(populated_chat)
-        
-
-            // console.log('username',chat.user.username)
-
-            io.in(room).emit("new-chat-message",{user:populated_chat.user,message:message})
+            console.log('emitting to ',room._id)
+            // socket.broadcast.to(room._id).emit("new-chat-message",{user:populated_chat.user,message:message})
+            // socket.to(room._id).emit("new-chat-message",chat)
+            io.in(room._id).emit("new-chat-message",chat)
             console.log('chat message created')
         }catch(error){
             console.log(error)
             console.log('message cannot be created')
         }
+        
+    })
+
+    socket.on('typing-signal',(data) => {
+            
+        console.log(`${data.user.username} is typing in room =`,data.room);
+        socket.broadcast.to(data.room._id).emit("typing-signal",{
+            username : data.user.username
+        });
+        
+    })
+
+    socket.on('typing-stopped',(data) => {
+            
+        console.log(`${data.user.username} is typing in room =`,data.room);
+        socket.broadcast.to(data.room._id).emit("typing-stopped",{
+            username : data.user.username
+        });
         
     })
 
