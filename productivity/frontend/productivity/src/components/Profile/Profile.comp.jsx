@@ -69,7 +69,16 @@ function Profile({userProfile,getProfile}){
                         {
                             !(user?.avatar) ?
                             <Avatar sx={{ width: 100, height: 100 }}></Avatar>:
-                            <img src = {user?.avatar} />
+                            <img 
+                                style = {{
+                                    height : "100px",
+                                    width : "100px",
+                                    borderRadius : "50%",
+                                    marginLeft : "auto",
+                                    marginRight : "auto",
+                                    objectFit : "cover"
+                                }}
+                            src = {user?.avatar} />
                         }
                     </Badge>
                 <Box
