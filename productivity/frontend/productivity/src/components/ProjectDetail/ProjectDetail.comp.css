@@ -31,7 +31,7 @@
 }
 
 .project-detail-container form button{
-    padding:.5em 1em;
+    /* padding:.5em 1em;
     border-radius:5px;
     border:none;
     background:var(--discord-blue);
@@ -39,7 +39,7 @@
     font-weight:600;
     font-size:var(--fs-n);
     align-self:flex-start;
-    margin-top:1em;
+    margin-top:1em; */
 }
 
 .project-detail-container hr{
@@ -50,13 +50,17 @@
 }
 
 .project-detail-container .content form{
-    background:var(--white);
-    padding:3em;
-    border:1px solid #ddd;
+    /* background:var(--white); */
+    /* border:1px solid #ddd; */
     display:flex;
     /* border-radius:10px; */
     flex-direction: column;
+    padding:2em;
     gap:2em;
+}
+
+.project-detail-container .content form input{
+    font-size:var(--fs-n);
 }
 
 .project-detail-container .goals{
@@ -65,7 +69,6 @@
     margin-right:auto;
     display:flex;
     flex-direction: column;
-    /* gap:.7em; */
 }
 
 .project-detail-container .goals .goal:first-child{
@@ -100,10 +103,41 @@
     opacity:.7;
 }
 
-.project-detail-container .goal .left{
+.project-detail-container label{
+    display:block;
+    margin-bottom:1em;
+    text-transform: capitalize;
+}
+
+.project-detail-container input{
+    width:100%;
+    padding:1em;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+
+.project-detail-container .goal .left,
+.project-detail-container .goal .right{
     display:flex;
     flex-direction: column;
     gap:1em;
+}
+
+.project-detail-container .goal .right .status{
+    padding:.5em 1em;
+    border-radius:5px;
+    background:rgba(255, 0, 0, 0.36);
+    color:rgb(91, 0, 0);
+}
+
+.project-detail-container .goal .right .status.completed{
+    background:rgba(0, 128, 0, 0.402);
+    color:rgb(0, 94, 0);
+}
+
+
+.project-detail-container .goal .right{
+    align-self:center;
 }
 
 .project-detail-container .goal .left .title{
@@ -123,7 +157,6 @@
 .project-detail-container .goal:hover{
     transform:scale(1.01);
 }
-
 
 .project-detail-container .goal button{
     border-radius:7px;

@@ -18,8 +18,19 @@ import {
     ToggleEditInput
 } from '../shared/'
 
+import {
+    TextInput,
+    Button
+} from '@mantine/core';
+
+import {
+    DatePicker
+} from '@mantine/dates';
+
 import './ProjectDetail.comp.css';
 import useAuthContext from '../../hooks/useAuthContext';
+import { Checkbox } from '@mui/material';
+import { Box } from '@mui/system';
 
 function ProjectDetail({groupId,className}){
 
@@ -33,14 +44,6 @@ function ProjectDetail({groupId,className}){
     const [showAddGoal,setShowAddGoal] = useState(false);
 
     const [taskData,setTaskData] = useState({
-        task_title : "",
-        task_description : "",
-        task_created_at : "",
-        task_deadline : "",
-        task_is_completed : null
-    })
-
-    const [originalTask,setOriginalTask] = useState({
         task_title : "",
         task_description : "",
         task_created_at : "",
@@ -63,7 +66,6 @@ function ProjectDetail({groupId,className}){
                 console.log('project = ',res);
                 setTaskData(res.data.task);
                 setGoals(res.data.task.task_goals)
-                setOriginalTask(res.data.task);
             })
             .catch(err => {
                 console.log('err',err)
@@ -101,13 +103,13 @@ function ProjectDetail({groupId,className}){
     const submitTask = (e) => {
         e.preventDefault();
         console.log('submitting',taskData)
-        axiosInstance.put(`${endpoints.updateTask}/${groupId}/${projectId}`)
-            .then(res => {
-                console.log('res = '.res);
-            })
-            .catch(err => {
-                console.log('err = ',err);
-            })
+        // axiosInstance.put(`${endpoints.updateTask}/${groupId}/${projectId}`)
+        //     .then(res => {
+        //         console.log('res = '.res);
+        //     })
+        //     .catch(err => {
+        //         console.log('err = ',err);
+        //     })
     }
 
     const submitGoal = (e) => {
@@ -192,59 +194,42 @@ function ProjectDetail({groupId,className}){
                     className="project-form "
                     onSubmit={submitTask}
                 >
-                    <ToggleEditInput 
-                        name = "task_title" 
-                        type="text" 
-                        value = {taskData?.task_title}
-                        onChange = {onChangeHandler}
-                        editable = {editTask}
-                        original_value = {originalTask?.task_title}
+                    <TextInput 
                         label = "title"
-                    />
-                    <ToggleEditInput 
-                        name = "task_description" 
-                        type="text" 
-                        value = {taskData?.task_description}
+                        value = {taskData.task_title}
                         onChange = {onChangeHandler}
-                        editable = {editTask}
-                        original_value = {originalTask?.task_description}
+                        size = "md"
+                    />
+                    <TextInput 
                         label = "description"
-                        variant = "textarea"
-                    />
-                    <ToggleEditInput 
-                        name = "task_deadline" 
-                        type="date" 
-                        value = {taskData?.task_deadline}
+                        value = {taskData.task_description}
                         onChange = {onChangeHandler}
-                        editable = {editTask}
-                        original_value = {originalTask?.task_deadline}
-                        label = "deadline"
+                        size = "md"
                     />
-                    <ToggleEditInput 
-                        name = "task_created_at" 
-                        type="date" 
-                        value = {taskData?.task_created_at}
-                        onChange = {onChangeHandler}
-                        editable = {editTask}
-                        original_value = {originalTask?.task_created_at}
-                        label = "Created at"
-                    />
-                    <ToggleEditInput 
-                        name = "task_is_completed"
-                        type = "checkbox"
-                        editable = {editTask}
-                        label = "project completed?"
-                        value = {taskData.task_is_completed}
-                        original_value = {originalTask.task_is_completed}
-                        variant = "checkbox"
-                        onChange={onChangeHandler}
-                    />
-                    {
-                        editTask &&
-                        <button>
-                            update
-                        </button>
-                    }
+                    <div>
+                        <label htmlFor="">Deadline</label>
+                        <input
+                            onChange = {onChangeHandler} 
+                            type = "date" 
+                            value = {taskData.task_deadline.substring(0,10)}
+                        />
+                    </div>
+                    <Box >
+                        <label htmlFor="">completed Task</label>
+                        <Checkbox 
+                            value = {taskData.task_is_completed}
+                            onChange = {onChangeHandler}
+                            name = "task_is_completed"
+                        />
+                    </Box>
+                    <Box>
+                        <Button
+                            type = "submit" 
+                            size = "md"
+                        >
+                            Update
+                        </Button>
+                    </Box>
                 </form>
                 {/* <hr /> */}
                 <div className="content__header">
@@ -283,20 +268,31 @@ function ProjectDetail({groupId,className}){
                                         2022-02-22
                                     </span>
                                 </div>
-                                <div className="action-btns">
-                                    <button
-                                        className='delete'
-                                        onClick = {deleteGoal}
-                                        id = "123123"
-                                    >
-                                        <Icon icon = "ri:delete-bin-5-line"/>
-                                    </button>
-                                    <button
-                                        className='edit'
-                                    >
-                                        <Icon icon = "clarity:edit-line"/>
-                                    </button>
+                                <div className="right">
+                                    <span className="status">
+                                        not completed
+                                    </span>
+                                    <span className="deadline">
+                                        2022-02-22
+                                    </span>
                                 </div>
+                                {
+                                    taskData.task_user == user.id &&
+                                    <div className="action-btns">
+                                        <button
+                                            className='delete'
+                                            onClick = {deleteGoal}
+                                            id = "123123"
+                                        >
+                                            <Icon icon = "ri:delete-bin-5-line"/>
+                                        </button>
+                                        <button
+                                            className='edit'
+                                        >
+                                            <Icon icon = "clarity:edit-line"/>
+                                        </button>
+                                    </div>
+                                }
                             </div>
                         ))
                     }

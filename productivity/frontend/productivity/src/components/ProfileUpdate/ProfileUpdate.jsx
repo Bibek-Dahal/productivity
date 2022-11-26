@@ -162,6 +162,7 @@ function ProfileUpdate({userProfile,setProfile,getProfile,toggle}) {
                             <input
                                 type="file"
                                 hidden
+                                accept = "image/png,image/jpg"
                             />
                         </Button>
                         <TextField 
