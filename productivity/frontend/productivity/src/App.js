@@ -3,6 +3,8 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
+import discordAudio from './sounds/discord.mp3';
+import hangoutAudio from './sounds/hangouts.mp3';
 
 import { Button } from '@mantine/core';
 
@@ -33,6 +35,8 @@ import useSocketContext from './hooks/useSocketContext'
 // import io from 'socket.io-client';
 
 function App(){
+    const discordCall = new Audio(discordAudio);
+    const hangoutsCall = new Audio(hangoutAudio);
 
     // const {socket,setSocket} = useSocketContext();
     const [selfGroups,setSelfGroups] = useState([]);
@@ -57,6 +61,7 @@ function App(){
                 // }
                 setCaller(info.userName)
                 setShowCallModal(true);
+                // discordCall.play();
             })
         }
     },[socket])
