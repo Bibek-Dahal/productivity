@@ -6,6 +6,7 @@ import GroupValidations from '../middlewares/validations/group.js'
 import task from './task.js'
 import AuthValidation from '../middlewares/validations/auth.js'
 import chat from './chat.js'
+import Group from '../models/Group.js'
 
 router.use('/task',task) //handles task routes
 router.use('/chat',chat)
@@ -60,6 +61,12 @@ router.post('/group-exists',[
 router.post('/leave/:groupId',[authMiddleware,GroupController.leaveGroup])
 
 router.post('/kick/:groupId/:memberId',[authMiddleware,GroupController.kickUserFromGroup])
+
+//get gorup history
+router.get('/history/:groupId',[authMiddleware,GroupController.getGroupHistory])
+
+//get gorup monthly report
+router.get('/monthly-report/:groupId',[authMiddleware,GroupController.groupReport])
 
 //get details of all members of group
 //router.get('/members-details/:groupId(\[a-zA-Z0-9]{24}\)',[authMiddleware,GroupController.getGroupMembersDetail])

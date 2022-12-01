@@ -4,6 +4,8 @@ import User from "../models/User.js"
 import sendMail from '../utils/sendMail.js'
 import jwt from "jsonwebtoken";
 import { Base64Encoder,Base64Decoder } from "base64-encoding";
+import jsgroup from 'core-js-pure/actual/array/group.js';
+
 class GroupController{
     /*
         creates a group
@@ -318,6 +320,129 @@ class GroupController{
                 })
             }
         }catch(error){
+            res.status(500).send({
+                message: 'something went wrong'
+            })
+        }
+    }
+
+    static getGroupHistory = async(req,res)=>{
+        try{
+            const {groupId} = req.params
+            //finds group if user belongs to the group
+            const group = await Group.findOne({_id:groupId,members:req.user_id})
+            console.log(group)
+            if(group){
+                let taskCreated = 0
+                let taskCompleted = 0
+                let goalCreated = 0
+                let goalCompleted = 0
+
+                taskCreated = group.task.length
+                group.task.forEach(element => {
+                    if(element.task_is_completed === true){
+                        taskCompleted++
+                    }
+                    goalCreated += element.task_goals.length
+                    element.task_goals.forEach(element=>{
+                        if(element.goals_is_completed === true){
+                            goalCompleted++
+                        }
+                    })
+                
+                });
+            
+                res.status(200).send({
+                    taskCreated,
+                    taskCompleted,
+                    goalCreated,
+                    goalCompleted
+
+
+                })
+            }else{
+                res.status(404).send({
+                    message: 'gorup not found'
+                })
+            }
+            
+        }catch(error){
+            console.log(error)
+            res.status(500).send({message:'error'})
+        }
+
+    }
+
+    static groupReport = async(req,res)=>{
+        try{
+            const {groupId} = req.params
+            //finds group if user belongs to the group
+            const group = await Group.findOne({_id:groupId,members:req.user_id})
+            const groupTasks = []
+            const groupGoals = []
+            if(group){
+                group.task.forEach((task)=>{
+                    //filter gorup task
+                    
+                    groupTasks.push(task)
+
+                    //filter user goals
+                    task.task_goals.forEach((goal)=>{
+                        groupGoals.push(goal)
+                    })
+                    
+    
+                })
+
+                const taskReport = groupTasks.map((element)=>{
+                    var options = { year: 'numeric', month: 'short'};
+                    const formattedDate = element.task_created_at.toLocaleDateString("en-US", options)
+                    // console.log(formattedDate)   
+                    // console.log(formattedDate)
+                    const year = formattedDate.split(" ")[1]
+                    const month = formattedDate.split(" ")[0]
+                    const task_is_completed = element.task_is_completed
+        
+                    return {
+                        year,
+                        month,
+                        task_is_completed
+                    }
+                })
+
+                const goalReport = groupGoals.map((element)=>{
+                    var options = { year: 'numeric', month: 'short'};
+                    const formattedDate = element.goals_created_at.toLocaleDateString("en-US", options)
+                    // console.log(formattedDate)   
+                    // console.log(formattedDate)
+                    const year = formattedDate.split(" ")[1]
+                    const month = formattedDate.split(" ")[0]
+                    const goal_is_completed = element.goals_is_completed
+        
+                    return {
+                        year,
+                        month,
+                        goal_is_completed
+                    }
+                })
+                const result = jsgroup(taskReport,({ month }) => month)
+                const result1 = jsgroup(goalReport,({ month }) => month)
+
+                res.status(200).send({
+                    taskReport:result,
+                    goalReport:result1
+                    
+                })
+
+
+
+            }else{
+                res.status(404).send({
+                    message:'group not found'
+                })
+            }
+        }catch(error){
+            console.log(error)
             res.status(500).send({
                 message: 'something went wrong'
             })
