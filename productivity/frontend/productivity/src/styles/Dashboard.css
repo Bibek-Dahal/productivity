@@ -1,8 +1,7 @@
 .dashboard-container{
     height:100vh;
     display:grid;
-    grid-template-columns:300px 1fr 350px;
-    /* grid-template-columns:minmax(30%,300px) 1fr minmax(30%,350px); */
+    grid-template-columns:350px 1fr 340px;
     overflow-y:hidden;
 }
 
@@ -39,6 +38,17 @@
     border-radius:3px;
 }
 
+.block{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius:5px;
+    padding:2em 0;
+    box-shadow:2px 2px 10px rgb(234, 234, 234);
+    opacity:.7;
+}
+
 .dashboard-container .navigation a.active{
     background:var(--blue);
     color:white;
@@ -51,11 +61,16 @@
 
 .dashboard-center{
     background:rgb(247, 246, 246);
+    max-width : 1200px;
+    width : 100%;
+    margin-inline:auto;
+}
+.dashboard-center::-webkit-scrollbar{
+    display:none;
 }
 
 .dashboard-container .sidebar hr{
-    border:1px solid #ddd;
-    background:#ddd;
+    border:1px solid rgb(0, 0, 0,.2);
     opacity:.5;
     width:90%;
     margin-left:auto;

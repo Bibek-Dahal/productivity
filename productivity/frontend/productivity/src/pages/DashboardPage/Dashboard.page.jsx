@@ -34,8 +34,9 @@ import './Dashboard.page.css';
 import useAuthContext from '../../hooks/useAuthContext';
 import useNotification from '../../hooks/useNotification';
 
-function DashboardPage(){
+function DashboardPage({setSelfGroups}){
 
+    const [loading,setLoading] = useState(true);
     const navigate = useNavigate();
     const [groups,setGroups] = useState([]);
     // just for temp
@@ -55,6 +56,7 @@ function DashboardPage(){
         try{
             const res = await axiosInstance.get(endpoints.getGroups);
             setGroups(prev => (res.data.groups))
+            setSelfGroups(res.data.groups)
         }catch(err){
             console.log('error',err);
         }
@@ -69,8 +71,6 @@ function DashboardPage(){
         }
     }
 
-    console.log('profile and groups',userProfile,groups)
-
     async function deleteGroup(e){
         e.stopPropagation();
         const groupId = e.target.getAttribute('groupid');
@@ -82,8 +82,8 @@ function DashboardPage(){
     useEffect(() => {
         console.log('inside dashboard page')
         getGroups();
-        // just for temp
         getProfile();
+        setLoading(false);
     },[])
 
     useEffect(() => {
@@ -101,6 +101,8 @@ function DashboardPage(){
                 })
         }
     },[deleteConfirmed,groupToDelete])
+
+    if(loading) return "loading..."
 
     return(
         <div className="dashboard-container dashboardpage">
@@ -123,7 +125,7 @@ function DashboardPage(){
                     >
                         <Icon icon = "ic:outline-dashboard" /> dashboard
                     </NavLink>
-                    <NavLink 
+                    {/* <NavLink 
                         to = "/dashboard/activity"
                         end
                         className = {(navData) => {
@@ -131,7 +133,7 @@ function DashboardPage(){
                         }}
                     >
                        <Icon icon = "fluent:shifts-activity-20-filled" /> activity
-                    </NavLink>
+                    </NavLink> */}
                 </div>
                 <hr/>
                 <div className="groupsList">

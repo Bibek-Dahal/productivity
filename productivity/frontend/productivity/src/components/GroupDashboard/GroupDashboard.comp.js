@@ -1,13 +1,119 @@
-function GroupDashboard({className}){
+import { RingProgress,Text } from '@mantine/core';
+
+import {
+    Analytics
+} from '../'
+
+function GroupDashboard({className,group}){
     return(
         <div
             className = {`${className ? className : ""}`}
         >
-            <p>
-                group dashboard
-            </p>
+            <h1
+                style = {{
+                    marginBottom : "2em",
+                    textTransform : "capitalize"
+                }}
+            >
+                {group.name} Dashboard
+            </h1>
+            <div 
+                style = {{
+                    display : "grid",
+                    gridTemplateColumns : "1fr 1fr",
+                    gap : "1em"
+                }}
+            >
+                <div className='block goals-set'
+                
+                    style = {{
+                        background : "#68b5e8"
+                    }}
+                >
+                    <RingProgress
+                        sections={[
+                            { value: 100, color: 'white'} 
+                        ]}
+                        label={
+                            <Text size="xl" align="center" px="xls" sx={{ pointerEvents: 'none',color :  'white',fontWeight : "bold",fontSize : "2rem"}}>
+                                34
+                            </Text>
+                            }
+                    />
+                    <span className='title'
+                        style = {{
+                            color :  'white',fontWeight : "bold",textTransform : "uppercase",marginTop : ".6em"
+                        }}
+                    >goals set</span>
+                </div>
+                <div className='block goals-completed'
+                style = {{
+                    background : "#6888e8"
+                }}
+                >
+                    <RingProgress
+                        sections={[
+                            { value: 100, color: 'white'} 
+                        ]}
+                        label={
+                            <Text size="xl" align="center" px="xls" sx={{ pointerEvents: 'none',color :  'white',fontWeight : "bold",fontSize : "2rem"}}>
+                                28
+                            </Text>
+                            }
+                    />
+                    <span className='title'
+                        style = {{
+                            color :  'white',fontWeight : "bold",textTransform : "uppercase",marginTop : ".6em"
+                        }}
+                    >goals completed</span>
+                </div>
+                <div className='block goals-completed'
+                    style = {{
+                        background : "rgba(0,0,0,.4)"
+                    }}
+                >
+                    <RingProgress
+                        sections={[
+                            { value: 100, color: 'white'} 
+                        ]}
+                        label={
+                            <Text size="xl" align="center" px="xls" sx={{ pointerEvents: 'none',color :  'white',fontWeight : "bold",fontSize : "2rem"}}>
+                                28
+                            </Text>
+                            }
+                    />
+                    <span className='title'
+                        style = {{
+                            color :  'white',fontWeight : "bold",textTransform : "uppercase",marginTop : ".6em"
+                        }}
+                    >tasks created</span>
+                </div>
+                <div className='block goals-completed'
+                style = {{
+                    background : "#d38902"
+                }}
+                >
+                    <RingProgress
+                        sections={[
+                            { value: 100, color: 'white'} 
+                        ]}
+                        label={
+                            <Text size="xl" align="center" px="xls" sx={{ pointerEvents: 'none',color :  'white',fontWeight : "bold",fontSize : "2rem"}}>
+                                48
+                            </Text>
+                            }
+                    />
+                    <span className='title'
+                        style = {{
+                            color :  'white',fontWeight : "bold",textTransform : "uppercase",marginTop : ".6em"
+                        }}
+                    >users joined</span>
+                </div>
+            </div>
+            <Analytics />
         </div>
     )
 }
+
 
 export default GroupDashboard;

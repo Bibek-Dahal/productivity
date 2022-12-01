@@ -1,9 +1,13 @@
 import React,{
     useState
 } from "react";
+import useAxios from "../../hooks/useAxios";
+import endpoints from "../../utils/endpoints/otherEndpoints";
 import './CreateGoal.comp.css';
 
-function CreateGoal({toggle,setGoals}){
+import useNotification from '../../hooks/useNotification';
+
+function CreateGoal({toggle,setGoals,submitCreateGoal,getTask,groupId,taskId}){
 
     const [data,setData] = useState({
         goals_title : "",
@@ -14,6 +18,8 @@ function CreateGoal({toggle,setGoals}){
     const [errors,setErrors] = useState({
         goals_description : null
     })
+    const createNotification = useNotification();
+    const axiosInstance = useAxios();
 
     const changeHandler = (e) => {
         console.log(e.target.value);
@@ -32,8 +38,6 @@ function CreateGoal({toggle,setGoals}){
     }
 
     const submitHandler = (e) => {
-        console.log('submitting',data,data.goals_description.length)
-
         if(data.goals_description.length > 100){
             setErrors(prev => (
                 {
@@ -43,13 +47,27 @@ function CreateGoal({toggle,setGoals}){
             ))
             return;
         }
+        
+        if(submitCreateGoal){
+            console.log('submitting goal',data)
+            axiosInstance.post(`${endpoints.createGoal}/${groupId}/${taskId}`,data)
+                .then(res => {
+                    createNotification("success","goal created","goal created successfully",5000)
+                    getTask();
+                })
+                .catch(err => console.log('err = ',err))
+        }
 
-        setGoals(prev => (
-            [
-                ...prev,
-                data
-            ]
-        ))
+        if(setGoals){
+            setGoals(prev => (
+                [
+                    ...prev,
+                    data
+                ]
+            ))
+        }
+
+        
         toggle();
     }
 

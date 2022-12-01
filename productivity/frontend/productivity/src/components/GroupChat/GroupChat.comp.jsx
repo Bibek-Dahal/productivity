@@ -14,6 +14,9 @@ import useAuthContext from '../../hooks/useAuthContext';
 import useSocketContext from '../../hooks/useSocketContext';
 import endpoints from "../../utils/endpoints/otherEndpoints";
 import useAxios from "../../hooks/useAxios";
+import { Button } from "@mantine/core";
+
+import {useNavigate} from 'react-router-dom';
 
 
 function GroupChat({className,group}){
@@ -41,6 +44,8 @@ function GroupChat({className,group}){
         socket.emit('new-chat-message',data);
     }
 
+    const navigate = useNavigate();
+
     const stoppedTyping = () => {
         console.log('stopped typing')
         socket.emit('typing-stopped',{
@@ -61,21 +66,28 @@ function GroupChat({className,group}){
             room : group
         })
     }
+    console.log('user = ',user)
+    const callInGroup = () => {
+        let popup = window.open(`http://127.0.0.1:3000/group/${group._id}/groupCall`,"popup");
+        if(popup){
+            popup.moveTo(0,0);
+            popup.resizeTo(window.screen.availWidth, window.screen.availHeight);
+        }
+        socket.emit('call',{
+            userName : localUser.username,
+            roomId : group._id,
+            callLink : `http://127.0.0.1:3000/${group._id}/groupCall`
+        })
+    }
 
-
+  
 
     useEffect(() => {
-        // console.log('socket = ',socketConn)
-        // msgAreaRef.current.scrollTop = msgAreaRef.current.scrollHeight;
-        // return () => {
-        // };
-        // console.log('socket connected',socket)
-        // socket.emit('new-user',)
        if(Object.keys(group).length){
-        console.log('gtoup = ',group)
-                socket.emit('new-user',{
-                roomId : group._id
-            })
+            // console.log('group = ',group)
+            // socket.emit('new-user',{
+            //     roomId : group._id
+            // })
             socket.on('new-chat-message',(data) => {
                 console.log('new chat msg = ',data);
                 setMsgs(prev => (
@@ -105,13 +117,16 @@ function GroupChat({className,group}){
             })
        }
        if(Object.keys(group).length){
-            axiosInstance.get(`${endpoints.getAllChats}/${group._id}`)
+            axiosInstance.get(`${endpoints.getAllChats}${group._id}`)
                 .then(res => {
                     console.log('messages = ',res);
                     setMsgs(res.data.chats);
                 })
                 .catch(err => {
                     console.log('error occured',err);
+                    if(err.response.status == "404"){
+                        navigate('/dashboard')
+                    }
                 })
        }
     },[socket,group])
@@ -126,13 +141,27 @@ function GroupChat({className,group}){
         }
     },[user])
     
+    useEffect(() => {
+        console.log('called',msgAreaRef.current,msgAreaRef.current.scrollTop,msgAreaRef.current.scrollHeight)
+        msgAreaRef.current.scrollTop = msgAreaRef.current.scrollHeight;
+    },[])
 
     return(
         <div
             className = {`${className ? className : ""} chatbox-container`}
         >
-            <div className="title">
-                Learn UI/UX
+            <div className="title" style = {{
+                // fontSize : "2rem",
+            }}>
+                {group.name}
+                <Button
+                    onClick = {callInGroup}
+                    style = {{
+                        marginLeft : "2em"
+                    }}
+                >
+                    call
+                </Button>
             </div>
             <div 
                 className="msg-area" 
@@ -150,6 +179,39 @@ function GroupChat({className,group}){
                     flag = "sent"
                     msg = "ok"
                 /> */}
+                {
+                    msgs.length <1 &&
+                    <div
+                    style = {{
+                        height:"100px",
+                        display : "flex",
+                        alignItems : "center",
+                        justifyContent : "center",
+                        marginTop : "10em",
+                        maxWidth : "550px",
+                        marginInline : "auto",
+                        flexDirection : "column",
+                        gap : "1em",
+                        textAlign : "center",
+                        lineHeight : "1.5"
+                    }}>
+                        <h2
+                        style = {{
+                        textTransform : "uppercase"
+                        }}
+                        >
+                            no convertations done in this group yet!
+                        </h2>
+                        <p
+                            style = {{
+                                maxWidth : "450px",
+                            }}
+                        >
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit voluptatibus dignissimos excepturi alias perspiciatis non unde iusto placeat cum repellendus!
+                            lets have a conversation : )
+                        </p>
+                    </div>
+                }
                 {
                     msgs.length > 0 &&
                     <>
@@ -193,7 +255,7 @@ function GroupChat({className,group}){
                         placeholder = "Enter message here" 
                         autoFocus = {true}
                         ref = {msgRef}
-                        onKeyDown = {sendTypingSignal}
+                        // onKeyDown = {sendTypingSignal}
                     />
                     <button type = "submit">
                         <Icon icon = "fluent:send-20-filled" />

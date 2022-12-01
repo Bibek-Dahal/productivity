@@ -114,7 +114,12 @@ function DashboardPage(){
                 console.log('setting tasks = ',res.data.group.task)
                 setTasks(res.data.group.task)
             }})
-            .catch(err => console.log('error = ',err))
+            .catch(err => {
+                if(err.response.status == "404"){
+                    createNotification('danger','error','error retriving group',5000)
+                    navigate('/dashboard');
+                }
+            })
     }
 
     const removeMember = (e) => {
@@ -188,12 +193,12 @@ function DashboardPage(){
                     >
                         <Icon icon = "ic:outline-dashboard" /> group dashboard
                     </NavLink>
-                    <NavLink 
+                    {/* <NavLink 
                         to = {`/group/${group_id}/activity`}
                         className = {(navData) => navData.isActive ? "active" : "" }
                     >
                        <Icon icon = "fluent:shifts-activity-20-filled" /> group activity
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink 
                         to = {`/group/${group_id}/chat`}
                         className = {(navData) => navData.isActive ? "active" : "" }
@@ -247,11 +252,11 @@ function DashboardPage(){
                 </div>
             </SidebarLeft>
             <Routes>
-                <Route path = "/dashboard" element = {<GroupDashboard className = "dashboard-center"/>}/>
+                <Route path = "/dashboard" element = {<GroupDashboard group = {group} className = "dashboard-center"/>}/>
                 <Route path = "/activity" element = {<GroupActivity className = "dashboard-center"/>}/>
                 <Route path = "/chat" element = {<GroupChat group ={group} className = "dashboard-center"/>} />
                 <Route path = "/projects" element = {<GroupProjects group = {group} getGroupDetail = {getGroupDetail} className = "dashboard-center" />} />
-                <Route path = "/projects/:projectId" element = {<ProjectDetail groupId = {group._id}  className = "dashboard-center" />} />
+                <Route path = "/projects/:projectId" element = {<ProjectDetail getGroupDetail = {getGroupDetail} groupId = {group._id}  className = "dashboard-center" />} />
             </Routes>
             <SidebarRight>
                 <div className="members-container">

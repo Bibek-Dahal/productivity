@@ -12,6 +12,7 @@ function PrivateRoute({children}){
     },[user])
 
     const location = useLocation();
+    console.log('inside private route')
 
     if(!user) {
         return <Navigate to = "/login" state = {{from : location}}/>

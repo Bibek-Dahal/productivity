@@ -4,7 +4,15 @@ import {
     Route
 } from 'react-router-dom';
 
+import { Button } from '@mantine/core';
+
 import './styles/Auth.css';
+
+import {SideModal} from './components/shared/';
+
+import {
+    GroupCall,
+} from './components/'
 
 import {
     HomePage,
@@ -27,12 +35,44 @@ import useSocketContext from './hooks/useSocketContext'
 function App(){
 
     // const {socket,setSocket} = useSocketContext();
-    
+    const [selfGroups,setSelfGroups] = useState([]);
+    const [loading,setLoading] = useState(true);
+    const {socket} = useSocketContext();
+    const [showCallModal,setShowCallModal] = useState(false);
+    const [caller,setCaller] = useState(null);
     // creating a socket connection for all time
+
     useEffect(() => {
-        // const sockett = io(`http://${window.location.hostname}:8000`);
-        // setSocket(sockett);
+        console.log('inside app.js',socket)
+        // getting self detail 
+        setLoading(false);
     },[])
+
+    useEffect(() => {
+        if(socket){
+            socket.on('call',info => {
+                console.log('someone called',info);
+                // if(window.confirm(`${info.userName} is calling`)){
+                //     console.log('entering group call')
+                // }
+                setCaller(info.userName)
+                setShowCallModal(true);
+            })
+        }
+    },[socket])
+
+    useEffect(() => {
+        if(selfGroups.length){
+            console.log('self groups = ',selfGroups)
+            selfGroups.forEach(group => {
+                socket.emit('new-user',{
+                    roomId : group._id
+                })
+            })
+        }
+    },[selfGroups])
+
+    if(loading) return "loading"
 
     return(
         <div id = "app">
@@ -52,10 +92,11 @@ function App(){
                     path = "/dashboard/*"
                     element = {
                         <PrivateRoute>
-                            <DashboardPage/>
+                            <DashboardPage setSelfGroups={setSelfGroups}/>
                         </PrivateRoute>
                     }
                 />
+                <Route path = "/group/:group_id/groupCall" element = {<GroupCall />} />
                 <Route path = "/group/:group_id/*" element = {
                     <PrivateRoute>
                         <GroupDashBoardPage/>
@@ -66,6 +107,15 @@ function App(){
                 } />
                 <Route path = "*" element = {<NotFoundPage />}/>
            </Routes>
+           {
+            (showCallModal) &&
+            <SideModal toggle = {() => setShowCallModal(prev => !prev)} >
+                {caller} is calling
+                <Button>
+                    join the call
+                </Button>
+            </SideModal>
+           }
         </div>
     )
 }

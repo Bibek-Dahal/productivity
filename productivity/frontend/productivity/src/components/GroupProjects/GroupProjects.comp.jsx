@@ -70,14 +70,24 @@ function GroupProjects({className,group,getGroupDetail}){
             </h1>
             <div className="filter-input-container">
                 {/* <form action="" onSubmit = {filterProjects}> */}
-                    <input 
+                    {/* <input 
                         type="text" 
                         onChange={filterProjects}
                         placeholder = "enter project name"
-                    />
+                    /> */}
                 {/* </form> */}
             </div>
             <div className="filter-result-container">
+                {
+                    projects?.length < 1 &&
+                    <h3
+                        style = {{
+                            textAlign : "center"
+                        }}
+                    >
+                        No tasks created yet
+                    </h3>
+                }
                     {
                         projects?.map(project => (
                             <div 

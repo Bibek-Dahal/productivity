@@ -32,10 +32,10 @@
     width:100%;
     max-width:800px;
     margin:.5em auto;
-    background:white;
     padding:1em;
     border-radius:7px;
     border:1px solid rgb(235, 235, 235);
+    background-color: white;
     font-size:var(--fs-n);
     cursor: pointer;
     transition:transform 200ms ease;

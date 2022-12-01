@@ -16,12 +16,13 @@
 }
 
 /* title */
-
 .chatbox-container .title{
     background:white;
     width: 100%;
     font-weight:600;
     border-bottom:2px solid rgb(239, 239, 239);
+    font-size : 2rem;
+    padding-bottom:2em;
     height:50px;
 }
 

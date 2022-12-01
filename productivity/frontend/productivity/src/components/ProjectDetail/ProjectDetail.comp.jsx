@@ -32,7 +32,9 @@ import useAuthContext from '../../hooks/useAuthContext';
 import { Checkbox } from '@mui/material';
 import { Box } from '@mui/system';
 
-function ProjectDetail({groupId,className}){
+import useNotification from '../../hooks/useNotification';
+
+function ProjectDetail({groupId,className,getGroupDetail}){
 
     const [editTask,setEditTask] = useState(false);
     const [editGoal,setEditGoal] = useState({});
@@ -41,14 +43,20 @@ function ProjectDetail({groupId,className}){
     const [showDeleteGoalConfirm,setShowDeleteGoalConfirm] = useState(false);
     const [deleteGoalConfirmed,setDeleteGoalConfirmed] = useState(false);
 
+    const [showDeleteProjectConfirmation,setShowDeleteProjectConfirmation] = useState(false);
+    const [deleteProjectConfirmed,setDeleteProjectConfirmed] = useState(false);
+    const [projectToDelete,setProjectToDelete] = useState(null);
+
     const [showAddGoal,setShowAddGoal] = useState(false);
+
+    const createNotification = useNotification();
 
     const [taskData,setTaskData] = useState({
         task_title : "",
         task_description : "",
         task_created_at : "",
         task_deadline : "",
-        task_is_completed : null
+        task_is_completed : undefined
     })
 
     const [goals,setGoals] = useState([])
@@ -64,6 +72,8 @@ function ProjectDetail({groupId,className}){
         axiosInstance.get(`${endpoints.getTaskDetail}/${groupId}/${projectId}`)
             .then(res => {
                 console.log('project = ',res);
+                console.log(res.data.task.task_user,user.id)
+                if(res.data.task.task_user == user.id) setEditTask(true);
                 setTaskData(res.data.task);
                 setGoals(res.data.task.task_goals)
             })
@@ -75,10 +85,11 @@ function ProjectDetail({groupId,className}){
     function onChangeHandler(e){
         console.log('changin',e.target)
         if(e.target.type == "checkbox"){
+            console.log('changin',e.target.checked)
             setTaskData(prev => (
                 {
                     ...prev,
-                    [e.target.name] : !prev[e.target.name]
+                    [e.target.name] : e.target.checked
                 }
             ))
         }else{
@@ -97,35 +108,56 @@ function ProjectDetail({groupId,className}){
     }
 
     const deleteProject = (e) => {
-        console.log('deleting project')
+        console.log('deleting project',e.target.getAttribute('projectid'));
+        setProjectToDelete(e.target.getAttribute('projectid'))
+        setShowDeleteProjectConfirmation(true)
     }
 
     const submitTask = (e) => {
         e.preventDefault();
         console.log('submitting',taskData)
-        // axiosInstance.put(`${endpoints.updateTask}/${groupId}/${projectId}`)
-        //     .then(res => {
-        //         console.log('res = '.res);
-        //     })
-        //     .catch(err => {
-        //         console.log('err = ',err);
-        //     })
+        axiosInstance.put(`${endpoints.updateTask}/${groupId}/${projectId}`,{
+            task_title : taskData.task_title,
+            task_description : taskData.task_description,
+            task_deadline : taskData.task_deadline,
+            task_is_completed : taskData.task_is_completed
+        })
+            .then(res => {
+                console.log('res = ',res);
+                console.log('updated successfully')
+            })
+            .catch(err => {
+                console.log('err = ',err);
+            })
     }
 
     const submitGoal = (e) => {
         e.preventDefault();
-        console.log('submitting',)
+        console.log('submitting',taskData)
     }
 
     const deleteGoal = (e) => {
         e.stopPropagation();
         setGoalToDelete(e.target.getAttribute('id'));
-        setShowDeleteGoalConfirm(true);
+        setShowDeleteProjectConfirmation(true);
     }
 
     useEffect(() => {
-        
-    },[])
+        if(deleteProjectConfirmed){
+            axiosInstance.delete(`${endpoints.deleteProject}/${groupId}/${projectToDelete}`)
+                .then(res => {
+                    console.log('deleted',res)
+                    createNotification("success","deleted project","project deleted successfully",5000);
+                    getGroupDetail();
+                    navigate(-1);
+                })
+                .catch(err => {
+                    console.log('err = ',err)
+                })
+            setShowDeleteProjectConfirmation(false);
+            setDeleteProjectConfirmed(false);
+        }
+    },[deleteProjectConfirmed])
 
     useEffect(() => {
         if(groupId){
@@ -136,6 +168,13 @@ function ProjectDetail({groupId,className}){
     useEffect(() => {
         if(deleteGoalConfirmed){
             console.log('deleting goal ',goalToDelete);
+            axiosInstance.delete(`${endpoints.deleteGoal}/${groupId}/${taskData._id}/${goalToDelete}`)
+                .then(res => {
+                    console.log('deleted',res)
+                })
+                .catch(err => {
+                    console.log('err = ',err)
+                })
             setShowDeleteGoalConfirm(false);
             setDeleteGoalConfirmed(false);
         }
@@ -157,8 +196,12 @@ function ProjectDetail({groupId,className}){
                     <span 
                         className="delete"
                         onClick = {deleteProject}
+                        projectId = {taskData._id}
                     >
                         <Icon 
+                            style = {{
+                                pointerEvents : "none"
+                            }}
                             icon = "ri:delete-bin-5-line"
                     />
                     </span>
@@ -169,7 +212,7 @@ function ProjectDetail({groupId,className}){
                     <h2>
                         Project - {taskData.task_title}
                     </h2>
-                    {
+                    {/* {
                     taskData.task_user == user.id &&
 
                     <span 
@@ -186,7 +229,7 @@ function ProjectDetail({groupId,className}){
                                 />
                         }
                     </span>
-                }
+                } */}
                     
                 </div>
                 <form 
@@ -195,41 +238,59 @@ function ProjectDetail({groupId,className}){
                     onSubmit={submitTask}
                 >
                     <TextInput 
-                        label = "title"
+                        label = "task_title"
                         value = {taskData.task_title}
                         onChange = {onChangeHandler}
                         size = "md"
+                        disabled = {!editTask}
                     />
                     <TextInput 
-                        label = "description"
+                        label = "task_description"
                         value = {taskData.task_description}
                         onChange = {onChangeHandler}
                         size = "md"
+                        disabled = {!editTask}
                     />
                     <div>
                         <label htmlFor="">Deadline</label>
                         <input
                             onChange = {onChangeHandler} 
                             type = "date" 
+                            name = "task_deadline"
                             value = {taskData.task_deadline.substring(0,10)}
+                            disabled = {!editTask}
                         />
                     </div>
-                    <Box >
+                    {
+                        console.log(taskData.task_is_completed)
+                    }
+                    <Box 
+                        style = {{
+                        }}
+                    >
                         <label htmlFor="">completed Task</label>
-                        <Checkbox 
-                            value = {taskData.task_is_completed}
+                        <input type="checkbox"
+                            checked = {taskData.task_is_completed}
                             onChange = {onChangeHandler}
                             name = "task_is_completed"
+                            style = {{
+                                height : "25px",
+                                width : "25px"
+                            }}
+                            disabled = {!editTask}
                         />
                     </Box>
-                    <Box>
-                        <Button
-                            type = "submit" 
-                            size = "md"
-                        >
-                            Update
-                        </Button>
-                    </Box>
+                    {
+                        editTask &&
+                        <Box>
+                            <Button
+                                type = "submit" 
+                                size = "md"
+                            >
+                                Update
+                            </Button>
+                        </Box>
+                    }
                 </form>
                 {/* <hr /> */}
                 <div className="content__header">
@@ -251,6 +312,17 @@ function ProjectDetail({groupId,className}){
                 </div>
                 <div className="goals">
                     {
+                        goals.length < 1 &&
+                        <h2
+                            style = {{
+                                textAlign : "center",
+                                marginTop : "2em"
+                            }}
+                        >
+                            No goals created yet!
+                        </h2>
+                    }
+                    {
                         goals.length > 0 &&
                         goals.map(goal => (
                             <div 
@@ -265,7 +337,7 @@ function ProjectDetail({groupId,className}){
                                         {goal.goals_description}
                                     </span>
                                     <span className="created_at">
-                                        2022-02-22
+                                        {goal?.goals_created_at?.substring(0,10)}
                                     </span>
                                 </div>
                                 <div className="right">
@@ -273,7 +345,7 @@ function ProjectDetail({groupId,className}){
                                         not completed
                                     </span>
                                     <span className="deadline">
-                                        2022-02-22
+                                        {goal?.goals_deadline?.substring(0,10)}
                                     </span>
                                 </div>
                                 {
@@ -282,15 +354,15 @@ function ProjectDetail({groupId,className}){
                                         <button
                                             className='delete'
                                             onClick = {deleteGoal}
-                                            id = "123123"
+                                            id = {goal._id}
                                         >
                                             <Icon icon = "ri:delete-bin-5-line"/>
                                         </button>
-                                        <button
+                                        {/* <button
                                             className='edit'
                                         >
                                             <Icon icon = "clarity:edit-line"/>
-                                        </button>
+                                        </button> */}
                                     </div>
                                 }
                             </div>
@@ -316,9 +388,24 @@ function ProjectDetail({groupId,className}){
                 >
                     <CreateGoal 
                         toggle = {() => setShowAddGoal(prev => !prev)}
-                        setGoals = {setGoals}
+                        // setGoals = {setGoals}
+                        getTask = {getTask}
+                        groupId = {groupId}
+                        taskId = {taskData?._id}
+                        submitCreateGoal = {true}
                     />
                     {/* get task will be called when goal is added */}
+                </SideModal>
+            }
+             {
+                showDeleteProjectConfirmation &&
+                <SideModal
+                    toggle = {() => setShowDeleteProjectConfirmation(prev => !prev)}
+                >
+                    <ConfirmModal 
+                        setConfirmation = {setShowDeleteProjectConfirmation}
+                        setConfirm = {setDeleteProjectConfirmed}
+                    />
                 </SideModal>
             }
         </div>

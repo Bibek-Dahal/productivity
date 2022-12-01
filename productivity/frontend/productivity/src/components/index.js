@@ -22,7 +22,7 @@ import Analytics from './Analytics/Analytics';
 import TransparentLoader from './shared/TransparentLoader/TransparentLoader';
 import Profile from './Profile/Profile.comp';
 import ProfileUpdate from './ProfileUpdate/ProfileUpdate';
-
+import GroupCall from './GroupCall/GroupCall';
 
 export{
     Login,
@@ -47,5 +47,6 @@ export{
     TransparentLoader,
     ProjectDetail,
     Profile,
-    ProfileUpdate
+    ProfileUpdate,
+    GroupCall
 }

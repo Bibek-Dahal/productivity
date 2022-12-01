@@ -13,7 +13,10 @@ const endpoints = {
     deleteTask : `/api/group/task/delete`,
     updateTask : `/api/group/task/update`,
     updateProfile : `/api/profile/update`,
-    getAllChats : `/api/group/chat/`
+    getAllChats : `/api/group/chat/`,
+    deleteGoal : `/api/group/task/goal/delete`,
+    createGoal : `api/group/task/goal/create`,
+    deleteProject : `/api/group/task/delete`
 }
 
 export default endpoints;
