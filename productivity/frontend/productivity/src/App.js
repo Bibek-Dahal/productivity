@@ -82,6 +82,7 @@ function App(){
     return(
         <div id = "app">
            <Routes>
+                {/* <Route path = "/meet/:meetName" element = {<GroupCall />} /> */}
                 <Route path = "/" element = {<HomePage />}/>
                 <Route path = "/login" element = {
                     <ProtectedRoute>
@@ -110,7 +111,7 @@ function App(){
                 <Route path = "/logout" element = {
                         <LogoutPage />
                 } />
-                <Route path = "*" element = {<NotFoundPage />}/>
+                {/* <Route path = "*" element = {<NotFoundPage />}/> */}
            </Routes>
            {/* {
             (showCallModal) &&

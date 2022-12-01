@@ -59,6 +59,8 @@ function ProjectDetail({groupId,className,getGroupDetail}){
         task_is_completed : undefined
     })
 
+    // console.log(taskData)
+
     const [goals,setGoals] = useState([])
 
     const {user} = useAuthContext();
@@ -83,7 +85,6 @@ function ProjectDetail({groupId,className,getGroupDetail}){
     }
 
     function onChangeHandler(e){
-        console.log('changin',e.target)
         if(e.target.type == "checkbox"){
             console.log('changin',e.target.checked)
             setTaskData(prev => (
@@ -93,6 +94,7 @@ function ProjectDetail({groupId,className,getGroupDetail}){
                 }
             ))
         }else{
+            console.log('changing to',e.target.value)
             setTaskData(prev => (
                 {
                     ...prev,
@@ -125,6 +127,7 @@ function ProjectDetail({groupId,className,getGroupDetail}){
             .then(res => {
                 console.log('res = ',res);
                 console.log('updated successfully')
+                createNotification("success","updated","updated task successfully",5000);
             })
             .catch(err => {
                 console.log('err = ',err);
@@ -140,7 +143,20 @@ function ProjectDetail({groupId,className,getGroupDetail}){
         e.stopPropagation();
         console.log('deleting goal',e.target.getAttribute('id'))
         setGoalToDelete(e.target.getAttribute('id'));
-        setShowDeleteProjectConfirmation(true);
+        setShowDeleteGoalConfirm(true);
+    }
+
+    const markCompleted = (e) => {
+        axiosInstance.put(`${endpoints.updateGoal}/${groupId}/${taskData._id}/${e.target.getAttribute('id')}`,{
+            goals_is_completed : true
+        })
+            .then(res => {
+                console.log(res);
+                getTask();
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     useEffect(() => {
@@ -243,6 +259,7 @@ function ProjectDetail({groupId,className,getGroupDetail}){
                         value = {taskData.task_title}
                         onChange = {onChangeHandler}
                         size = "md"
+                        name = "task_title"
                         disabled = {!editTask}
                     />
                     <TextInput 
@@ -250,6 +267,7 @@ function ProjectDetail({groupId,className,getGroupDetail}){
                         value = {taskData.task_description}
                         onChange = {onChangeHandler}
                         size = "md"
+                        name = "task_description"
                         disabled = {!editTask}
                     />
                     <div>
@@ -364,6 +382,18 @@ function ProjectDetail({groupId,className,getGroupDetail}){
                                         >
                                             <Icon icon = "clarity:edit-line"/>
                                         </button> */}
+                                        <button
+                                            style = {{
+                                                background : "green"
+                                            }}
+                                            onClick = {markCompleted}
+                                            id = {goal._id}
+                                        >
+                                            <Icon style = {{
+                                                color:"white",
+                                                pointerEvents : "none"
+                                            }}icon = "mdi:clipboard-tick" />
+                                        </button>
                                     </div>
                                 }
                             </div>

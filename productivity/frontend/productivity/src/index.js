@@ -24,7 +24,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Router>
             <Routes>
-                <Route path = "/meet/:meetName" element = {<GroupCall />} />
+                <Route path = "/meet/:meetName" element = {<GroupCall />} end/>
             </Routes>
             <AuthContextProvider>
                 <ReactNotifications />

@@ -36,6 +36,9 @@ import useNotification from '../../hooks/useNotification';
 
 function DashboardPage({setSelfGroups}){
 
+    const [taskReports,setTaskReports] = useState({});
+    const [goalReports,setGoalReports] = useState({});
+
     const [loading,setLoading] = useState(true);
     const navigate = useNavigate();
     const [groups,setGroups] = useState([]);
@@ -48,6 +51,7 @@ function DashboardPage({setSelfGroups}){
     const [deleteConfirmation,setDeleteConfirmation] = useState(false);
     const [deleteConfirmed,setDeleteConfirmed] = useState(false);
     const [groupToDelete,setGroupToDelete] = useState(null);
+    const [monthlyReport,setMonthlyReport] = useState(null);
 
     const {user} = useAuthContext();
 
@@ -106,13 +110,78 @@ function DashboardPage({setSelfGroups}){
             console.log('error',err);
         }
     }
+
+    async function getMonthlyReport(){
+        console.log('getting monthly report')
+        let taskReports = [];
+        let goalReports = [];
+        try{
+            let res;
+            groups.forEach(async group => {
+                res = await axiosInstance.get(`${endpoints.getMonthlyReportUser}/${group._id}`);
+                // taskReports = [...taskReports,res.data.taskReport];
+                // goalReports = [...goalReports,res.data.goalReport]
+                console.log('report=',res)
+                let tasks = res.data.taskReport;
+                let goals = res.data.goalReport;
+
+                // setTaskReports(prev => {
+                    Object.keys(tasks).forEach((key,index) => {
+                        let keyReport = []
+                        setTaskReports(prev => {
+                            if(prev){
+                                if(prev[key]){
+                                    return{
+                                        ...prev,
+                                        [key] : [...prev[key],...tasks[key]]
+                                    }
+                                }
+                            }
+                            return {
+                                [key] : tasks[key]
+                            }
+                        })
+                    })
+                    Object.keys(goals).forEach((key,index) => {
+                        let keyReport = []
+                        setGoalReports(prev => {
+                            if(prev){
+                                if(prev[key]){
+                                    return{
+                                        ...prev,
+                                        [key] : [...prev[key],...goals[key]]
+                                    }
+                                }
+                            }
+                            return {
+                                [key] : goals[key]
+                            }
+                        })
+                    })
+                // })
+            })
+            // setMonthlyReport(prev => (data))
+        }catch(err){
+            console.log('error',err);
+        }
+    }
+
+    console.log('taskReport = ',taskReports,goalReports)
+
     useEffect(() => {
         console.log('inside dashboard page')
         getGroups();
         getProfile();
         getUserHistory();
+       
         setLoading(false);
     },[])
+
+    useEffect(() => {
+        if(groups){
+            getMonthlyReport();
+        }
+    },[groups])
 
     useEffect(() => {
         if(deleteConfirmed){
@@ -213,7 +282,7 @@ function DashboardPage({setSelfGroups}){
                 </div>
             </SidebarLeft>
             <Routes>
-                <Route path = "/" element = {<Dashboard userSummary={userSummary} className = "dashboard-center"/>}/>
+                <Route path = "/" element = {<Dashboard goalReports = {goalReports} taskReports = {taskReports} monthlyReport = {monthlyReport} userSummary={userSummary} className = "dashboard-center"/>}/>
                 <Route path = "/activity" element = {<PersonalActivity className = "dashboard-center"/>}/>
             </Routes>
             <SidebarRight>

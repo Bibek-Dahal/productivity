@@ -18,7 +18,11 @@ const endpoints = {
     createGoal : `api/group/task/goal/create`,
     deleteProject : `/api/group/task/delete`,
     getUserHistory : `/api/user/history`,
-    getGroupHistory : `/api/history/`
+    getGroupHistory : `/api/group/history`,
+    getMonthlyReportUser : `/api/user/monthly-report`,
+    getGroupMonthlyReport : `/api/group/monthly-report`,
+    removeMember : `/api/group/kick`,
+    updateGoal : `/api/group/task/goal/update`
 }
 
 export default endpoints;

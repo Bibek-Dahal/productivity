@@ -69,7 +69,7 @@ function GroupChat({className,group}){
     }
     console.log('user = ',user)
     const callInGroup = () => {
-        let popup = window.open(`${baseURLFront}/meet/testmeet?name=ashish`,"popup");
+        let popup = window.open(`${baseURLFront}/meet/testmeet?meet=${crypto.randomUUID()}`,"popup","fullscreen");
         if(popup){
             popup.moveTo(0,0);
             popup.resizeTo(window.screen.availWidth, window.screen.availHeight);
@@ -152,17 +152,37 @@ function GroupChat({className,group}){
             className = {`${className ? className : ""} chatbox-container`}
         >
             <div className="title" style = {{
-                // fontSize : "2rem",
+                display : "flex",
+                alignItems : "center",
+                justifyContent : "space-between"
             }}>
                 {group.name}
-                <Button
+                <button
                     onClick = {callInGroup}
                     style = {{
-                        marginLeft : "2em"
+                        marginLeft : "2em",
+                        display : "flex",
+                        gap : ".5em",
+                        alignItems : "center",
+                        padding : ".8em 1em",
+                        background : "var(--discord-blue)",
+                        color : "white",
+                        border : "none",
+                        borderRadius : "5px",
+                        fontSize : "var(--fs-n)",
+                        fontWeight : "bold",
+                        textTransform : "capitalize",
+                        cursor : "pointer"
                     }}
                 >
-                    call
-                </Button>
+                    <Icon 
+                        style = {{
+                            fontSize : "1.5rem",
+                        }}
+                        
+                        icon = "material-symbols:video-call-rounded" /> 
+                    create meet
+                </button>
             </div>
             <div 
                 className="msg-area" 

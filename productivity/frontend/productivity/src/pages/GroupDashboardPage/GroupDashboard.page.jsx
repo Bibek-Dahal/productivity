@@ -48,6 +48,9 @@ import useNotification from '../../hooks/useNotification';
 
 function DashboardPage(){
 
+    const [taskReports,setTaskReports] = useState({});
+    const [goalReports,setGoalReports] = useState({});
+
     const {socket} = useSocketContext();
 
     const navigate = useNavigate();
@@ -69,6 +72,8 @@ function DashboardPage(){
     const [showAddProject,setShowAddProject] = useState(false);
     const [showMemberAdd,setShowMemberAdd] = useState(false);
 
+    const [groupSummary,setGroupSummary] = useState(null)
+
     const axiosInstance = useAxios();
 
     const {user} = useAuthContext()
@@ -84,6 +89,10 @@ function DashboardPage(){
         //     console.log('error',err);
         // }
     }
+
+
+    const {group_id} = useParams();
+
 
     useEffect(() => {
         if(msg){
@@ -141,8 +150,8 @@ function DashboardPage(){
 
     async function getGroupHistory(){
         try{
-            const res = await axiosInstance.get(`${endpoints.getUserHistory}`);
-            console.log('summary = ',res.data,res.data.numOfGroupCreated);
+            const res = await axiosInstance.get(`${endpoints.getGroupHistory}/${group_id}`);
+            console.log('group suymmary = ',res.data,res.data.numOfGroupCreated);
 
             let data = {
                 goals_created : res.data["goalCreated"],
@@ -157,19 +166,75 @@ function DashboardPage(){
             //     data["tasks_created"] += group.taskCreated;
             //     data["tasks_completed"] += group.taskCompleted;
             // })  
-            setUserSummary(prev => (data))
+            console.log('setting group summary',data)
+            setGroupSummary(prev => (data))
+        }catch(err){
+            console.log('error',err);
+        }
+    }
+
+    async function getGroupReport(){
+        try{
+            const res = await axiosInstance.get(`${endpoints.getGroupMonthlyReport}/${group_id}`);
+            console.log('group report = ',res.data);
+            // setGroupReport(prev => (data))
+            console.log('report=',res)
+                let tasks = res.data.taskReport;
+                let goals = res.data.goalReport;
+
+                // setTaskReports(prev => {
+                    Object.keys(tasks).forEach((key,index) => {
+                        let keyReport = []
+                        setTaskReports(prev => {
+                            if(prev){
+                                if(prev[key]){
+                                    return{
+                                        ...prev,
+                                        [key] : [...prev[key],...tasks[key]]
+                                    }
+                                }
+                            }
+                            return {
+                                [key] : tasks[key]
+                            }
+                        })
+                    })
+                    Object.keys(goals).forEach((key,index) => {
+                        let keyReport = []
+                        setGoalReports(prev => {
+                            if(prev){
+                                if(prev[key]){
+                                    return{
+                                        ...prev,
+                                        [key] : [...prev[key],...goals[key]]
+                                    }
+                                }
+                            }
+                            return {
+                                [key] : goals[key]
+                            }
+                        })
+                    })
+                // })
         }catch(err){
             console.log('error',err);
         }
     }
 
     
-    const {group_id} = useParams();
 
     useEffect(() => {
         // getProjects();
         getGroupDetail();
+        getGroupHistory();
+        getGroupReport();
     },[])
+
+    useEffect(() => {
+        if(group){
+            console.log('called')
+        }
+    },[group])
 
     useEffect(() => {
         // socket?.emit('new-user',{
@@ -180,6 +245,14 @@ function DashboardPage(){
     useEffect(() => {
         if(confirmRemoveMember){
             // axiosInstance.delete(`${endpoints.removeMember}/`)
+            console.log('removing member',memberToRemove)
+            axiosInstance.delete(`${endpoints.removeMember}/${group._id}/${memberToRemove}`)
+                .then(res => {
+                    console.log('removed member');
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }
     },[removeMember,confirmRemoveMember,memberToRemove])
 
@@ -265,13 +338,16 @@ function DashboardPage(){
                                         #
                                     </span>
                                     {task.task_title}
-                                    <span 
-                                        className="deleteBtn" 
-                                        onClick = {removeTask}
-                                        info = {JSON.stringify(task)}
-                                    >
-                                        <Icon icon = "akar-icons:cross" />
-                                    </span>
+                                    {
+                                        task.user == user.id &&
+                                        <span 
+                                            className="deleteBtn" 
+                                            onClick = {removeTask}
+                                            info = {JSON.stringify(task)}
+                                        >
+                                            <Icon icon = "akar-icons:cross" />
+                                        </span>
+                                    }
                                 </li>
                             ))
                         }
@@ -279,7 +355,7 @@ function DashboardPage(){
                 </div>
             </SidebarLeft>
             <Routes>
-                <Route path = "/dashboard" element = {<GroupDashboard group = {group} className = "dashboard-center"/>}/>
+                <Route path = "/dashboard" element = {<GroupDashboard getGroupHistory = {getGroupHistory} goalReports = {goalReports} taskReports = {taskReports} groupSummary = {groupSummary} group = {group} className = "dashboard-center"/>}/>
                 <Route path = "/activity" element = {<GroupActivity className = "dashboard-center"/>}/>
                 <Route path = "/chat" element = {<GroupChat group ={group} className = "dashboard-center"/>} />
                 <Route path = "/projects" element = {<GroupProjects group = {group} getGroupDetail = {getGroupDetail} className = "dashboard-center" />} />
@@ -317,13 +393,19 @@ function DashboardPage(){
                                         <span className='username'>
                                             {member?.username}
                                         </span>
-                                        <span 
-                                            className="deleteBtn"
-                                            onClick = {removeMember}
-                                            info = {JSON.stringify(member)}
-                                        >
-                                            <Icon icon = "akar-icons:cross" />
-                                        </span>
+                                        {
+                                            console.log(user,admin)
+                                        }
+                                        {
+                                            user.id == admin._id &&
+                                            <span 
+                                                className="deleteBtn"
+                                                onClick = {removeMember}
+                                                info = {JSON.stringify(member)}
+                                            >
+                                                <Icon icon = "akar-icons:cross" />
+                                            </span>
+                                        }
                                     </div>
                                 ))
                             }

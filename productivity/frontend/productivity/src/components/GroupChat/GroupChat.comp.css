@@ -21,9 +21,9 @@
     width: 100%;
     font-weight:600;
     border-bottom:2px solid rgb(239, 239, 239);
-    font-size : 2rem;
-    padding-bottom:2em;
-    height:50px;
+    font-size : 1.5rem;
+    height:70px;
+    padding:1em 0;
 }
 
 /* input area */

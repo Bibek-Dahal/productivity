@@ -1,17 +1,76 @@
 import { RingProgress,Text } from '@mantine/core';
+import { useEffect,useState } from 'react';
 
 import {
     Analytics
 } from '../'
 
-function Dashboard({className,userSummary}){
+function Dashboard({className,userSummary,goalReports,taskReports}){
 
     const colors = ["#68b5e8","#6888e8","rgba(0,0,0,.4)","#d38902"]
-    console.log('inside dashboard',userSummary)
+
+    const [goals,setGoals] = useState({})
+    const [tasks,setTasks] = useState({})
 
     function getCards(userSummary){
         
     }
+    console.log('tasks goals ',tasks,goals)
+    useEffect(() => {
+        if(goalReports && taskReports){
+            console.log('inside dashboard',goalReports,taskReports)
+
+            Object.keys(taskReports).forEach((key,index) => {
+                let count = 0;
+                taskReports[key].forEach(task => {
+                    if(task.task_is_completed) count++;
+                })
+                setTasks(prev => ({
+                    ...prev,
+                    [key] : {
+                        created :  taskReports[key].length,
+                        completed : count
+                    }
+                }))
+            })
+
+            Object.keys(goalReports).forEach((key,index) => {
+                let count = 0;
+                goalReports[key].forEach(goal => {
+                    if(goal.goal_is_completed) count++;
+                })
+                setGoals(prev => ({
+                    ...prev,
+                    [key] : {
+                        created : goalReports[key].length,
+                        completed : count
+                    }
+                }))
+            })
+           
+            // setGoalsSet(prev => {
+            //     let count = 0;
+                // Object.keys(goalReports).forEach(goal => {
+                //     if(goal.goal_is_completed) count++;
+                // })
+                // return {
+
+                // }
+            // })
+            // Object.keys(goalReports).forEach((key,index) => {
+            //     setGoals(prev => {
+            //         let count = 0;
+            //         goalReports[key].forEach(goal => {
+            //             if(goal.goal_is_completed) count++;
+            //         })
+            //         return{
+            //             ...prev,
+            //             [key] : count
+            //         }
+            //     })
+            // })
+        }
+    },[goalReports,taskReports])
     
     return(
         <div
@@ -127,7 +186,7 @@ function Dashboard({className,userSummary}){
                 >groups joined</span>
             </div> */}
             </div>
-            <Analytics />
+            <Analytics goals = {goals} tasks = {tasks}/>
         </div>
     )
 }

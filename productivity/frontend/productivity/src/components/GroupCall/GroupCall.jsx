@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import './GroupCall.css'
 
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-
+import {Icon} from '@iconify/react'
 
 import AgoraRTC from 'agora-rtc-sdk-ng';
 
@@ -14,21 +14,24 @@ function GroupCall(){
 
 	const videoStreamsRef = useRef(null);
 
-	const uid = String(Math.floor(Math.random() * 10000))
-
 	// const [localVideo,setLocalVideo] = useState(null);
 	// const [localAudio,setLocalAudio] = useState(null);
 	const [localTracks,setLocalTracks] = useState([]);
 	const [client,setClient] = useState(null);
 	const [UID,setUID] = useState(null);
+	const [mutedAudio,setMutedAudio] = useState(false);
+	const [mutedVideo,setMutedVideo] = useState(false);
+	const [sharingScreen,setSharingScreen] = useState(false);
 
-	const {meetName} = useParams();
-	const name = new URLSearchParams(useLocation().search).get('name')
+
+	const meet = new URLSearchParams(useLocation().search).get('meet')
 
 	const options = {
-		appid : "a8937d4fc8ab426bbe0bde9141d1b5d0",
-		channelname : "productivity",
-		token : "007eJxTYLi7a6526HXbp8FhkWcOf22V3jctdl71g8miptPP9Uxhn/xdgSHRwtLYPMUkLdkiMcnEyCwpKdUgKSXV0tDEMMUwyTTFYH51R3JDICODy6kNDIxQCOLzMBQU5aeUJpdklmWWVDIwAAAxHSWl",
+		appid : "5f89378de401480faa9b01fbc58d2b6f",
+		room : meet,
+		token : null,
+		// channelname : "productivity",
+		// token : "007eJxTYLi7a6526HXbp8FhkWcOf22V3jctdl71g8miptPP9Uxhn/xdgSHRwtLYPMUkLdkiMcnEyCwpKdUgKSXV0tDEMMUwyTTFYH51R3JDICODy6kNDIxQCOLzMBQU5aeUJpdklmWWVDIwAAAxHSWl",
 		uid : null
 	}
 
@@ -67,12 +70,17 @@ function GroupCall(){
 
 		client.on('user-published',handleUserPublished)
 		client.on('user-left',handleUserLeft)
-		let UID = await client.join(options.appid, options.channelname, options.token, prompt('enter name'))
+		let UID = await client.join(options.appid,options.room,null,prompt('username'))
 	
 		setUID(UID);
 		console.log('UIDS = ',UID)
 		
-		setLocalTracks(await AgoraRTC.createMicrophoneAndCameraTracks());
+		setLocalTracks(await AgoraRTC.createMicrophoneAndCameraTracks({},{
+			encoderConfig : {
+				width : {min:640,ideal:1920,max:1920},
+				height : {min:480,ideal:1080,max:1080},
+			}
+		}));
 		console.log('localTracks = ',localTracks)
 	
 		let player = `
@@ -92,6 +100,36 @@ function GroupCall(){
 	async function startCall(){
 		console.log('starting call')
 		await joinAndDisplayLocalStream();
+	}
+
+	async function toggleMic(){
+		// localTracks[0].muted = true;
+		if(localTracks[0].muted){
+			await localTracks[0].setMuted(false)
+			setMutedAudio(false)
+		}else{
+			await localTracks[0].setMuted(true)
+			setMutedAudio(true);
+		}
+	}
+
+	async function toggleVideo(){
+		// if(localTracks[1].enabled){
+		// 	localTracks[1].enabled = false;
+		// 	setMutedVideo(true);
+		// }
+		if(localTracks[1].muted){
+			await localTracks[1].setMuted(false)
+			setMutedVideo(false)
+		}else{
+			await localTracks[1].setMuted(true)
+			setMutedVideo(true);
+		}
+		// localTracks[1].muted = !localTracks[1].muted;
+	}
+
+	async function shareScreen(){
+
 	}
 
 
@@ -125,9 +163,8 @@ function GroupCall(){
 
 	return(
 		<div style = {{
-			background : "black"
+			background : "#202025"
 		}}>
-			<h1>{meetName}</h1>
 			<div 
 				ref = {videoStreamsRef}
 				className="video-streams"
@@ -135,7 +172,45 @@ function GroupCall(){
 				
 			</div>
 			<div className="controls">
-
+				<div className="share-link">
+					{meet}
+				</div>
+				<div className="controllers">
+					<button 
+						className={`${mutedAudio ? "muted" : ""} mic`}
+						onClick = {toggleMic}
+					>
+						{
+							!mutedAudio ?
+								<Icon icon = "material-symbols:mic" />:
+								<Icon icon = "material-symbols:mic-off" />
+						}
+					</button>
+					<button 
+						className={`${mutedVideo ? "muted" : ""} camera`}
+						onClick = {toggleVideo}
+					>
+						{
+							!mutedVideo ?
+								<Icon icon = "material-symbols:video-camera-back-rounded" />:
+								<Icon icon = "material-symbols:video-camera-front-off" />
+						}
+						{/* mic off material-symbols:mic-off */}
+					</button>
+					<button 
+						className={`${sharingScreen ? "muted" : ""} share-screen`}
+						onClick = {shareScreen}
+					>
+						<Icon icon = "lucide:screen-share" />
+						{/* camera off   material-symbols:video-camera-front-off*/}
+					</button>
+					<button 
+						className="exit"
+						onClick = {toggleMic}
+					>
+						<Icon icon = "material-symbols:phone-enabled-sharp" />
+					</button>
+				</div>
 			</div>
 		</div>
 	)
