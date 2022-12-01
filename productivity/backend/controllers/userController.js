@@ -369,10 +369,11 @@ class UserController{
                     taskCreated++
                 }
                 //calculate number of task Completed
+                goalCreated = task.task_goals.length
                 if(task.task_user == req.user_id && task.task_is_completed == true ){
 
                     taskCompleted++
-                    goalCreated = task.task_goals.length
+                    // console.log('goals created = ',goalCreated)
                     task.task_goals.forEach((goal)=>{
                         if(goal.goal_is_completed == true){
                             goalCompleted++

@@ -97,18 +97,19 @@ class GoalController{
         try{
             const {groupId,taskId,goalId} = req.params
             const {goals_title,goals_description,goals_deadline,goals_is_completed} = req.body
+            console.log(goals_is_completed)
             
             //find group if user belongs to group and task is created by requested user
             const group = await Group.findOne({_id:groupId,members:req.user_id,"task._id":taskId,"task.task_user":req.user_id},{members:1}).populate('members')
-
+            console.log('found group = ',group)
             if(group){
                 await Group.updateOne(
                     {_id:groupId},
                     {
                         $set:{
-                            "task.$[].task_goals.$[goal].goals_description": goals_description,
-                            "task.$[].task_goals.$[goal].goals_title": goals_title,
-                            "task.$[].task_goals.$[goal].goals_deadline": goals_deadline,
+                            // "task.$[].task_goals.$[goal].goals_description": goals_description,
+                            // "task.$[].task_goals.$[goal].goals_title": goals_title,
+                            // "task.$[].task_goals.$[goal].goals_deadline": goals_deadline,
                             "task.$[].task_goals.$[goal].goals_is_completed": goals_is_completed,
                         },
                         

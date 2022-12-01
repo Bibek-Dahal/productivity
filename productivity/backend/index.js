@@ -139,7 +139,7 @@ io.on('connection',(socket)=>{
             // io.to(room._id).emit("new-chat-message",chat)
             // io.broadcast.to(room._id).emit('new-chat-message',chat)
             // io.emit('new-chat-message',chat)
-            io.in(room._id).emit('new-chat-message',chat);
+            io.emit('new-chat-message',chat);
         }catch(error){
             console.log('message cannot be created')
         }
