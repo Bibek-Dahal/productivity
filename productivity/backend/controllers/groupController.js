@@ -329,9 +329,44 @@ class GroupController{
             const {groupId} = req.params
             //finds group if user belongs to the group
             const group = await Group.findOne({_id:groupId,members:req.user_id})
+            console.log(group)
+            if(group){
+                let taskCreated = 0
+                let taskCompleted = 0
+                let goalCreated = 0
+                let goalCompleted = 0
 
+                taskCreated = group.task.length
+                group.task.forEach(element => {
+                    if(element.task_is_completed === true){
+                        taskCompleted++
+                    }
+                    goalCreated += element.task_goals.length
+                    element.task_goals.forEach(element=>{
+                        if(element.goals_is_completed === true){
+                            goalCompleted++
+                        }
+                    })
+                
+                });
+            
+                res.status(200).send({
+                    taskCreated,
+                    taskCompleted,
+                    goalCreated,
+                    goalCompleted
+
+
+                })
+            }else{
+                res.status(404).send({
+                    message: 'gorup not found'
+                })
+            }
+            
         }catch(error){
-
+            console.log(error)
+            res.status(500).send({message:'error'})
         }
 
     }

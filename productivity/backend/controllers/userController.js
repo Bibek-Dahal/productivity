@@ -7,6 +7,7 @@ import { displayMongooseValidationError } from "../utils/displayValidationError.
 import sendMail from '../utils/sendMail.js'
 import Group from '../models/Group.js'
 import mongoose  from "mongoose";
+import group from 'core-js-pure/actual/array/group.js';
 
 class UserController{
     //function for registering new user
@@ -432,6 +433,86 @@ class UserController{
     }
 
 
+   }
+
+   static monthlyReport = async(req,res)=>{
+    try{
+        const user = await User.findById(req.user_id) 
+        console.log(req.user_id)
+        const groups = await Group.find({user:req.user_id})
+        console.log(groups)
+        const userTasks = []
+        const userGoals = []
+        groups.forEach((group)=>{
+
+            group.task.forEach((task)=>{
+                //filter user task
+                if(task.task_user == req.user_id){
+                    userTasks.push(task)
+
+                    //filter user goals
+                    task.task_goals.forEach((goal)=>{
+                        userGoals.push(goal)
+                    })
+                }
+
+            })
+
+            
+            
+            
+        })
+        //convert ISO date to string format
+        console.log(userTasks)
+        const taskReport = userTasks.map((element)=>{
+            var options = { year: 'numeric', month: 'short'};
+            const formattedDate = element.task_created_at.toLocaleDateString("en-US", options)
+            // console.log(formattedDate)   
+            // console.log(formattedDate)
+            const year = formattedDate.split(" ")[1]
+            const month = formattedDate.split(" ")[0]
+            const task_is_completed = element.task_is_completed
+
+            return {
+                year,
+                month,
+                task_is_completed
+            }
+        })
+
+        const goalReport = userGoals.map((element)=>{
+            var options = { year: 'numeric', month: 'short'};
+            const formattedDate = element.goals_created_at.toLocaleDateString("en-US", options)
+            // console.log(formattedDate)   
+            // console.log(formattedDate)
+            const year = formattedDate.split(" ")[1]
+            const month = formattedDate.split(" ")[0]
+            const goal_is_completed = element.goals_is_completed
+
+            return {
+                year,
+                month,
+                goal_is_completed
+            }
+        })
+        
+        
+
+          const result = group(taskReport,({ month }) => month);
+            const result1 = group(goalReport,({ month }) => month)
+            // console.log(result1)
+        
+        res.status(200).send({
+            taskReport:result,
+            goalReport:result1
+            
+        })
+    }catch(error){
+        console.log(error)
+        res.status(500).send({
+            message: 'something went wrong'
+        })
+    }
    }
 }
 
