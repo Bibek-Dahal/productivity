@@ -5,6 +5,9 @@ import React,{
 import { useEffect } from 'react';
 import './GroupCall.css'
 
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+
+
 import AgoraRTC from 'agora-rtc-sdk-ng';
 
 function GroupCall(){
@@ -19,11 +22,14 @@ function GroupCall(){
 	const [client,setClient] = useState(null);
 	const [UID,setUID] = useState(null);
 
+	const {meetName} = useParams();
+	const name = new URLSearchParams(useLocation().search).get('name')
+
 	const options = {
 		appid : "a8937d4fc8ab426bbe0bde9141d1b5d0",
 		channelname : "productivity",
-		token : "007eJxTYOif8qVs9xF7E7GetVkb1HqsWI4Z5H54bHtuxvT7B5555M1QYEi0sDQ2TzFJS7ZITDIxMktKSjVISkm1NDQxTDFMMk0xYGhtT24IZGQwryllYWSAQBCfh6GgKD+lNLkksyyzpJKBAQDczCQo",
-		uid : uid
+		token : "007eJxTYLi7a6526HXbp8FhkWcOf22V3jctdl71g8miptPP9Uxhn/xdgSHRwtLYPMUkLdkiMcnEyCwpKdUgKSXV0tDEMMUwyTTFYH51R3JDICODy6kNDIxQCOLzMBQU5aeUJpdklmWWVDIwAAAxHSWl",
+		uid : null
 	}
 
 	async function handleUserLeft(user,mediaType){
@@ -43,6 +49,9 @@ function GroupCall(){
 
 			player = `<div class="video-container" id="user-container-${user.uid}">
 						<div class="video-player" id="user-${user.uid}"></div> 
+						<span class="username">
+							${user.uid}
+						</span>
 						</div>
 					`
 			videoStreamsRef.current.insertAdjacentHTML('beforeend',player);
@@ -58,18 +67,22 @@ function GroupCall(){
 
 		client.on('user-published',handleUserPublished)
 		client.on('user-left',handleUserLeft)
-		let UID = await client.join(options.appid, options.channelname, options.token, options.uid)
+		let UID = await client.join(options.appid, options.channelname, options.token, prompt('enter name'))
 	
 		setUID(UID);
+		console.log('UIDS = ',UID)
 		
 		setLocalTracks(await AgoraRTC.createMicrophoneAndCameraTracks());
 		console.log('localTracks = ',localTracks)
 	
 		let player = `
-			<div class = "video-container" id = "user-container-${UID}">
+			<div class = "video-container self" id = "user-container-${UID}">
 				<div class = "video-player" id = "user-${UID}">
 	
 				</div>
+				<span class="username">
+					${UID}
+				</span>
 			</div>
 		`;
 		videoStreamsRef.current.insertAdjacentHTML('beforeend',player);
@@ -111,7 +124,10 @@ function GroupCall(){
 	},[localTracks])
 
 	return(
-		<div>
+		<div style = {{
+			background : "black"
+		}}>
+			<h1>{meetName}</h1>
 			<div 
 				ref = {videoStreamsRef}
 				className="video-streams"

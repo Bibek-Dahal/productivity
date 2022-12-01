@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-    BrowserRouter as Router
+    BrowserRouter as Router,
+    Routes,
+    Route
 } from 'react-router-dom';
 import {ReactNotifications} from 'react-notifications-component';
 
@@ -14,15 +16,21 @@ import App from './App';
 import AuthContextProvider from './context/Auth.context';
 import SocketProvider from './context/Socket.context';
 
+import { GroupCall } from './components';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <Router>
-        <SocketProvider>
+            <Routes>
+                <Route path = "/meet/:meetName" element = {<GroupCall />} />
+            </Routes>
             <AuthContextProvider>
                 <ReactNotifications />
-                <App />
+                <SocketProvider>
+                    <App />
+                </SocketProvider>
             </AuthContextProvider>
-        </SocketProvider>
     </Router>
 )

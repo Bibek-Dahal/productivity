@@ -101,7 +101,7 @@ function App(){
                         </PrivateRoute>
                     }
                 />
-                <Route path = "/group/:group_id/groupCall" element = {<GroupCall />} />
+                
                 <Route path = "/group/:group_id/*" element = {
                     <PrivateRoute>
                         <GroupDashBoardPage/>
@@ -112,7 +112,7 @@ function App(){
                 } />
                 <Route path = "*" element = {<NotFoundPage />}/>
            </Routes>
-           {
+           {/* {
             (showCallModal) &&
             <SideModal toggle = {() => setShowCallModal(prev => !prev)} >
                 {caller} is calling
@@ -120,7 +120,7 @@ function App(){
                     join the call
                 </Button>
             </SideModal>
-           }
+           } */}
         </div>
     )
 }

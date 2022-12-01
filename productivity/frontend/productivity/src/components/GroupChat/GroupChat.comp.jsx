@@ -17,6 +17,7 @@ import useAxios from "../../hooks/useAxios";
 import { Button } from "@mantine/core";
 
 import {useNavigate} from 'react-router-dom';
+import baseURL,{baseURLFront} from "../../utils/endpoints/baseURL";
 
 
 function GroupChat({className,group}){
@@ -68,16 +69,16 @@ function GroupChat({className,group}){
     }
     console.log('user = ',user)
     const callInGroup = () => {
-        let popup = window.open(`http://127.0.0.1:3000/group/${group._id}/groupCall`,"popup");
+        let popup = window.open(`${baseURLFront}/meet/testmeet?name=ashish`,"popup");
         if(popup){
             popup.moveTo(0,0);
             popup.resizeTo(window.screen.availWidth, window.screen.availHeight);
         }
-        socket.emit('call',{
-            userName : localUser.username,
-            roomId : group._id,
-            callLink : `http://127.0.0.1:3000/${group._id}/groupCall`
-        })
+        // socket.emit('call',{
+        //     userName : localUser.username,
+        //     roomId : group._id,
+        //     callLink : `http://127.0.0.1:3000/${group._id}/groupCall`
+        // })
     }
 
   

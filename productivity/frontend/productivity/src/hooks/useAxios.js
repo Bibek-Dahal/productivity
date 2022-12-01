@@ -5,11 +5,11 @@ import dayjs from 'dayjs';
 import {Store} from 'react-notifications-component';
 import {useNavigate} from 'react-router-dom';
 
+import baseURL from '../utils/endpoints/baseURL';
+
 function useAxios(){
 
     const {token,logout} = useAuthContext();
-
-    const baseURL = 'http://127.0.0.1:8000'
 
     const axiosInstance = axios.create({
         baseURL,
