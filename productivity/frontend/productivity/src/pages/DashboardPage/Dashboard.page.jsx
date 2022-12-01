@@ -41,6 +41,8 @@ function DashboardPage({setSelfGroups}){
     const [groups,setGroups] = useState([]);
     // just for temp
     const [userProfile,setUserProfile] = useState(null);
+    const [userSummary,setUserSummary] = useState(null);
+
     
     const [showAddGroup,setShowAddGroup] = useState(false);
     const [deleteConfirmation,setDeleteConfirmation] = useState(false);
@@ -78,11 +80,37 @@ function DashboardPage({setSelfGroups}){
         setGroupToDelete(groupId);
         setDeleteConfirmation(true);
     }
+    
+    async function getUserHistory(){
+        try{
+            const res = await axiosInstance.get(`${endpoints.getUserHistory}`);
+            console.log('summary = ',res.data,res.data.numOfGroupCreated);
 
+            let data = {
+                groups_joined : res.data["numOfGroupJoined"],
+                groups_created : res.data["numOfGroupJoined"],
+                goals_created : 0,
+                goals_completed : 0,
+                tasks_created : 0,
+                tasks_completed : 0
+            }
+
+            res.data.history.forEach(group => {
+                data["goals_created"] += group.goalCreated;
+                data["goals_completed"] += group.goalCompleted;
+                data["tasks_created"] += group.taskCreated;
+                data["tasks_completed"] += group.taskCompleted;
+            })  
+            setUserSummary(prev => (data))
+        }catch(err){
+            console.log('error',err);
+        }
+    }
     useEffect(() => {
         console.log('inside dashboard page')
         getGroups();
         getProfile();
+        getUserHistory();
         setLoading(false);
     },[])
 
@@ -185,7 +213,7 @@ function DashboardPage({setSelfGroups}){
                 </div>
             </SidebarLeft>
             <Routes>
-                <Route path = "/" element = {<Dashboard className = "dashboard-center"/>}/>
+                <Route path = "/" element = {<Dashboard userSummary={userSummary} className = "dashboard-center"/>}/>
                 <Route path = "/activity" element = {<PersonalActivity className = "dashboard-center"/>}/>
             </Routes>
             <SidebarRight>

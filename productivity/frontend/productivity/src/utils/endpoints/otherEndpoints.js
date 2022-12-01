@@ -16,7 +16,9 @@ const endpoints = {
     getAllChats : `/api/group/chat/`,
     deleteGoal : `/api/group/task/goal/delete`,
     createGoal : `api/group/task/goal/create`,
-    deleteProject : `/api/group/task/delete`
+    deleteProject : `/api/group/task/delete`,
+    getUserHistory : `/api/user/history`,
+    getGroupHistory : `/api/history/`
 }
 
 export default endpoints;

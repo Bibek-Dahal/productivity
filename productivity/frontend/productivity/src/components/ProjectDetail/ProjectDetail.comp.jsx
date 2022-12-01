@@ -138,13 +138,14 @@ function ProjectDetail({groupId,className,getGroupDetail}){
 
     const deleteGoal = (e) => {
         e.stopPropagation();
+        console.log('deleting goal',e.target.getAttribute('id'))
         setGoalToDelete(e.target.getAttribute('id'));
         setShowDeleteProjectConfirmation(true);
     }
 
     useEffect(() => {
-        if(deleteProjectConfirmed){
-            axiosInstance.delete(`${endpoints.deleteProject}/${groupId}/${projectToDelete}`)
+        if(deleteProjectConfirmed && goalToDelete){
+            axiosInstance.delete(`${endpoints.deleteProject}/${groupId}/${goalToDelete}`)
                 .then(res => {
                     console.log('deleted',res)
                     createNotification("success","deleted project","project deleted successfully",5000);

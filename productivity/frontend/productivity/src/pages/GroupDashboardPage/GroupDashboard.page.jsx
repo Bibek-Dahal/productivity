@@ -137,8 +137,32 @@ function DashboardPage(){
         setRemoveTaskConfirmation(true);
         setTaskToRemove(info._id);
     }
-
     const createNotification = useNotification();
+
+    async function getGroupHistory(){
+        try{
+            const res = await axiosInstance.get(`${endpoints.getUserHistory}`);
+            console.log('summary = ',res.data,res.data.numOfGroupCreated);
+
+            let data = {
+                goals_created : res.data["goalCreated"],
+                goals_completed : res.data["goalCompleted"],
+                tasks_created : res.data["taskCreated"],
+                tasks_completed : res.data["taskCompleted"]
+            }
+
+            // res.data.history.forEach(group => {
+            //     data["goals_created"] += group.goalCreated;
+            //     data["goals_completed"] += group.goalCompleted;
+            //     data["tasks_created"] += group.taskCreated;
+            //     data["tasks_completed"] += group.taskCompleted;
+            // })  
+            setUserSummary(prev => (data))
+        }catch(err){
+            console.log('error',err);
+        }
+    }
+
     
     const {group_id} = useParams();
 
@@ -173,6 +197,9 @@ function DashboardPage(){
                 .catch(err => createNotification('danger','failure','error occured while deleting task',5000));
         }
     },[confirmRemoveTask,taskToRemove])
+
+
+
 
     return(
         <div className="dashboard-container dashboardpage group-dashboard">
