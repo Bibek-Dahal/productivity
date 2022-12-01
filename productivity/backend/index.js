@@ -83,16 +83,18 @@ io.on('connection',(socket)=>{
             rooms[data.roomId] = [...rooms[data.roomId],socket.id]
         }
         socket.join(data.roomId);
+        console.log('joining room',data.roomId)
         console.log('rooms = ',rooms);
     })
 
     socket.on('disconnect', async () => {
         console.log('disconnected',socket.id);
-        Object.keys(rooms).forEach(async roomId => {
-            if(rooms[roomId].includes(socket.id)){
-                rooms[roomId] = rooms[roomId].filter(sockets => sockets != socket.id)
-            }
-        })
+        // Object.keys(rooms).forEach(async roomId => {
+        //     if(rooms[roomId].includes(socket.id)){
+        //         rooms[roomId] = rooms[roomId].filter(sockets => sockets != socket.id)
+        //     }
+        // })
+        console.log('rooms remainig = ',rooms)
     });
 
     socket.on('call',(data)=>{
@@ -100,6 +102,7 @@ io.on('connection',(socket)=>{
         info.user = data.userName
         info.message = `${data.userName} is calling`
         info.callLink = data.callLink
+        // io.emit('call',info)
         socket.to(data.roomId).emit('call',info)
     })
 
@@ -135,7 +138,8 @@ io.on('connection',(socket)=>{
             // socket.broadcast.to(room._id).emit("new-chat-message",{user:populated_chat.user,message:message})
             // io.to(room._id).emit("new-chat-message",chat)
             // io.broadcast.to(room._id).emit('new-chat-message',chat)
-            io.emit('new-chat-message',chat)
+            // io.emit('new-chat-message',chat)
+            io.in(room._id).emit('new-chat-message',chat);
         }catch(error){
             console.log('message cannot be created')
         }
