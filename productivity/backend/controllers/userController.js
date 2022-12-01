@@ -352,8 +352,7 @@ class UserController{
 
    static userHistory = async (req,res)=>{
     try{
-        // const user = await User.findById(req.user_id) 
-        // console.log(req.user_id)
+        
         const groups = await Group.find({members:req.user_id})
         console.log(groups)
         let history = groups.map((group)=>{
@@ -439,15 +438,16 @@ class UserController{
 
    static monthlyReport = async(req,res)=>{
     try{
-        const user = await User.findById(req.user_id) 
-        console.log(req.user_id)
-        const groups = await Group.find({user:req.user_id})
+        const {groupId} = req.params
+        // const user = await User.findById(req.user_id) 
+        // console.log(req.user_id)
+        const groups = await Group.findOne({_id:groupId,members:req.user_id})
         console.log(groups)
         const userTasks = []
         const userGoals = []
-        groups.forEach((group)=>{
+        // groups.forEach((group)=>{
 
-            group.task.forEach((task)=>{
+            groups.task.forEach((task)=>{
                 //filter user task
                 if(task.task_user == req.user_id){
                     userTasks.push(task)
@@ -463,7 +463,7 @@ class UserController{
             
             
             
-        })
+        // })
         //convert ISO date to string format
         console.log("userTasks",userTasks)
         const taskReport = userTasks.map((element)=>{
