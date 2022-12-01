@@ -11,6 +11,7 @@ class GoalController{
             const {groupId,taskId} = req.params
             //checks if group exists and user belong to members of group and task_user and request id matches 
             const group = await Group.findOne({_id:groupId,members:req.user_id,"task._id":taskId,"task.task_user":req.user_id})
+            console.log(group)
             if(group){
                 req.body.task_user = req.user_id
                 const updated_group = await Group.updateOne({_id:groupId,members:req.user_id,"task._id":taskId,"task.task_user":req.user_id},{$push:{'task.$.task_goals':req.body}},{new:true})
@@ -158,9 +159,10 @@ class GoalController{
                 await Group.updateOne(
                     {_id:groupId},
                     {
-                        $pull:{
-                            task:{
-                                task_goals:{ $elemMatch:{_id:goalId}}
+                        $pull:
+                        {
+                            task:{ 
+                                task_goals:{ $elemMatch:{_id:goalId}} 
                             }
                         }
                     }

@@ -324,6 +324,18 @@ class GroupController{
         }
     }
 
+    static getGroupHistory = async(req,res)=>{
+        try{
+            const {groupId} = req.params
+            //finds group if user belongs to the group
+            const group = await Group.findOne({_id:groupId,members:req.user_id})
+
+        }catch(error){
+
+        }
+
+    }
+
 
 }
 
