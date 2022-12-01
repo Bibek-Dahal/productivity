@@ -16,6 +16,7 @@ let users = []
 
 // added by ashish
 let rooms = {}
+let meets = {}
 
 
 //socket io conf
@@ -66,102 +67,89 @@ const server = app.listen(port,()=>{
 io.listen(server)
 
 io.on('connection',(socket)=>{
-    console.log('new web socket connection')
+    console.log('new web socket connection',socket.id)
     
     socket.on('new-user',(data)=>{
-        console.log('called new user',data)
+        console.log('called new user joining',data.roomId)
         // users.push(socket.id)
         // console.log(users)
         // socket.join(`${data.roomId}`)
         // console.log('joined room',data.roomId)
 
         // added by ashish
-        console.log('rooms = ',rooms);
         if(!rooms[data.roomId]){
-            console.log('room available')
             rooms[data.roomId] = [socket.id]
-            console.log('joined a room',rooms)
         }else{
-            console.log('room already unavailable');
             rooms[data.roomId] = [...rooms[data.roomId],socket.id]
-            console.log('room joined',rooms)
         }
         socket.join(data.roomId);
+        console.log('rooms = ',rooms);
     })
 
-    socket.on('disconnect', () => {
-
-        console.log('disconnected');
-        
-
-
-        // let filtered = users.filter(function(value, index, arr){ 
-        //     return value == socket.id;
-        // });
-        // users.splice(filtered[0],1)
-        // console.log('remaining users',users)
+    socket.on('disconnect', async () => {
+        console.log('disconnected',socket.id);
+        Object.keys(rooms).forEach(async roomId => {
+            if(rooms[roomId].includes(socket.id)){
+                rooms[roomId] = rooms[roomId].filter(sockets => sockets != socket.id)
+            }
+        })
     });
 
-    
     socket.on('call',(data)=>{
-        //called when user makes a video call in gorup and notify to those use who are on the room
         let info = {}
         info.user = data.userName
         info.message = `${data.userName} is calling`
-        socket.to('room1').emit('call',info)
+        info.callLink = data.callLink
+        socket.to(data.roomId).emit('call',info)
     })
 
     socket.on('create-offer',(data)=>{
-        //called when user wants to make video call and sends offer to users listening to room
         socket.to("room1").emit("add-offer",data)
         console.log('offer created')
     })
 
     socket.on('add-answer',(answer)=>{
-        //emits an event to add answer to localStream
         socket.to('room1').emit("add-answer-for-local",answer)
     })
 
     socket.on('ice-candidate-generated',(candidate)=>{
-        // console.log('ice candidate generated')
         socket.to('room1').emit('ice-candidate-generated',candidate)
+    })
+
+    socket.on('create-meet',(data) => {
+        
     })
 
     socket.on('new-chat-message',async (data)=>{
         const {room,message,userId} = data
-        console.log('inside new chat msg',data)
         try{
+            console.log('inside new-chat-message',data)
             const chat = await Chat.create({
                 group: room,
                 user: userId,
                 text: message,
             })
-
             const populated_chat = await chat.populate('user')
-            console.log(populated_chat)
-            console.log('emitting to ',room._id)
+            console.log('chat = ',populated_chat)
+            console.log('sending chat message to ',room)
             // socket.broadcast.to(room._id).emit("new-chat-message",{user:populated_chat.user,message:message})
-            // socket.to(room._id).emit("new-chat-message",chat)
-            io.in(room._id).emit("new-chat-message",chat)
-            console.log('chat message created')
+            // io.to(room._id).emit("new-chat-message",chat)
+            // io.broadcast.to(room._id).emit('new-chat-message',chat)
+            io.emit('new-chat-message',chat)
         }catch(error){
-            console.log(error)
             console.log('message cannot be created')
         }
         
     })
 
     socket.on('typing-signal',(data) => {
-            
         console.log(`${data.user.username} is typing in room =`,data.room);
         socket.broadcast.to(data.room._id).emit("typing-signal",{
             username : data.user.username
         });
-        
     })
 
     socket.on('typing-stopped',(data) => {
-            
         console.log(`${data.user.username} is typing in room =`,data.room);
         socket.broadcast.to(data.room._id).emit("typing-stopped",{
             username : data.user.username
