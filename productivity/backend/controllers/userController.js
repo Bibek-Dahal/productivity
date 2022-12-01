@@ -352,9 +352,10 @@ class UserController{
 
    static userHistory = async (req,res)=>{
     try{
-        const user = await User.findById(req.user_id) 
-        console.log(req.user_id)
-        const groups = await Group.find({user:req.user_id})
+        // const user = await User.findById(req.user_id) 
+        // console.log(req.user_id)
+        const groups = await Group.find({members:req.user_id})
+        console.log(groups)
         let history = groups.map((group)=>{
             const name = group.name
             //calculate number of task created
@@ -364,6 +365,7 @@ class UserController{
             let goalCompleted = 0
             group.task.forEach((task)=>{
                 //calculates number of task Created
+                console.log("task_user",task.task_user)
                 if(task.task_user == req.user_id){
                     taskCreated++
                 }
@@ -418,8 +420,8 @@ class UserController{
         // const noOfGroupJoined = Group.find({user:req.user_id})
         res.status(200).send({
             success:true,
-            numOfGroupJoined:numOfGroupJoined[0].count,
-            numOfGroupCreated:numOfGroupCreated[0].count,
+            numOfGroupJoined:numOfGroupJoined[0]?numOfGroupJoined[0].count:0,
+            numOfGroupCreated:numOfGroupCreated[0]?numOfGroupCreated[0].count:0,
             history
 
         })
@@ -463,7 +465,7 @@ class UserController{
             
         })
         //convert ISO date to string format
-        console.log(userTasks)
+        console.log("userTasks",userTasks)
         const taskReport = userTasks.map((element)=>{
             var options = { year: 'numeric', month: 'short'};
             const formattedDate = element.task_created_at.toLocaleDateString("en-US", options)

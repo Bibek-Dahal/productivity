@@ -62,7 +62,11 @@ router.post('/leave/:groupId',[authMiddleware,GroupController.leaveGroup])
 
 router.post('/kick/:groupId/:memberId',[authMiddleware,GroupController.kickUserFromGroup])
 
+//get gorup history
 router.get('/history/:groupId',[authMiddleware,GroupController.getGroupHistory])
+
+//get gorup monthly report
+router.get('/monthly-report/:groupId',[authMiddleware,GroupController.groupReport])
 
 //get details of all members of group
 //router.get('/members-details/:groupId(\[a-zA-Z0-9]{24}\)',[authMiddleware,GroupController.getGroupMembersDetail])

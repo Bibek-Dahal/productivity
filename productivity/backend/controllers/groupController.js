@@ -4,6 +4,8 @@ import User from "../models/User.js"
 import sendMail from '../utils/sendMail.js'
 import jwt from "jsonwebtoken";
 import { Base64Encoder,Base64Decoder } from "base64-encoding";
+import jsgroup from 'core-js-pure/actual/array/group.js';
+
 class GroupController{
     /*
         creates a group
@@ -369,6 +371,82 @@ class GroupController{
             res.status(500).send({message:'error'})
         }
 
+    }
+
+    static groupReport = async(req,res)=>{
+        try{
+            const {groupId} = req.params
+            //finds group if user belongs to the group
+            const group = await Group.findOne({_id:groupId,members:req.user_id})
+            const groupTasks = []
+            const groupGoals = []
+            if(group){
+                group.task.forEach((task)=>{
+                    //filter gorup task
+                    
+                    groupTasks.push(task)
+
+                    //filter user goals
+                    task.task_goals.forEach((goal)=>{
+                        groupGoals.push(goal)
+                    })
+                    
+    
+                })
+
+                const taskReport = groupTasks.map((element)=>{
+                    var options = { year: 'numeric', month: 'short'};
+                    const formattedDate = element.task_created_at.toLocaleDateString("en-US", options)
+                    // console.log(formattedDate)   
+                    // console.log(formattedDate)
+                    const year = formattedDate.split(" ")[1]
+                    const month = formattedDate.split(" ")[0]
+                    const task_is_completed = element.task_is_completed
+        
+                    return {
+                        year,
+                        month,
+                        task_is_completed
+                    }
+                })
+
+                const goalReport = groupGoals.map((element)=>{
+                    var options = { year: 'numeric', month: 'short'};
+                    const formattedDate = element.goals_created_at.toLocaleDateString("en-US", options)
+                    // console.log(formattedDate)   
+                    // console.log(formattedDate)
+                    const year = formattedDate.split(" ")[1]
+                    const month = formattedDate.split(" ")[0]
+                    const goal_is_completed = element.goals_is_completed
+        
+                    return {
+                        year,
+                        month,
+                        goal_is_completed
+                    }
+                })
+                const result = jsgroup(taskReport,({ month }) => month)
+                const result1 = jsgroup(goalReport,({ month }) => month)
+
+                res.status(200).send({
+                    taskReport:result,
+                    goalReport:result1
+                    
+                })
+
+
+
+            }else{
+                res.status(404).send({
+                    message:'group not found'
+                })
+            }
+        }catch(error){
+            console.log(error)
+            res.status(500).send({
+                message: 'something went wrong'
+            })
+        }
     }
 
 
