@@ -150,6 +150,7 @@ class GoalController{
 
     static delete = async(req,res)=>{
         try{
+            console.log('hello i am indide goal controller')
             const {groupId,taskId,goalId} = req.params
             //find group if user belongs to group and task is created by requested user
             const group = await Group.findOne({_id:groupId,members:req.user_id,"task._id":taskId,"task.task_user":req.user_id},{members:1}).populate('members')

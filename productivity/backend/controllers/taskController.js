@@ -51,7 +51,7 @@ class TaskController{
                                                 "task.$.task_title": task_title,
                                                 "task.$.task_description": task_description,
                                                 "task.$.task_deadline": task_deadline,
-                                                "task.$.task_is_completed": true
+                                                "task.$.task_is_completed": task_is_completed
 
                                             }
                                         }
