@@ -69,7 +69,7 @@ function GroupChat({className,group}){
     }
     console.log('user = ',user)
     const callInGroup = () => {
-        let popup = window.open(`${baseURLFront}/meet/testmeet?meet=${crypto.randomUUID()}`,"popup","fullscreen");
+        let popup = window.open(`${window.location.origin}/meet/testmeet?meet=${crypto.randomUUID()}`,"popup","fullscreen");
         if(popup){
             popup.moveTo(0,0);
             popup.resizeTo(window.screen.availWidth, window.screen.availHeight);
