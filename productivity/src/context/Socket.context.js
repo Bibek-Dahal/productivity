@@ -3,7 +3,7 @@ import socketio from 'socket.io-client';
 
 export const SocketContext = React.createContext() 
 
-const socketconn = socketio.connect('http://127.0.0.1:8000');
+const socketconn = socketio.connect(process.env.REACT_APP_BASEURL);
 
 function SocketProvider({children}){
     const [socket,setSocket] = useState(socketconn);
