@@ -1,0 +1,119 @@
+.authcontainer__main{
+    /* width:95%; */
+    width:100%;
+    min-height:100vh;
+    max-width:475px;
+    /* padding:2em; */
+    gap:1em;
+    padding: 2em 1em 0;
+    display:flex;
+    flex-direction: column;
+    border-radius:5px;
+    background:var(--dark-primary);
+    background:var(--white);
+    color:var(--black);
+    box-shadow:0px 10px 22px var(--discord-blue-dark);
+}
+
+.authcontainer__main__header{
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+    /* margin-bottom:2em; */
+}
+
+.authcontainer__main__body{
+    display:flex;
+    flex-direction: column;
+    /* border:1px solid red; */
+    /* gap:1.5em; */
+    /* margin-bottom:1em; */
+}
+
+.authcontainer__main__body .inputfield{
+    margin:.7em 0;
+}
+
+.authcontainer__main{
+
+}
+
+.authcontainer__main__body label{
+    font-weight:700;
+    font-size:var(--fs-s);
+}
+
+.authcontainer__main .submitBtn{
+    /* padding:.7em;
+    font-weight:800;
+    background:var(--discord-blue);
+    border:none;
+    cursor: pointer;
+    margin-top:2em;
+    transition:background 200ms ease;
+    color:var(--white);
+    font-size:var(--fs-m);
+    border-radius:2px; */
+}
+
+.authcontainer__main .submitBtn.submitting{
+    /* pointer-events: none;
+    opacity:.5; */
+}
+
+.authcontainer__main .submitBtn:hover{
+    background:var(--discord-blue-dark);
+}
+
+.authcontainer__main input{
+    font-size:var(--fs-m);
+    color:var(--black);
+    border-radius:2px;
+    border:2px solid var(--gray-white);
+}
+
+.authcontainer__main small{
+    font-size:var(--fs-xs);
+    text-align: right;
+}
+
+.authcontainer__main__body input{
+    outline:none;
+    /* background:var(--dark-secondary); */
+    background:transparent;
+}
+
+.authcontainer__main input:focus{
+    border:2px solid var(--discord-blue);
+}
+
+.authcontainer__main__body button svg{
+    font-size:var(--fs-ml);
+}
+
+.authcontainer__main button.invalid{
+    pointer-events:none;
+    opacity:.5;
+}
+
+.authcontainer__main a{
+    /* border:1px solid red; */
+}
+
+.authcontainer__main__footer{
+    margin-top:.4em;
+}
+
+.authcontainer__main__footer  a{
+    margin-left:.3em;
+}
+
+
+@media only screen and (min-width : 476px){
+    .authcontainer__main{
+        width:95%;
+        min-height:unset;
+        padding:2em;
+    }
+}

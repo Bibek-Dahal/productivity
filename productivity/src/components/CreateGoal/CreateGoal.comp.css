@@ -1,0 +1,45 @@
+.creategoal-container{
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+    background:rgb(242, 242, 242);
+    padding:1em; 
+    border-radius:5px;
+}
+
+.creategoal-container .field{
+    display: flex;
+    flex-direction: column;
+    gap:.5em;
+}
+
+.creategoal-container .field textarea.error{
+    border:2px solid var(--error-red);
+    color:var(--error-red);
+}
+
+.creategoal-container .field small.error{
+    color:var(--error-red);
+    text-align: right;
+}
+
+.creategoal-container .field input,
+.creategoal-container .field textarea{
+    padding:.5em;
+    border:1px solid #ddd;
+}
+
+.creategoal-container .field textarea{
+    height:100px;
+}
+
+.creategoal-container button{
+    padding:.8em;
+    font-weight: 600;
+    text-transform: capitalize;
+    background:var(--blue);
+    border:none;
+    border-radius:3px;
+    color:white;
+    cursor: pointer;
+}

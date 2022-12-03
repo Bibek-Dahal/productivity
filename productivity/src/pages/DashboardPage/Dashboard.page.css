@@ -1,0 +1,95 @@
+.dashboardpage .groupsList{
+    /* border:1px solid red; */
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+}
+
+.dashboardpage .groupsList .title{
+    padding-bottom:.5em;
+    font-weight:600;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboardpage .groupsList .title .add-group-btn{
+    font-size:var(--fs-ml);
+    cursor: pointer;
+}
+
+.dashboardpage .groupsList li{
+    list-style: none;
+    padding:.5em;
+    border-radius:3px;
+    cursor: pointer;
+    text-transform:capitalize;
+    opacity:.5;
+    font-weight:500;
+    display:flex;
+    align-items: center;
+    padding-left:1.3em;
+}
+
+.dashboardpage .groupsList li:hover span.deleteBtn{
+    display: block;
+}
+
+.dashboardpage .groupsList li span.deleteBtn{
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:auto;
+    display:none;
+}
+
+.dashboardpage .groupsList li span.deleteBtn svg{
+    pointer-events: none;
+}
+
+.dashboardpage .groupsList li span.deleteBtn svg path{
+    fill:black;
+}
+
+.dashboardpage .groupsList li .hashtag{
+    padding-right:.7em;
+    font-size:var(--fs-ml);
+}
+
+.dashboardpage .groupsList li:hover{
+    background:var(--gray-white);
+    opacity:1;
+}
+
+.dashboardpage .confirmDeleteForm button{
+    padding:.5em;
+    font-weight:bold;
+    color:white;
+    border:none;
+    background:var(--discord-blue);
+    font-size:var(--fs-n);
+    border-radius:3px;
+    cursor: pointer;
+}
+
+.dashboardpage .confirmDeleteForm button.confirmdelete{
+    background:var(--dark-red)
+}
+
+.dashboardpage h2{
+    margin-bottom:1em;
+}
+
+.dashboardpage p{
+    margin-bottom:3em;
+}
+
+
+.dashboardpage a.logout{
+    background:var(--error-red);
+    color:white;
+    opacity:.7;
+}
+
+.dashboardpage a.logout:hover{
+    opacity:1;
+}

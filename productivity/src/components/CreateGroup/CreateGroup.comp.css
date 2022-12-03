@@ -1,0 +1,42 @@
+.create-group h2{
+    margin:0 0 1em 0;
+}
+
+.create-group form{
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+}
+
+.create-group input{
+    padding:.4em;
+    font-size:var(--fs-n);
+}
+
+.create-group label{
+    font-size:var(--fs-s);
+    text-transform:uppercase;
+    font-weight:700;
+}
+
+.create-group textarea{
+    height:200px;
+}
+
+.create-group .submitting,
+.create-group .invalid{
+    pointer-events: none;
+    opacity:.5;
+}
+
+/* .create-group form .field{
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+}
+
+
+
+.create-group input{
+     border: 
+} */

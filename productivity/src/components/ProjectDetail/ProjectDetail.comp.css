@@ -1,0 +1,187 @@
+.project-detail-container{
+    padding-bottom:3em;
+}
+
+.project-detail-container .header{
+    display:flex;
+    justify-content: space-between;
+    margin:1em 0;
+}
+
+.project-detail-container svg{
+    font-size:var(--fs-ml);
+}
+
+.project-detail-container svg,
+.project-detail-container form button{
+    cursor: pointer;    
+}
+
+.project-detail-container .content{
+    max-width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+.project-detail-container .content__header{
+    display:flex;
+    justify-content: space-between;
+    margin-top:2em;
+}
+
+.project-detail-container form button{
+    /* padding:.5em 1em;
+    border-radius:5px;
+    border:none;
+    background:var(--discord-blue);
+    color:white;
+    font-weight:600;
+    font-size:var(--fs-n);
+    align-self:flex-start;
+    margin-top:1em; */
+}
+
+.project-detail-container hr{
+    /* border:1px solid rgb(177, 177, 177);
+    background:#ddd;
+    width:80%;
+    margin:2em auto; */
+}
+
+.project-detail-container .content form{
+    /* background:var(--white); */
+    /* border:1px solid #ddd; */
+    display:flex;
+    /* border-radius:10px; */
+    flex-direction: column;
+    padding:2em;
+    gap:2em;
+}
+
+.project-detail-container .content form input{
+    font-size:var(--fs-n);
+}
+
+.project-detail-container .goals{
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
+    display:flex;
+    flex-direction: column;
+}
+
+.project-detail-container .goals .goal:first-child{
+    border-radius:10px 10px 0 0;
+}
+
+.project-detail-container .goal{
+    background:var(--white);
+    /* border:2px solid rgb(232, 232, 232); */
+    padding:1em 2em;
+    display:flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition:transform 200ms ease;
+    border:2px solid rgb(234, 234, 234);
+}
+
+
+.project-detail-container .goal:not(:first-child),
+.project-detail-container .goal:not(:last-child){
+    border-bottom:0;
+}
+
+.project-detail-container .goal:last-child{
+    border-bottom:2px solid rgb(234, 234, 234);
+    border-radius:0 0 10px 10px;
+}
+
+.project-detail-container .goal.completed{
+    pointer-events: none;
+    text-decoration: line-through;
+    background:rgba(242, 242, 242, 0.443);
+    opacity:.7;
+}
+
+.project-detail-container label{
+    display:block;
+    margin-bottom:1em;
+    text-transform: capitalize;
+}
+
+.project-detail-container input{
+    width:100%;
+    padding:1em;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+
+.project-detail-container .goal .left,
+.project-detail-container .goal .right{
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+}
+
+.project-detail-container .goal .right .status{
+    padding:.5em 1em;
+    border-radius:5px;
+    background:rgba(255, 0, 0, 0.36);
+    color:rgb(91, 0, 0);
+}
+
+.project-detail-container .goal .right .status.completed{
+    background:rgba(0, 128, 0, 0.402);
+    color:rgb(0, 94, 0);
+}
+
+
+.project-detail-container .goal .right{
+    align-self:center;
+}
+
+.project-detail-container .goal .left .title{
+    font-weight:600;
+    text-transform:capitalize;
+}
+
+.project-detail-container .goal .left .description{
+    opacity:.5;
+}
+
+.project-detail-container .goal .left .created_at{
+    opacity:.5;
+    font-size:var(--fs-s);
+}
+
+.project-detail-container .goal:hover{
+    transform:scale(1.01);
+}
+
+.project-detail-container .goal button{
+    border-radius:7px;
+    border:none;
+    height:40px;
+    width:40px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.project-detail-container .goal button svg{
+    font-size:var(--fs-l);
+    pointer-events: none;
+}
+
+.project-detail-container .goal button.delete{
+    background:var(--dark-red);
+    color:white;
+}
+
+.project-detail-container .goal .action-btns{
+    display: flex;
+    flex-direction: column;
+    gap:.5em;
+}

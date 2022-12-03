@@ -1,0 +1,59 @@
+[
+    {
+        "_id" : "id1",
+        "user":{
+            "username" : "ash-ish"
+        },
+        "name" : "UI/UX learn",
+        "description" : "group to learn ui/ux",
+        "members" : [
+            {
+                "username" : "ram"
+            },
+            {
+                "username" : "shyam"
+            },
+            {
+                "username" : "hari"
+            }
+        ]
+    },
+    {
+        "_id" : "id2",
+        "user":{
+            "username" : "arjun"
+        },
+        "name" : "exam study",
+        "description" : "group to study for exam",
+        "members" : [
+            {
+                "username" : "ram"
+            },
+            {
+                "username" : "shyam"
+            },
+            {
+                "username" : "hari"
+            }
+        ]
+    },
+    {
+        "_id" : "id3",
+        "user":{
+            "username" : "bibek"
+        },
+        "name" : "trek trip",
+        "description" : "group to discuss trekking plan",
+        "members" : [
+            {
+                "username" : "ram"
+            },
+            {
+                "username" : "shyam"
+            },
+            {
+                "username" : "hari"
+            }
+        ]
+    }
+]

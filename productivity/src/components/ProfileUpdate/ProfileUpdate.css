@@ -1,0 +1,70 @@
+.profile-update-container form{
+    display:flex;
+    flex-direction: column;
+    gap:2em;
+    margin-top:0em;
+}
+
+
+.multiple-input-field.skills{
+}
+
+.skills-container{
+    display:flex;
+    gap:1em;
+    margin-top:1em;
+    flex-wrap: wrap;
+}
+
+.skills-container.removable li .deleteIcon{
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size:var(--fs-l);
+    height:30px;
+    width:30px;
+    cursor: pointer;
+}
+
+.skills-container.removable li .deleteIcon svg{ 
+    pointer-events: none;
+}
+
+.multiple-input-field.skills li{
+    list-style: none;
+    background:rgb(236, 236, 236);
+    width:fit-content;
+    padding:.5em;
+    border-radius:5px;
+    border:1px solid #ddd;
+    min-width:100px;
+    white-space:nowrap;
+    display:flex;
+    align-items: center;
+}
+
+.skills-container li .deleteIcon{
+    display:none;
+}
+
+.profile-update-container button{
+    margin-top:2em;
+    padding:.8em;
+}
+
+.profile-update-container .profile-image{
+    border:1px solid red;
+    height:100px;
+    width:100px;
+    border-radius:50%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+.profile-update-container .profile-image img{
+    height:100%;
+    width:100%;
+    object-fit: cover;
+    border-radius:50%;
+}
